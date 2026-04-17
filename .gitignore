@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Build artifacts (but keep docs/ — it's the output folder published by GitHub Pages)
+*.log
+
+# Preview screenshots (dev only)
+preview_*.jpg
+*.tmp
+
+# Local environment
+.env
+.env.local
