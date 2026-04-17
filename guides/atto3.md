@@ -1,11 +1,11 @@
 ---
-model: ATTO 3
-model_slug: atto3
+model: ATTO 3/Seal
+model_slug: atto3/seal
 version: "0.7.4"
 date: "15/07/2025"
 author: "Leonardo Bandini"
 author_telegram: "LeonardoBandini"
-editor: "Stefano"
+editor: "Stefano Tagliaferri"
 firmware_family: "13.1.32"
 firmware_downgrade: "2307"
 firmware_upgrade: "2511"
@@ -85,7 +85,6 @@ Nel presente documento, per brevità, le versioni del firmware sono indicate con
 | `{{ firmware_downgrade }}` | 13.1.32.2307211.1 | {badge:warning:Downgrade} Ultima release che consente il sideload di APK |
 | `2310` | 13.1.32.2310180.1 | Prima release che blocca il sideload |
 | `2312` | 13.1.32.2312150.1 | Non rilasciata ufficialmente in Italia |
-| `2403` | 13.1.32.2403010.1 | — |
 | `{{ firmware_upgrade }}` | — | {badge:success:Target} Versione attuale al momento della stesura |
 
 ::: callout info "Famiglie di firmware"
@@ -378,7 +377,7 @@ Se il firmware di destinazione è precedente alla 2501 (gennaio 2025), la proced
 ## Upgrade a firmware ≥ 2501 — Procedura CountryCode
 
 ::: callout critical "Attenzione: upgrade a firmware 2501 o successivi"
-**Passando a firmware più nuovi della 2501 (gennaio 2025), l'upgrade potrebbe cancellare le APP installate e ribloccare il sistema.**
+**Passando a firmware più nuovi della 2501 (gennaio 2025), l'upgrade potrebbe cancella le APP installate e riblocca il sistema.**
 
 Per evitarlo è **obbligatorio** seguire la procedura CountryCode descritta qui sotto. Richiede che **AppManager sia già installato** in auto e che la **modalità ADB sia abilitata**.
 :::

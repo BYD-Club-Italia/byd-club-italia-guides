@@ -5,7 +5,7 @@ version: "0.1.1"
 date: "15/07/2025"
 author: "Leonardo Bandini"
 author_telegram: "LeonardoBandini"
-editor: "Stefano"
+editor: "Stefano Tagliaferri"
 firmware_family: "13.1.33"
 firmware_current: "2511"
 firmware_downgrade: "2404"
@@ -93,17 +93,13 @@ Nel presente documento, per brevità, ci si riferirà alla seguente nomenclatura
 
 | Sigla | Versione completa | Note |
 |-------|-------------------|------|
-| `2307` | 13.1.32.2307211.1 | Ultima release che consente il sideload USB (su altri modelli) |
-| `2310` | 13.1.32.2310180.1 | Prima release che blocca il sideload USB |
-| `2312` | 13.1.32.2312150.1 | Non rilasciata ufficialmente in Italia |
-| `2403` | 13.1.32.2403010.1 | — |
-| `{{ firmware_downgrade }}` | — | {badge:warning:Downgrade} Firmware di riferimento per il downgrade |
+| `{{ firmware_downgrade }}` | 13.1.33.2404140.1 | {badge:warning:Downgrade} Firmware di riferimento per il downgrade |
 | `{{ firmware_upgrade }}` | — | {badge:success:Target} Firmware di upgrade finale |
 
 ::: callout info "Famiglie di firmware"
-**Famiglia 13.1.32** → Atto 3, Dolphin, Dolphin Surf, **{{ model }}**
+**Famiglia 13.1.32** → Atto 3, Dolphin, Dolphin Surf
 
-**Famiglia 13.1.33** → Seal, Han, Seal U DM-i
+**Famiglia 13.1.33** → Seal, Han, Seal U DM-i, **{{ model }}**
 :::
 
 ---
@@ -363,9 +359,9 @@ Puoi vedere la procedura in questo video: [Video Telegram passo-passo]({{ telegr
 
 # Procedura CountryCode {color=critical}
 
-::: callout critical "{badge:critical:Firmware ≥ 2501} Attenzione upgrade a firmware recenti"
+::: callout critical "Attenzione upgrade a firmware recenti"
+**Firmware ≥ 2501**
 **Passando a firmware più nuovi della 2501 (gennaio 2025), l'upgrade potrebbe cancellare le APP e bloccare nuovamente il sistema.**
-
 Per evitarlo è **necessario** seguire la procedura CountryCode. Richiede che **AppManager sia già installato** e che la **modalità ADB sia abilitata**.
 :::
 
