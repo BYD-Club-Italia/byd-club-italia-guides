@@ -1,6 +1,6 @@
 ---
 model: ATTO 3/Seal
-model_slug: atto3/seal
+model_slug: atto3
 version: "0.7.4"
 date: "15/07/2025"
 author: "Leonardo Bandini"
