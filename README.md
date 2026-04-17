@@ -9,7 +9,7 @@
 | Guida | Versione | Note |
 |---------|----------|------|
 | [BYD ATTO 2](https://byd-club-italia.github.io/byd-club-italia-guides/atto2.html) | v0.1.1 | Sideload via ADB |
-| [Generale](https://byd-club-italia.github.io/byd-club-italia-guides/atto3.html) | v0.7.4 | Sideload via USB |
+| [BYD Generale](https://byd-club-italia.github.io/byd-club-italia-guides/atto3.html) | v0.7.4 | Sideload via USB |
 | [BYD Dolphin Surf](https://byd-club-italia.github.io/byd-club-italia-guides/surf.html) | v0.0.2 | Sideload via ADB |
 
 ## Come funziona questo repo
