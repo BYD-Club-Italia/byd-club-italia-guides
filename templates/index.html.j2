@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide BYD — BYD Club Italia</title>
+<meta name="description" content="Guide community alla gestione del firmware dell'infotainment BYD — downgrade, sideload, upgrade per tutti i modelli.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #FAFAF9; --bg-elevated: #FFFFFF; --bg-subtle: #F5F5F4;
+  --text: #0F172A; --text-muted: #64748B; --text-subtle: #94A3B8;
+  --border: #E2E8F0; --accent: #3B82F6; --accent-dark: #1D4ED8;
+  --accent-soft: #DBEAFE; --info: #0EA5E9;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --shadow: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-lg: 0 10px 30px rgba(15,23,42,0.08), 0 4px 10px rgba(15,23,42,0.04);
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-sans); background: var(--bg);
+  color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-dark); }
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 48px 32px 96px; }
+
+.hero { text-align: center; margin-bottom: 64px; }
+.hero__logo {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 72px; height: 72px; border-radius: 18px;
+  background: linear-gradient(135deg, var(--accent), var(--info));
+  color: #fff; font-weight: 800; font-size: 20px;
+  margin-bottom: 24px; box-shadow: var(--shadow-lg);
+  letter-spacing: -0.02em;
+}
+.hero h1 {
+  font-size: 56px; font-weight: 800; letter-spacing: -0.03em;
+  margin: 0 0 16px; line-height: 1.1;
+}
+.hero p {
+  font-size: 19px; color: var(--text-muted); max-width: 620px;
+  margin: 0 auto 32px; line-height: 1.5;
+}
+.hero__badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent-soft); color: var(--accent-dark);
+  padding: 6px 14px; border-radius: 100px; font-size: 13px;
+  font-weight: 600; letter-spacing: 0.02em;
+}
+.hero__badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--info); display: inline-block;
+}
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px; margin-bottom: 64px; }
+
+.guide-card {
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  border-radius: 16px; padding: 28px 28px 24px;
+  box-shadow: var(--shadow); transition: all 0.2s;
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+  position: relative; overflow: hidden;
+}
+.guide-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--info));
+  opacity: 0; transition: opacity 0.2s;
+}
+.guide-card:hover {
+  transform: translateY(-3px); box-shadow: var(--shadow-lg);
+  border-color: var(--accent); text-decoration: none;
+}
+.guide-card:hover::before { opacity: 1; }
+.guide-card__model {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--text-subtle); text-transform: uppercase; margin-bottom: 6px;
+}
+.guide-card__title {
+  font-size: 26px; font-weight: 800; letter-spacing: -0.02em;
+  margin: 0 0 10px; color: var(--text);
+}
+.guide-card__desc {
+  font-size: 14px; color: var(--text-muted);
+  line-height: 1.55; margin-bottom: 20px; flex-grow: 1;
+}
+.guide-card__meta {
+  display: flex; justify-content: space-between; align-items: center;
+  padding-top: 16px; border-top: 1px solid var(--border);
+  font-size: 12px; color: var(--text-subtle);
+}
+.guide-card__cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--accent); font-weight: 600; font-size: 13px;
+}
+.guide-card__cta svg { width: 14px; height: 14px; transition: transform 0.15s; }
+.guide-card:hover .guide-card__cta svg { transform: translateX(3px); }
+
+.section-title {
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em;
+  font-weight: 700; color: var(--text-subtle); margin: 48px 0 20px;
+}
+
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px; margin-bottom: 48px; }
+.info-card {
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px 22px;
+}
+.info-card h3 { font-size: 15px; font-weight: 700; margin: 0 0 8px;
+  display: flex; align-items: center; gap: 8px; }
+.info-card p { margin: 0; color: var(--text-muted); font-size: 14px; }
+.info-card__icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--accent-soft); color: var(--accent);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.info-card__icon svg { width: 16px; height: 16px; }
+
+.footer {
+  margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--border);
+  text-align: center; color: var(--text-subtle); font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  .wrap { padding: 32px 20px 64px; }
+  .hero h1 { font-size: 38px; }
+  .hero p { font-size: 16px; }
+  .guide-card { padding: 22px; }
+  .guide-card__title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<div class="hero">
+  <div class="hero__logo">BYD</div>
+  <div class="hero__badge">BYD Club Italia · Community Guides</div>
+  <h1>Guide Firmware BYD</h1>
+  <p>
+    Procedure community per <strong>downgrade</strong>, <strong>sideload</strong> e
+    <strong>upgrade</strong> dell'infotainment. Sblocca l'installazione di APP di terze
+    parti sul tuo veicolo BYD e mantieni il sistema sempre aggiornato.
+  </p>
+</div>
+
+<div class="section-title">Guide disponibili</div>
+
+<div class="grid">
+  {% for g in guides %}
+  <a class="guide-card" href="{{ g.slug }}.html">
+    <div class="guide-card__model">BYD</div>
+    <h2 class="guide-card__title">{{ g.title }}</h2>
+    <p class="guide-card__desc">
+      Guida completa alla gestione del firmware Infotainment: downgrade, sideload e upgrade alla versione più recente.
+    </p>
+    <div class="guide-card__meta">
+      <span>v{{ g.version }} · {{ g.chapters }} capitoli</span>
+      <span class="guide-card__cta">
+        Leggi
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </span>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+
+<div class="section-title">Come usare le guide</div>
+
+<div class="info-grid">
+  <div class="info-card">
+    <div class="info-card__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </div>
+    <h3>Lettura online</h3>
+    <p>Sempre aggiornata. Apri il link nel browser del tuo PC o del telefono.</p>
+  </div>
+  <div class="info-card">
+    <div class="info-card__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    </div>
+    <h3>Scarica in PDF</h3>
+    <p>Ogni guida ha un tasto di stampa in alto a destra per salvare una copia PDF.</p>
+  </div>
+  <div class="info-card">
+    <div class="info-card__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    <h3>Sempre aggiornata</h3>
+    <p>Mantenuta dalla community. Condividi sempre questo link, non PDF vecchi.</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>
+    Mantenute da <a href="https://t.me/BYDCLUBITALIANews">BYD Club Italia</a> ·
+    <a href="https://github.com/BYD-Club-Italia/byd-club-italia-guides">Contribuisci su GitHub</a>
+  </p>
+  <p style="margin-top:8px; font-size:12px;">Documenti didattici. Uso a proprio rischio.</p>
+</footer>
+
+</div>
+
+</body>
+</html>
