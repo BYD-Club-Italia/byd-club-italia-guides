@@ -1,5 +1,5 @@
 ---
-model: ATTO 3/Seal
+model: Guida Generale
 model_slug: atto3
 version: "0.7.4"
 date: "15/07/2025"
