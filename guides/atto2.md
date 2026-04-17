@@ -1,12 +1,10 @@
 ---
 model: ATTO 2
-model_slug: atto2
+model_slug: atto2    # Usato internamente dal build system per nome file e cartella images
 version: "0.1.1"
 date: "15/07/2025"
 author: "Leonardo Bandini"
-author_telegram: "LeonardoBandini"
 editor: "Stefano Tagliaferri"
-firmware_family: "13.1.33"
 firmware_current: "2511"
 firmware_downgrade: "2404"
 firmware_upgrade: "2511"
