@@ -6,10 +6,10 @@
 
 ## Guide disponibili
 
-| Modello | Versione | Note |
+| Guida | Versione | Note |
 |---------|----------|------|
 | [BYD ATTO 2](https://byd-club-italia.github.io/byd-club-italia-guides/atto2.html) | v0.1.1 | Sideload via ADB |
-| [BYD ATTO 3](https://byd-club-italia.github.io/byd-club-italia-guides/atto3.html) | v0.7.4 | Sideload via USB + password |
+| [Generale](https://byd-club-italia.github.io/byd-club-italia-guides/atto3.html) | v0.7.4 | Sideload via USB |
 | [BYD Dolphin Surf](https://byd-club-italia.github.io/byd-club-italia-guides/surf.html) | v0.0.2 | Sideload via ADB |
 
 ## Come funziona questo repo
@@ -76,7 +76,7 @@ Documento didattico rilasciato per uso della community BYD Club Italia. Uso a pr
 - **Autore originale**: Leonardo Bandini ([@LeonardoBandini](https://t.me/LeonardoBandini))
 - **Editor**: Stefano Tagliaferri ([@Tagliax10](https://t.me/Tagliax10))
 - **Procedura ATTO 2**: teorizzata da Gino ([@giino01](https://t.me/giino01)), concretizzata da Roberto ([@Migliolfo](https://t.me/Migliolfo))
-- **Community**: [BYD Club Italia News](https://t.me/BYDCLUBITALIANews) · [Gruppo di discussione](https://t.me/BYD_CLUB_ITALIA)
+- **Community Telegram**: [BYD Club Italia News](https://t.me/BYDCLUBITALIANews) · [Gruppo di discussione](https://t.me/BYD_CLUB_ITALIA)
 
 ---
 
