@@ -14,15 +14,21 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+# Force Node.js 24 runtime for JavaScript actions (opts-in early before June 2026 default).
+# Needed because actions/upload-pages-artifact and actions/deploy-pages don't yet
+# have a release that bundles Node 24. See: https://github.com/actions/deploy-pages/issues/410
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
           cache: "pip"
@@ -34,7 +40,7 @@ jobs:
         run: python build.py
 
       - name: Upload artifact for Pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./docs
 
