@@ -74,7 +74,7 @@ Documento didattico rilasciato per uso della community BYD Club Italia. Uso a pr
 ## Credits
 
 - **Autore originale**: Leonardo Bandini ([@LeonardoBandini](https://t.me/LeonardoBandini))
-- **Editor**: Stefano
+- **Editor**: Stefano Tagliaferri ([@Tagliax10](https://t.me/Tagliax10))
 - **Procedura ATTO 2**: teorizzata da Gino ([@giino01](https://t.me/giino01)), concretizzata da Roberto ([@Migliolfo](https://t.me/Migliolfo))
 - **Community**: [BYD Club Italia News](https://t.me/BYDCLUBITALIANews) · [Gruppo di discussione](https://t.me/BYD_CLUB_ITALIA)
 
