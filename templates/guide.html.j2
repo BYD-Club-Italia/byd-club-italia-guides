@@ -256,13 +256,38 @@ ul:not([class]) li, ol:not([class]) li { margin-bottom: 8px; }
   border-radius: 100px; font-weight: 700; font-size: 13px;
   font-family: var(--font-mono); }
 
-figure { margin: 24px 0; padding: 12px; border-radius: var(--radius-lg);
-  background: var(--bg-subtle); border: 1px solid var(--border); text-align: center; }
-figure img { border-radius: var(--radius); margin: 0 auto;
-  cursor: zoom-in; transition: transform 0.2s; box-shadow: var(--shadow); }
+figure {
+  margin: 24px auto;
+  padding: 12px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  text-align: center;
+  /* Restringe il figure alla larghezza dell'immagine, così la caption
+     non si estende oltre l'immagine stessa (fix disallineamento mobile) */
+  width: fit-content;
+  max-width: 100%;
+}
+figure img {
+  border-radius: var(--radius);
+  margin: 0 auto;
+  cursor: zoom-in;
+  transition: transform 0.2s;
+  box-shadow: var(--shadow);
+  /* Immagine responsive: rispetta max-width inline ma non eccede il container */
+  max-width: 100%;
+  height: auto;
+}
 figure img:hover { transform: scale(1.01); }
-figcaption { margin-top: 10px; font-size: 13px; color: var(--text-muted);
-  font-style: italic; padding: 0 16px; }
+figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 0 8px;
+  /* La caption si adatta al figure, quindi all'immagine */
+  max-width: 100%;
+}
 
 .lightbox { position: fixed; inset: 0; z-index: 1000; display: none;
   background: rgba(15,23,42,0.92); backdrop-filter: blur(8px);
