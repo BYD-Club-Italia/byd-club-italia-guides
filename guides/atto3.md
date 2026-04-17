@@ -4,16 +4,13 @@ model_slug: atto3
 version: "0.7.4"
 date: "15/07/2025"
 author: "Leonardo Bandini"
-author_telegram: "LeonardoBandini"
 editor: "Stefano Tagliaferri"
-firmware_family: "13.1.32"
 firmware_downgrade: "2307"
 firmware_upgrade: "2511"
 sideload_password: "GHY0613byd"
 countrycode_target: "Singapore (65)"
 countrycode_original_example: "Netherlands (31)"
 theme_color: "#3B82F6"
-compatible_models: "Atto 3 e Dolphin (stesso firmware). Per Seal/Han/Seal U DM-i si usa la famiglia 13.1.33."
 telegram_atto3_2307: "https://t.me/BYDCLUBITALIANews/9"
 telegram_seal_2307: "https://t.me/BYDCLUBITALIANews/10"
 telegram_sideload: "https://t.me/BYDCLUBITALIANews/7"
@@ -376,10 +373,9 @@ Se il firmware di destinazione è precedente alla 2501 (gennaio 2025), la proced
 
 ## Upgrade a firmware ≥ 2501 — Procedura CountryCode
 
-::: callout critical "Attenzione: upgrade a firmware 2501 o successivi"
-**Passando a firmware più nuovi della 2501 (gennaio 2025), l'upgrade potrebbe cancella le APP installate e riblocca il sistema.**
-
-Per evitarlo è **obbligatorio** seguire la procedura CountryCode descritta qui sotto. Richiede che **AppManager sia già installato** in auto e che la **modalità ADB sia abilitata**.
+::: callout critical "{badge:critical:Firmware ≥ 2501} Attenzione upgrade a firmware recenti"
+**Passando a firmware più nuovi della 2501 (gennaio 2025), l'upgrade potrebbe cancellare le APP e bloccare nuovamente il sistema.**
+Per evitarlo è **necessario** seguire la procedura CountryCode. Richiede che **AppManager sia già installato** e che la **modalità ADB sia abilitata**.
 :::
 
 ### Logica della procedura
