@@ -296,6 +296,11 @@ figure img {
   max-width: 100%;
   height: auto;
 }
+/* Safety net: su mobile, forza le immagini a non superare mai il contenitore,
+   anche se un inline style dovesse dichiarare un max-width più ampio */
+@media (max-width: 767px) {
+  figure img { max-width: 100% !important; }
+}
 figure img:hover { transform: scale(1.01); }
 figcaption {
   margin-top: 10px;
