@@ -159,7 +159,7 @@ a:hover { color: var(--accent-dark); }
     <div class="guide-card__model">BYD</div>
     <h2 class="guide-card__title">{{ g.title }}</h2>
     <p class="guide-card__desc">
-      {{ g.card_description | default("Guida completa alla gestione del firmware Infotainment: downgrade, sideload e upgrade alla versione più recente.") }}
+      {{ g.card_description | default("Guida completa alla gestione del firmware Infotainment: downgrade, sideload e upgrade alla versione più recente.", true) }}
     </p>
     <div class="guide-card__meta">
       <span>v{{ g.version }} · {{ g.chapters }} capitoli</span>
