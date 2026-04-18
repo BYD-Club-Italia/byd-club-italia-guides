@@ -496,6 +496,9 @@ def build_guide(guide_path: Path, template: jinja2.Template):
         'date': meta.get('date', ''),
         'author': meta.get('author', ''),
         'chapters': len(toc),
+        # Campo opzionale: se la guida lo definisce, la landing page lo userà
+        # come descrizione della card. Altrimenti la landing usa il default.
+        'card_description': meta.get('card_description'),
     }
 
 

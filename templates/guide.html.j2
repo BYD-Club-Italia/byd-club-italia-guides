@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guida BYD {{ meta.model }} — Firmware · Downgrade · Sideload · Upgrade</title>
-<meta name="description" content="Guida completa alla gestione del firmware dell'infotainment BYD {{ meta.model }}: downgrade, sideload e upgrade.">
+{# Se il model inizia con "Guida" (case-insensitive), non aggiungiamo il prefisso per evitare duplicati tipo "Guida Guida Generale" #}
+{% set display_title = meta.model if meta.model.lower().startswith('guida') else 'Guida ' ~ meta.model %}
+{% set default_subtitle = "Guida completa al downgrade, sideload e upgrade del firmware Infotainment. Per sbloccare l'installazione di APP di terze parti e tornare al firmware più recente." %}
+{% set default_meta_desc = "Guida completa alla gestione del firmware dell'infotainment BYD " ~ meta.model ~ ": downgrade, sideload e upgrade." %}
+<title>{{ display_title }} — BYD Club Italia</title>
+<meta name="description" content="{{ meta.meta_description | default(default_meta_desc) }}">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -463,7 +467,7 @@ tbody tr:hover { background: var(--bg-subtle); }
   <a href="index.html" class="topbar__back" title="Tutte le guide">← Tutte le guide</a>
   <div class="topbar__title">
     <div class="topbar__title-logo">BYD</div>
-    <span>Guida {{ meta.model }}</span>
+    <span>{{ display_title }}</span>
   </div>
   <div class="topbar__spacer"></div>
   <button class="topbar__action" id="printBtn" title="Stampa o salva come PDF">
@@ -493,9 +497,9 @@ tbody tr:hover { background: var(--bg-subtle); }
   </div>
   <h1 class="hero__title">BYD <em>{{ meta.model }}</em></h1>
   <p class="hero__subtitle">
-    Guida completa al <strong>downgrade</strong>, <strong>sideload</strong>
+    {% if meta.subtitle %}{{ meta.subtitle | safe }}{% else %}Guida completa al <strong>downgrade</strong>, <strong>sideload</strong>
     e <strong>upgrade</strong> del firmware Infotainment. Per sbloccare l'installazione
-    di APP di terze parti e tornare al firmware più recente.
+    di APP di terze parti e tornare al firmware più recente.{% endif %}
   </p>
   <div class="hero__meta">
     <div class="hero__meta-item">
