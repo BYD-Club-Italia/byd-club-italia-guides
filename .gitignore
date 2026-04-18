@@ -27,3 +27,6 @@ preview_*.jpg
 # Local environment
 .env
 .env.local
+
+# Local-only setup docs (not for public repo)
+SETUP.md

@@ -44,7 +44,7 @@ Questo è il caso più comune. Immagina che il CountryCode per la procedura sia 
 8. Clicca il pulsante verde **"Commit changes"**
 9. Attendi ~30 secondi. Vai su [byd-club-italia.github.io/byd-club-italia-guides](https://byd-club-italia.github.io/byd-club-italia-guides/) e verifica.
 
-**Fatto.** Il CountryCode è stato aggiornato **ovunque** nella guida ATTO 2 (nel testo, nei passi, nella procedura). Ripeti per `atto3.md` e `surf.md` se serve.
+**Fatto.** Il CountryCode è stato aggiornato **ovunque** nella guida ATTO 2 (nel testo, nei passi, nella procedura). Ripeti per `generale.md` e `surf.md` se serve.
 
 ### Perché funziona così?
 
@@ -173,6 +173,32 @@ La descrizione diventa automaticamente la didascalia sotto l'immagine.
 5. Commit
 
 Il sistema riconoscerà automaticamente la nuova guida e l'aggiungerà alla landing page.
+
+### Campi frontmatter opzionali per personalizzare la guida
+
+Oltre ai campi obbligatori (`model`, `model_slug`, `version`, ecc.), puoi aggiungere tre campi opzionali per rendere la guida più descrittiva:
+
+```yaml
+---
+model: "Installazione XYZ"
+model_slug: xyz
+version: "1.0"
+# ... altri campi ...
+
+# Campi opzionali (se omessi si usa un testo generico):
+subtitle: |
+  Guida passo-passo all'installazione di <strong>XYZ</strong> sull'infotainment BYD,
+  con configurazione e troubleshooting comune.
+card_description: "Procedura completa per l'installazione di XYZ sull'infotainment."
+meta_description: "Installazione XYZ su BYD - tutorial community BYD Club Italia"
+---
+```
+
+- `subtitle` → sottotitolo nel box blu in cima alla guida (accetta HTML con `<strong>`, `<em>`, ecc.)
+- `card_description` → descrizione della card sulla landing page
+- `meta_description` → meta description HTML per la SEO
+
+Se il campo `model` inizia già con "Guida" (es. `model: "Guida Installazione X"`), il sistema non aggiunge un secondo "Guida" davanti nel titolo, evitando duplicati tipo "Guida Guida Installazione X".
 
 ---
 

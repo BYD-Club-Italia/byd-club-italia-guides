@@ -1,10 +1,13 @@
 ---
-model: Generale
+model: Guida Generale
 model_slug: generale
 version: "0.7.4"
 date: "15/07/2025"
 author: "Leonardo Bandini"
 editor: "Stefano Tagliaferri"
+subtitle: "Procedura valida per BYD ATTO 3 e Dolphin (famiglia firmware 13.1.32) e, con gli ZIP appropriati, anche per <strong>Seal, Han e Seal U DM-i</strong> (famiglia 13.1.33). Sideload via USB con password dalla 2307."
+card_description: "ATTO 3 e Dolphin, più Seal / Han / Seal U DM-i usando gli ZIP della famiglia 13.1.33. Sideload via USB con password."
+meta_description: "Guida community BYD per ATTO 3, Dolphin, Seal e altri modelli: downgrade al firmware 2307, sideload via USB e upgrade al firmware più recente."
 firmware_downgrade: "2307"
 firmware_upgrade: "2511"
 sideload_password: "GHY0613byd"

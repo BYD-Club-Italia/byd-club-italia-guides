@@ -9,7 +9,7 @@
 | Guida | Versione | Note |
 |---------|----------|------|
 | [BYD ATTO 2](https://byd-club-italia.github.io/byd-club-italia-guides/atto2.html) | v0.1.1 | Sideload via ADB |
-| [BYD Generale](https://byd-club-italia.github.io/byd-club-italia-guides/atto3.html) | v0.7.4 | Sideload via USB |
+| [BYD Generale](https://byd-club-italia.github.io/byd-club-italia-guides/generale.html) | v0.7.4 | Sideload via USB |
 | [BYD Dolphin Surf](https://byd-club-italia.github.io/byd-club-italia-guides/surf.html) | v0.0.2 | Sideload via ADB |
 
 ## Come funziona questo repo
@@ -33,11 +33,11 @@ Per modificare le guide, leggi **[GUIDE_FOR_EDITORS.md](GUIDE_FOR_EDITORS.md)** 
 byd-club-italia-guides/
 ├── guides/              ← file Markdown delle guide (MODIFICA QUI)
 │   ├── atto2.md
-│   ├── atto3.md
+│   ├── generale.md
 │   └── surf.md
 ├── images/              ← immagini delle guide
 │   ├── atto2/
-│   ├── atto3/
+│   ├── generale/
 │   └── surf/
 ├── templates/           ← struttura grafica condivisa
 │   ├── guide.html.j2
