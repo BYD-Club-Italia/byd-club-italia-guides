@@ -283,8 +283,8 @@ Poi usala nel corpo della guida con `{{ mia_variabile }}`.
 
 ## Contatti per supporto
 
-- **Contributor tecnico**: Stefano (editor principale)
-- **Autore originale**: Leonardo Bandini (@LeonardoBandini)
+- **Contributor tecnico**: Stefano Tagliaferri [@Tagliax10](https://t.me/Tagliax10)(editor principale)
+- **Autore originale**: Leonardo Bandini ([@LeonardoBandini](https://t.me/LeonardoBandini))
 - **Community**: [BYD Club Italia](https://t.me/BYD_CLUB_ITALIA)
 
 Se hai difficoltà, chiedi nel canale Telegram o apri una [Issue su GitHub](https://github.com/BYD-Club-Italia/byd-club-italia-guides/issues/new).
