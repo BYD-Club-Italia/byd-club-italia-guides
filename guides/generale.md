@@ -1,6 +1,6 @@
 ---
 model: Guida Generale
-model_slug: atto3
+model_slug: generale
 version: "0.7.4"
 date: "15/07/2025"
 author: "Leonardo Bandini"
@@ -171,7 +171,7 @@ Su Windows il metodo più affidabile è via PowerShell.
 
 2. **Avvia PowerShell come amministratore**
    Cerca "PowerShell" nel menu Start, tasto destro → *Esegui come amministratore*.
-   ![Icona di Windows PowerShell nel menu Start](images/atto3/image1.png){width=260}
+   ![Icona di Windows PowerShell nel menu Start](images/generale/image1.png){width=260}
 
 3. **Lancia il comando di formattazione**
    Sostituisci `O:` con la lettera corretta del tuo drive.
@@ -238,7 +238,7 @@ Il caso più semplice. Non sono richieste procedure particolari.
 
 All'inserimento della chiavetta comparirà una finestra con due opzioni.
 
-![Finestra di scelta OTA / OTG che appare dopo l'inserimento della chiavetta](images/atto3/image4.png){width=340}
+![Finestra di scelta OTA / OTG che appare dopo l'inserimento della chiavetta](images/generale/image4.png){width=340}
 
 ::: steps
 1. Inserisci la chiavetta USB con il firmware {{ firmware_downgrade }}
@@ -257,12 +257,12 @@ Se hai una scheda SD inserita, **estraila prima** di avviare la procedura. La su
 ::: steps
 1. Inserisci la chiavetta USB con il firmware {{ firmware_downgrade }}
 2. Apparirà una finestra con un QR Code che richiede lo sblocco
-   ![In alto: finestra con QR Code. In basso: posizione dei due tasti da tenere premuti (freccia sinistra sullo sterzo + rotella volume della consolle)](images/atto3/image5.png){width=380}
+   ![In alto: finestra con QR Code. In basso: posizione dei due tasti da tenere premuti (freccia sinistra sullo sterzo + rotella volume della consolle)](images/generale/image5.png){width=380}
 
 3. **Forza il riavvio in modalità recovery**: tieni premuti contemporaneamente per circa 10 secondi, fino al riavvio completo, la **freccia a sinistra** sulla razza dello sterzo e la **rotella del volume** della consolle centrale (quella accanto al selettore marcia — **non** la rotella sullo sterzo!).
 
 4. Al riavvio deve apparire la finestra di aggiornamento DiLink 3.0, riconoscibile dall'icona di un razzo:
-   ![Schermata DiLink 3.0 con il razzo: il boot dalla chiavetta è andato a buon fine](images/atto3/image6.png){width=460}
+   ![Schermata DiLink 3.0 con il razzo: il boot dalla chiavetta è andato a buon fine](images/generale/image6.png){width=460}
 
 5. Segui le istruzioni a schermo fino al completo downgrade.
 :::
@@ -270,7 +270,7 @@ Se hai una scheda SD inserita, **estraila prima** di avviare la procedura. La su
 ::: callout warning "Se compare la schermata di ripristino Android"
 Se invece della finestra DiLink 3.0 con il razzo appare la schermata di ripristino di Android, la chiavetta USB non viene vista in fase di boot.
 
-![Schermata di Android Recovery: la chiavetta non viene riconosciuta in fase di boot](images/atto3/image7.png){width=460}
+![Schermata di Android Recovery: la chiavetta non viene riconosciuta in fase di boot](images/generale/image7.png){width=460}
 
 **Soluzioni:**
 - Riformatta la chiavetta in FAT32 e ricopia i file
@@ -298,7 +298,7 @@ Nel pacchetto c'è anche una vecchia versione di AppManager. Per l'ultima versio
 3. Copia dentro questa cartella gli APK che vuoi installare
 :::
 
-![Esempio di contenuto della cartella 'third party apps' con i tre APK consigliati](images/atto3/image8.png){width=480}
+![Esempio di contenuto della cartella 'third party apps' con i tre APK consigliati](images/generale/image8.png){width=480}
 
 ::: callout success "APK consigliati"
 **PackageInstallerUnlocked.apk** — **essenziale**. Mantiene la possibilità di installare nuovi programmi anche con firmware successivi.
@@ -338,10 +338,10 @@ Per una dimostrazione video della procedura: [https://youtu.be/-GL3Iv7O2XM](http
 2. Apri **Impostazioni** → **Informazioni sul veicolo** (o sezione equivalente sulla tua auto)
 
 3. Individua la voce **"Ripristina le impostazioni di fabbrica"** e tappaci sopra **8 volte consecutive e ravvicinate** (non cliccando per avviare il reset, solo tapping)
-   ![Posizione della voce 'Ripristina le impostazioni di fabbrica' su cui fare gli 8 tap](images/atto3/image9.png){width=480}
+   ![Posizione della voce 'Ripristina le impostazioni di fabbrica' su cui fare gli 8 tap](images/generale/image9.png){width=480}
 
 4. Si aprirà un menu nascosto con varie opzioni di debug
-   ![Menu nascosto di debug: abilitare 'Debug mode when USB is connected' e 'Wireless adb debug switch'](images/atto3/image10.png){width=480}
+   ![Menu nascosto di debug: abilitare 'Debug mode when USB is connected' e 'Wireless adb debug switch'](images/generale/image10.png){width=480}
 
 5. Abilita le due voci:
    - **Debug mode when USB is connected**
@@ -386,19 +386,19 @@ Il trucco consiste nel **cambiare temporaneamente il codice paese dell'auto a "{
 
 ::: steps
 1. **Apri AppManager**
-   ![Schermata di avvio di AppManager](images/atto3/image11.png){width=420}
+   ![Schermata di avvio di AppManager](images/generale/image11.png){width=420}
 
 2. Cerca `CountryCode` (o `CountryCodeTool`)
-   ![Ricerca di CountryCode in AppManager](images/atto3/image12.png){width=460}
+   ![Ricerca di CountryCode in AppManager](images/generale/image12.png){width=460}
 
 3. Entra nella tab **Attività** e avvia **Main Activity**
-   ![Tab 'Attività' con la voce Main Activity](images/atto3/image13.png){width=480}
+   ![Tab 'Attività' con la voce Main Activity](images/generale/image13.png){width=480}
 
 4. **Annota il codice paese attuale** (in alto a destra). Di solito è **{{ countrycode_original_example }}** per il mercato italiano/europeo
-   ![Schermata con il codice paese attuale in alto a destra (es. Netherlands)](images/atto3/image14.png){width=480}
+   ![Schermata con il codice paese attuale in alto a destra (es. Netherlands)](images/generale/image14.png){width=480}
 
 5. Cambia il codice paese in **{{ countrycode_target }}**.
-   ![Selezione di {{ countrycode_target }} nella lista dei codici paese](images/atto3/image14.png){width=480}
+   ![Selezione di {{ countrycode_target }} nella lista dei codici paese](images/generale/image14.png){width=480}
 
 6. Conferma con **OK** e **Yes** al messaggio di conferma. Il sistema si riavvierà automaticamente.
 

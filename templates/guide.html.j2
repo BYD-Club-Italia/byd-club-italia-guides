@@ -421,6 +421,10 @@ tbody tr:hover { background: var(--bg-subtle); }
     margin: 0; border-radius: 0;
     min-height: 260mm; display: flex; flex-direction: column; justify-content: center;
     padding: 80px 56px; }
+  /* Nascondi i cerchi decorativi del hero in stampa: i browser renderizzano
+     i gradient radiali dentro border-radius come box bianco invece che come
+     trasparenza, creando artefatti grafici sul PDF */
+  .hero::before, .hero::after { display: none !important; }
   .hero__title { font-size: 64px; }
   .hero__subtitle { font-size: 21px; max-width: 580px; }
   .glossary details > div { display: block !important; }
