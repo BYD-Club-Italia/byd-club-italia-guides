@@ -1,5 +1,5 @@
 ---
-model: Guida Generale
+model: Generale
 model_slug: generale
 version: "0.7.4"
 date: "15/07/2025"
