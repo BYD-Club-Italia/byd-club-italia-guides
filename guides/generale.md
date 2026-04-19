@@ -159,7 +159,7 @@ La chiavetta USB è l'elemento chiave di tutta la procedura. Una chiavetta sbagl
 Alcune Pen Drive non riescono ad eseguire il boot, soprattutto nel caso del downgrade dalla 2407/2408 o superiori. Se la procedura si blocca o l'auto non riconosce la chiavetta, il problema è quasi sempre la chiavetta stessa.
 
 **Modelli verificati dalla community:**
-- SanDisk Ultra Flair 32 GB USB 3.0 — [link Amazon](https://amzn.eu/d/0iLRWRQ)
+- SanDisk Ultra Flair 32 GB USB 3.0 — [link Amazon](https://amzn.eu/d/00NgRi9Z)
 - Kingston DataTraveler G4 USB 3.0 8 GB
 - Chiavetta USB OTG 2-in-1 Type-C metallo — [link AliExpress](https://a.aliexpress.com/_EwER8s5)
 :::
