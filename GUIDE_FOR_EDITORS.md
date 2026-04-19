@@ -174,11 +174,11 @@ Contenuto...
 
 Per mostrare un comando da copiare (es. comandi PowerShell, ADB):
 
-```
+````
 ```powershell
 Format /FS:FAT32 O:
 ```
-```
+````
 
 Il sistema aggiunge automaticamente il bottone “Copia” e la sintassi colorata.
 
