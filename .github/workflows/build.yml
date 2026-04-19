@@ -3,6 +3,8 @@ name: Build and Deploy
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -39,12 +41,18 @@ jobs:
       - name: Build guides
         run: python build.py
 
+      # Upload artifact for Pages only on push to main (not on PR).
+      # On PRs the build runs as a validation check — if it fails, merge is
+      # blocked; but we don't publish the PR version to the live site.
       - name: Upload artifact for Pages
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./docs
 
   deploy:
+    # Deploy only on push to main or manual dispatch, never on PRs.
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     needs: build
     runs-on: ubuntu-latest
     environment:
