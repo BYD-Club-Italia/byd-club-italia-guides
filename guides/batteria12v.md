@@ -177,9 +177,9 @@ La qualità della batteria è **il fattore che fa la differenza**. Una LFP scade
 ## Cosa evitare
 
 ::: callout warning "Non risparmiare qui"
-Esistono batterie LFP progettate **specificamente** per uso ausiliario automobilistico — e valgono l'investimento. Evita le soluzioni "da hobby" o per camper/nautica riutilizzate in auto: profili di carico, temperature operative e tolleranze meccaniche sono diversi.
-
-Prima dell'acquisto, **consulta il produttore** per verificare che il prodotto soddisfi i criteri per l'uso previsto sul tuo veicolo specifico.
+Le batterie LFP progettate specificamente per uso ausiliario automobilistico sono ancora relativamente poche sul mercato, ma quando disponibili offrono in genere una migliore compatibilità con i sistemi del veicolo (profili di carica, gestione termica).
+In assenza di modelli specifici, è comune utilizzare batterie nate per altri contesti (camper, nautica o applicazioni generiche). Questa soluzione può funzionare, ma richiede **maggiore attenzione**: verifica la compatibilità con il sistema di ricarica del veicolo, l’intervallo di temperatura operativa e la qualità del BMS.
+Prima dell’acquisto, consulta le specifiche del produttore o richiedi conferma che il prodotto sia adatto all’uso previsto sul tuo veicolo.
 :::
 
 ---
