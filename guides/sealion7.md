@@ -119,11 +119,11 @@ Portare in macchina il **PC portatile** con tutti i file già scaricati e la car
 ::: steps
 1. Sul pad dell'auto, navigare nel menu e selezionare la voce **Versione**. Fare tap ripetutamente su **Ripristino impostazioni di fabbrica** finché non compare la schermata del Factory Service Interface.
 
-   ![Menu 'Factory Service Interface' visualizzato sul pad dell'auto dopo i tap ripetuti](images/sealion7/image1.jpeg){width=500}
+   ![Menu 'Factory Service Interface' visualizzato sul pad dell'auto dopo i tap ripetuti](images/sealion7/image1.png){width=500}
 
 2. Fare tap sull'**icona in basso a destra** per ruotare il pad. Compariranno due banner grigi aggiuntivi in alto.
 
-   ![Schermata ruotata con i banner 'CONNECT USB TO ENABLE DEBUGGING MODE' in alto](images/sealion7/image2.jpeg){width=500}
+   ![Schermata ruotata con i banner 'CONNECT USB TO ENABLE DEBUGGING MODE' in alto](images/sealion7/image2.png){width=500}
 
 3. Cliccare sul **primo banner grigio** e attendere che compaia la dicitura **`adb turn on`** (un piccolo rettangolino grigio sovrimpresso al resto della schermata).
 
@@ -165,7 +165,7 @@ Ricordare che **auto e PC devono essere connessi alla stessa rete**. Se non lo s
 
 4. Verificare che la finestra del cmd restituisca il messaggio **`adb connected`** (o `already connected to ...`).
 
-   ![Prompt dei comandi con il ritorno 'already connected to 192.168.1.231:5555'](images/sealion7/image3.jpeg){width=500}
+   ![Prompt dei comandi con il ritorno 'already connected to 192.168.1.231:5555'](images/sealion7/image3.png){width=500}
 :::
 
 ::: callout warning "Se la connessione fallisce"
@@ -183,7 +183,7 @@ In caso di errore o mancato collegamento, ripetere la procedura da `cd win` in p
 
 2. Attendere l'installazione: la conferma arriva con il messaggio **`success`**.
 
-   ![Prompt dei comandi con il comando adb install c:\win\apk\appman.apk e l'output 'Performing Streamed Install'](images/sealion7/image4.jpeg){width=500}
+   ![Prompt dei comandi con il comando adb install c:\win\apk\appman.apk e l'output 'Performing Streamed Install'](images/sealion7/image4.png){width=500}
 
 3. Sul pad, tornare alla pagina principale: tra le app troverete **App Manager** (icona con sfondo beige).
 :::
