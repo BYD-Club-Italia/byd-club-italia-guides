@@ -1,7 +1,7 @@
 ---
-model: "Batteria 12V — da Piombo a LFP"
-model_slug: "batteria12v"
-model_prefix: "MOD / FAI-DA-TE"
+titolo: "Batteria 12V — da Piombo a LFP"
+slug: "batteria12v"
+overline: "MOD / FAI-DA-TE"
 #category: "Mod"
 version: "0.1.0"
 date: "19/04/2026"
@@ -177,9 +177,9 @@ La qualità della batteria è **il fattore che fa la differenza**. Una LFP scade
 ## Cosa evitare
 
 ::: callout warning "Non risparmiare qui"
-Le batterie LFP progettate specificamente per uso ausiliario automobilistico sono ancora relativamente poche sul mercato, ma quando disponibili offrono in genere una migliore compatibilità con i sistemi del veicolo (profili di carica, gestione termica).
-In assenza di modelli specifici, è comune utilizzare batterie nate per altri contesti (camper, nautica o applicazioni generiche). Questa soluzione può funzionare, ma richiede **maggiore attenzione**: verifica la compatibilità con il sistema di ricarica del veicolo, l’intervallo di temperatura operativa e la qualità del BMS.
-Prima dell’acquisto, consulta le specifiche del produttore o richiedi conferma che il prodotto sia adatto all’uso previsto sul tuo veicolo.
+Esistono batterie LFP progettate **specificamente** per uso ausiliario automobilistico — e valgono l'investimento. Evita le soluzioni "da hobby" o per camper/nautica riutilizzate in auto: profili di carico, temperature operative e tolleranze meccaniche sono diversi.
+
+Prima dell'acquisto, **consulta il produttore** per verificare che il prodotto soddisfi i criteri per l'uso previsto sul tuo veicolo specifico.
 :::
 
 ---
@@ -222,7 +222,7 @@ Prima di procedere:
 
 - **Parcheggia** l'auto in un luogo piano e asciutto
 - **Ricarica** completamente la batteria LFP la prima volta con un caricatore esterno da 14V a 10A
-- Indossa **guanti isolanti** 
+- Indossa **guanti** 
 - Usa **utensili isolati** per evitare cortocircuiti sui morsetti
 :::
 
@@ -231,8 +231,7 @@ Prima di procedere:
 ::: checklist
 - Batteria LFP nuova verificata (capacità, certificazioni, BMS integrato)
 - Chiave/bussola della misura corretta per i morsetti
-- Guanti isolanti
-- Panno morbido e grasso per contatti elettrici
+- Guanti
 - Eventuali supporti/staffe di adattamento (le LFP possono avere ingombri diversi dal piombo originale)
 - Dispositivo di monitoraggio Bluetooth (opzionale ma consigliato)
 - Fotocamera per documentare lo stato iniziale
@@ -271,13 +270,11 @@ Invertire l'ordine può causare scintille, danni all'elettronica o cortocircuiti
 
 9. **Collega il morsetto negativo (−)**. Ripeti per il negativo. Verifica che entrambi i morsetti siano **ben saldi** e che non ci sia gioco.
 
-10. **Applica grasso per contatti**. Uno strato sottile di grasso dielettrico sui morsetti previene la corrosione.
+10. **Installa il fissaggio**. Rimetti le staffe e le viti rimosse al passo 4, con la coppia corretta.
 
-11. **Installa il fissaggio**. Rimetti le staffe e le viti rimosse al passo 4, con la coppia corretta.
+11. **Primo avviamento**. Verifica che nessuna spia di errore sia accesa sul cruscotto, che l'infotainment si accenda regolarmente, che i sistemi ADAS si calibrino normalmente e che vetri elettrici, chiusura centralizzata e luci funzionino.
 
-12. **Primo avviamento**. Verifica che nessuna spia di errore sia accesa sul cruscotto, che l'infotainment si accenda regolarmente, che i sistemi ADAS si calibrino normalmente e che vetri elettrici, chiusura centralizzata e luci funzionino.
-
-13. **Installa e configura il monitor Bluetooth** (opzionale). Se hai acquistato un dispositivo di monitoraggio, collegalo ai morsetti secondo le istruzioni del produttore e configura l'app. Inizierai a raccogliere dati sulla nuova baseline.
+12. **Installa e configura il monitor Bluetooth** (opzionale). Se hai acquistato un dispositivo di monitoraggio, collegalo ai morsetti secondo le istruzioni del produttore e configura l'app. Inizierai a raccogliere dati sulla nuova baseline.
 :::
 
 ## Note importanti dopo l'intervento

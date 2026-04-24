@@ -6,10 +6,10 @@
 {# ============================================================
    Variabili del template (tutti opzionali con default sensati)
    ============================================================ #}
-{% set model_prefix = meta.model_prefix if meta.model_prefix is defined else "BYD" %}
-{% set display_title = meta.model if meta.model.lower().startswith('guida') else 'Guida ' ~ meta.model %}
+{% set overline = meta.overline if meta.overline is defined else "BYD" %}
+{% set display_title = meta.titolo if meta.titolo.lower().startswith('guida') else 'Guida ' ~ meta.titolo %}
 {% set default_subtitle = "Guida della community BYD Club Italia." %}
-{% set default_meta_desc = "Guida community BYD Club Italia — " ~ meta.model %}
+{% set default_meta_desc = "Guida community BYD Club Italia — " ~ meta.titolo %}
 <title>{{ display_title }} — BYD Club Italia</title>
 <meta name="description" content="{{ meta.meta_description | default(default_meta_desc) }}">
 
@@ -500,8 +500,8 @@ tbody tr:hover { background: var(--bg-subtle); }
     <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="4"/></svg>
     BYD Club Italia · Community Guide
   </div>
-  {% if model_prefix %}<div class="hero__overline">{{ model_prefix }}</div>{% endif %}
-  <h1 class="hero__title">{{ meta.model }}</h1>
+  {% if overline %}<div class="hero__overline">{{ overline }}</div>{% endif %}
+  <h1 class="hero__title">{{ meta.titolo }}</h1>
   <p class="hero__subtitle">
     {% if meta.subtitle %}{{ meta.subtitle | safe }}{% else %}{{ default_subtitle }}{% endif %}
   </p>
@@ -526,7 +526,7 @@ tbody tr:hover { background: var(--bg-subtle); }
 {{ body | safe }}
 
 <footer class="footer">
-  <div>Guida BYD {{ meta.model }} · v{{ meta.version }} · {{ meta.date }} · <a href="https://t.me/BYDCLUBITALIANews">BYD Club Italia</a></div>
+  <div>{{ display_title }} · v{{ meta.version }} · {{ meta.date }} · <a href="https://t.me/BYDCLUBITALIANews">BYD Club Italia</a></div>
   <div>Documento didattico · Uso a proprio rischio</div>
 </footer>
 

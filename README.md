@@ -1,23 +1,17 @@
-# BYD Club Italia — Guide Firmware
+# BYD Club Italia — Guide community
 
-> Guide community alla gestione del firmware dell'infotainment BYD: **downgrade, sideload e upgrade**.
+> Guide della community per gli utenti BYD: **firmware**, **mod fai-da-te**, **accessori** e altro. Scritte, mantenute e aggiornate dagli utenti, per gli utenti.
 
 🌐 **Sito live**: [byd-club-italia.github.io/byd-club-italia-guides](https://byd-club-italia.github.io/byd-club-italia-guides/)
 
-## Guide disponibili
-
-| Guida | Versione | Note |
-|---------|----------|------|
-| [BYD ATTO 2](https://byd-club-italia.github.io/byd-club-italia-guides/atto2.html) | v0.1.1 | Sideload via ADB |
-| [BYD Generale](https://byd-club-italia.github.io/byd-club-italia-guides/generale.html) | v0.7.4 | Sideload via USB |
-| [BYD Dolphin Surf](https://byd-club-italia.github.io/byd-club-italia-guides/surf.html) | v0.0.2 | Sideload via ADB |
+L'elenco aggiornato delle guide disponibili è sulla home del sito. Ogni guida è consultabile online e scaricabile in PDF direttamente dal browser.
 
 ## Come funziona questo repo
 
-Le guide sono scritte in **Markdown** (un file per modello in `guides/`). Ad ogni modifica, GitHub Actions rigenera automaticamente l'HTML e aggiorna il sito live.
+Le guide sono scritte in **Markdown** (un file per guida in `guides/`). Ad ogni modifica, GitHub Actions rigenera automaticamente l'HTML e aggiorna il sito live.
 
 **Stack tecnologico:**
-- **Contenuto**: Markdown con YAML frontmatter per le variabili (versioni firmware, link, ecc.)
+- **Contenuto**: Markdown con YAML frontmatter per le variabili (versioni firmware, link, parametri tecnici, ecc.)
 - **Template**: Jinja2 + HTML/CSS custom
 - **Build**: Python (`build.py`) con `markdown-it-py`
 - **Hosting**: GitHub Pages
@@ -27,27 +21,25 @@ Le guide sono scritte in **Markdown** (un file per modello in `guides/`). Ad ogn
 
 Per modificare le guide, leggi **[GUIDE_FOR_EDITORS.md](GUIDE_FOR_EDITORS.md)** — contiene istruzioni passo-passo per modificare i file dal web GitHub senza toccare una riga di comando.
 
+Per creare una nuova guida, parti da `guides/_template.md`: è un file di riferimento con il frontmatter commentato e tutti gli elementi grafici disponibili (callout, step, workflow, checklist, badge, ecc.).
+
 ## Struttura del repo
 
 ```
 byd-club-italia-guides/
 ├── guides/              ← file Markdown delle guide (MODIFICA QUI)
-│   ├── atto2.md
-│   ├── generale.md
-│   └── surf.md
-├── images/              ← immagini delle guide
-│   ├── atto2/
-│   ├── generale/
-│   └── surf/
+│   └── _template.md         ← template da cui partire per nuove guide
+├── images/              ← immagini delle guide (una sottocartella per guida)
 ├── templates/           ← struttura grafica condivisa
 │   ├── guide.html.j2
 │   └── index.html.j2
-├── docs/                ← output generato (non modificare manualmente)
 ├── build.py             ← script di build
 ├── requirements.txt     ← dipendenze Python
 └── .github/workflows/
     └── build.yml        ← GitHub Actions (autobuild al push)
 ```
+
+Le sottocartelle di `guides/` e `images/` crescono automaticamente man mano che vengono aggiunte nuove guide: il nome della sottocartella immagini coincide con lo `slug` della guida (es. una guida con `slug: atto2` usa `images/atto2/`).
 
 ## Build in locale (sviluppatori)
 

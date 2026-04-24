@@ -411,15 +411,15 @@ def load_image_as_data_url(relative_path: str) -> str:
     return f"data:{mime};base64,{data}"
 
 
-def embed_images(html: str, model_slug: str) -> str:
-    """Replace <img src="images/MODEL/file.png"> with base64 data URLs."""
+def embed_images(html: str, slug: str) -> str:
+    """Replace <img src="images/SLUG/file.png"> with base64 data URLs."""
     def replace_src(match):
         src = match.group(1)
         # Handle both "images/atto2/file.png" and "atto2/file.png" forms
         if src.startswith('images/'):
             path = ROOT / src
         else:
-            path = IMAGES_DIR / model_slug / src
+            path = IMAGES_DIR / slug / src
         if not path.exists():
             print(f"  ⚠ Immagine non trovata: {path}")
             return match.group(0)
@@ -472,7 +472,7 @@ def build_guide(guide_path: Path, template: jinja2.Template, logo_src: str = "")
     text = guide_path.read_text(encoding='utf-8')
     meta, body = parse_frontmatter(text)
 
-    model_slug = meta.get('model_slug', guide_path.stem)
+    slug = meta.get('slug', guide_path.stem)
 
     # Step 1: Jinja2 variable substitution in the markdown body
     body_rendered = jinja2.Template(body).render(**meta)
@@ -496,7 +496,7 @@ def build_guide(guide_path: Path, template: jinja2.Template, logo_src: str = "")
     html_body = add_ids_to_headings(html_body, toc)
 
     # Step 7: Embed images as base64 (self-contained HTML)
-    html_body = embed_images(html_body, model_slug)
+    html_body = embed_images(html_body, slug)
 
     # Step 8: Render into template
     output_html = template.render(
@@ -507,13 +507,13 @@ def build_guide(guide_path: Path, template: jinja2.Template, logo_src: str = "")
     )
 
     # Step 9: Write output
-    output_file = OUTPUT_DIR / f"{model_slug}.html"
+    output_file = OUTPUT_DIR / f"{slug}.html"
     output_file.write_text(output_html, encoding='utf-8')
     size_mb = output_file.stat().st_size / 1024 / 1024
     print(f"  ✅ {output_file.name} ({size_mb:.2f} MB) — {len(toc)} capitoli")
     return {
-        'slug': model_slug,
-        'title': meta.get('model', model_slug.upper()),
+        'slug': slug,
+        'title': meta.get('titolo', slug.upper()),
         'version': meta.get('version', '—'),
         'date': meta.get('date', ''),
         'author': meta.get('author', ''),
@@ -523,7 +523,7 @@ def build_guide(guide_path: Path, template: jinja2.Template, logo_src: str = "")
         'card_description': meta.get('card_description'),
         # Overline della card (default "BYD" se non dichiarato). Passa ""
         # per nascondere l'overline.
-        'model_prefix': meta.get('model_prefix', 'BYD'),
+        'overline': meta.get('overline', 'BYD'),
         # Categoria opzionale (es. "Firmware", "Mod", "Accessori"). Se presente
         # compare come badge pillola sulla card della landing page.
         'category': meta.get('category'),

@@ -48,7 +48,7 @@ Questo è il caso più comune. Immagina che il CountryCode per la procedura sia 
    
    ```yaml
    ---
-   model: ATTO 2
+   titolo: ATTO 2
    firmware_downgrade: "2404"
    countrycode_target: "Cina (86)"    ← QUESTA RIGA
    ---
@@ -207,41 +207,62 @@ La descrizione diventa automaticamente la didascalia sotto l’immagine.
 
 -----
 
-## Caso 7: aggiungere una nuova guida (es. BYD Seal U DM-i)
+## Caso 7: aggiungere una nuova guida
 
-1. Crea un file `guides/sealu.md` prendendo come base `guides/atto2.md`
+La guida non deve per forza riguardare un modello di auto: può essere su firmware, una mod fai-da-te, un accessorio, un intervento di troubleshooting, o un argomento community generale.
+
+1. Crea un file `guides/nomefile.md` prendendo come base `guides/_template.md` (o una guida esistente simile alla tua)
 1. Modifica il frontmatter (tra i `---` in alto) con i valori corretti
-1. Crea una cartella `images/sealu/`
+1. Crea una cartella `images/nomefile/` (stessa stringa del campo `slug`)
 1. Carica le immagini necessarie
 1. Apri la PR e aspetta approvazione
 
 Il sistema riconoscerà automaticamente la nuova guida e l’aggiungerà alla landing page.
 
-### Campi frontmatter opzionali per personalizzare la guida
+### Campi frontmatter principali
 
-Oltre ai campi obbligatori (`model`, `model_slug`, `version`, ecc.), puoi aggiungere tre campi opzionali per rendere la guida più descrittiva:
+I campi **obbligatori** sono pochi:
 
 ```yaml
 ---
-model: "Installazione XYZ"
-model_slug: xyz
-version: "1.0"
-# ... altri campi ...
-
-# Campi opzionali (se omessi si usa un testo generico):
-subtitle: |
-  Guida passo-passo all'installazione di <strong>XYZ</strong> sull'infotainment BYD,
-  con configurazione e troubleshooting comune.
-card_description: "Procedura completa per l'installazione di XYZ sull'infotainment."
-meta_description: "Installazione XYZ su BYD - tutorial community BYD Club Italia"
+titolo: "Nome della guida"       # il titolone grande dell'hero
+slug: "nomefile"                 # deve coincidere col nome del file .md
+version: "0.0.1"
+date: "GG/MM/AAAA"
+author: "Nome Autore"
 ---
 ```
 
-- `subtitle` → sottotitolo nel box blu in cima alla guida (accetta HTML con `<strong>`, `<em>`, ecc.)
-- `card_description` → descrizione della card sulla landing page
-- `meta_description` → meta description HTML per la SEO
+I campi **opzionali per categorizzare** la guida nella landing:
 
-Se il campo `model` inizia già con “Guida” (es. `model: "Guida Installazione X"`), il sistema non aggiunge un secondo “Guida” davanti nel titolo, evitando duplicati tipo “Guida Guida Installazione X”.
+```yaml
+overline: "MOD / FAI-DA-TE"      # etichetta piccola sopra il titolone
+                                 # (default: "BYD")
+category: "Mod"                  # pillola colorata sulla card della landing
+                                 # (se omesso, la card non mostra pillola)
+```
+
+I campi **opzionali per rendere la guida più descrittiva** (se omessi, si usa un testo generico):
+
+```yaml
+subtitle: |
+  Sottotitolo sotto il titolone. Accetta HTML con <strong>, <em>, ecc.
+card_description: "Descrizione breve per la card della landing page."
+meta_description: "Testo per motori di ricerca (SEO)."
+```
+
+Se il campo `titolo` inizia già con “Guida” (es. `titolo: "Guida Installazione X"`), il sistema non aggiunge un secondo “Guida” davanti nel titolo, evitando duplicati tipo “Guida Guida Installazione X”.
+
+### Variabili custom
+
+Qualsiasi altra variabile tu definisca nel frontmatter è richiamabile nel testo con `{{ nome_variabile }}`:
+
+```yaml
+link_telegram: "https://t.me/..."
+durata_intervento: "45 minuti"
+```
+
+Nel corpo della guida poi scrivi `{{ link_telegram }}` o `{{ durata_intervento }}` e il sistema li sostituisce automaticamente in fase di build.
 
 -----
 

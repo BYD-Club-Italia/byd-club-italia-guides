@@ -1,7 +1,7 @@
 ---
-model: ATTO 2
-model_slug: atto2    # Usato internamente dal build system per nome file e cartella images
-model_prefix: "FIRMWARE"
+titolo: ATTO 2
+slug: atto2    # Usato internamente dal build system per nome file e cartella images
+overline: "FIRMWARE"
 version: "0.1.1"
 date: "15/07/2025"
 author: "Leonardo Bandini"
@@ -34,7 +34,7 @@ hero_closing: "L'autore di questa guida, per una volta, è lo spettatore 😊"
 
 # Introduzione
 
-Questa guida raccoglie le procedure per effettuare **downgrade**, **sideload di APP** e **upgrade** del sistema Infotainment della BYD {{ model }}. È nata come documento didattico all'interno della community italiana, pensato per chi vuole riprendere il controllo completo sul proprio sistema di bordo.
+Questa guida raccoglie le procedure per effettuare **downgrade**, **sideload di APP** e **upgrade** del sistema Infotainment della BYD {{ titolo }}. È nata come documento didattico all'interno della community italiana, pensato per chi vuole riprendere il controllo completo sul proprio sistema di bordo.
 
 L'obiettivo tipico è poter **installare applicazioni Android di terze parti** (navigatori, media player, strumenti diagnostici) sull'infotainment, operazione che le versioni recenti del firmware bloccano.
 
@@ -70,7 +70,7 @@ Termini ricorrenti in tutta la guida. ::print-hide:: Clicca ogni voce per espand
 
 **OTG (Over-the-Go)** :: Aggiornamento manuale via USB. È la modalità con cui si installano firmware precedenti (downgrade) o successivi (upgrade). Aggiorna solo il sistema multimediale.
 
-**ADB (Android Debug Bridge)** :: Strumento Android che permette comunicazione e debug avanzato con il sistema. Sulla {{ model }} è il metodo utilizzato per il sideload, insieme all'accesso al menu di servizio.
+**ADB (Android Debug Bridge)** :: Strumento Android che permette comunicazione e debug avanzato con il sistema. Sulla {{ titolo }} è il metodo utilizzato per il sideload, insieme all'accesso al menu di servizio.
 :::
 
 ---
@@ -101,7 +101,7 @@ Nel presente documento, per brevità, ci si riferirà alla seguente nomenclatura
 ::: callout info "Famiglie di firmware"
 **Famiglia 13.1.32** → Atto 3, Dolphin, Dolphin Surf
 
-**Famiglia 13.1.33** → Seal, Han, Seal U DM-i, **{{ model }}**
+**Famiglia 13.1.33** → Seal, Han, Seal U DM-i, **{{ titolo }}**
 :::
 
 ---
@@ -273,8 +273,8 @@ Se invece della finestra DiLink 3.0 con il razzo appare la schermata di ripristi
 
 # Sideload via ADB {color=info}
 
-::: callout info "Procedura specifica per {{ model }}"
-Sulla {{ model }} il sideload si effettua **tramite ADB da un PC portatile** (Windows o Mac) collegato alla stessa rete WiFi dell'auto.
+::: callout info "Procedura specifica per {{ titolo }}"
+Sulla {{ titolo }} il sideload si effettua **tramite ADB da un PC portatile** (Windows o Mac) collegato alla stessa rete WiFi dell'auto.
 :::
 
 ## Prerequisiti
