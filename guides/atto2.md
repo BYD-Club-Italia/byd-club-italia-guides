@@ -2,7 +2,8 @@
 titolo: ATTO 2
 slug: atto2    # Usato internamente dal build system per nome file e cartella images
 overline: "FIRMWARE"
-version: "0.1.1"
+category: "Sideloading"
+version: "1.0.0"
 date: "15/07/2025"
 author: "Leonardo Bandini"
 editor: "Stefano Tagliaferri"

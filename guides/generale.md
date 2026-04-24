@@ -2,7 +2,8 @@
 titolo: Guida Generale
 slug: generale
 overline: "FIRMWARE"
-version: "0.7.4"
+category: "Sideloading"
+version: "1.0.0"
 date: "15/07/2025"
 author: "Leonardo Bandini"
 editor: "Stefano Tagliaferri"
