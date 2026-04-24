@@ -1,7 +1,7 @@
 ---
-model: Dolphin Surf
-model_slug: surf
-model_prefix: "FIRMWARE"
+titolo: Dolphin Surf
+slug: surf
+overline: "FIRMWARE"
 version: "0.0.2"
 date: "12/09/2025"
 author: "Leonardo Bandini"
@@ -27,12 +27,12 @@ telegram_video_countrycode: "https://t.me/BYD_CLUB_ITALIA/49776/148512"
 
 # Introduzione
 
-Questa guida raccoglie le procedure per effettuare **downgrade**, **sideload di APP** e **upgrade** del sistema Infotainment della BYD {{ model }}. È nata come documento didattico all'interno della community italiana.
+Questa guida raccoglie le procedure per effettuare **downgrade**, **sideload di APP** e **upgrade** del sistema Infotainment della BYD {{ titolo }}. È nata come documento didattico all'interno della community italiana.
 
 L'obiettivo tipico è poter **installare applicazioni Android di terze parti** (navigatori, media player, strumenti diagnostici) sull'infotainment.
 
-::: callout info "Particolarità della {{ model }}"
-Sulla {{ model }}, al momento della stesura di questa guida, il firmware preinstallato è il **{{ firmware_current }}**. Questo firmware non è disponibile per il download, quindi in fase di upgrade si sceglie il **{{ firmware_upgrade_latest }}**.
+::: callout info "Particolarità della {{ titolo }}"
+Sulla {{ titolo }}, al momento della stesura di questa guida, il firmware preinstallato è il **{{ firmware_current }}**. Questo firmware non è disponibile per il download, quindi in fase di upgrade si sceglie il **{{ firmware_upgrade_latest }}**.
 :::
 
 ---
@@ -50,7 +50,7 @@ Termini ricorrenti in tutta la guida. ::print-hide:: Clicca ogni voce per espand
 
 **APKMirror** :: Sito alternativo per scaricare gli APK di programmi Android.
 
-**Sideload / Sideloading** :: Caricamento laterale. Tecnica che permette di installare APP scaricate da fonti diverse dagli store ufficiali. Sulla {{ model }} si effettua via ADB da PC.
+**Sideload / Sideloading** :: Caricamento laterale. Tecnica che permette di installare APP scaricate da fonti diverse dagli store ufficiali. Sulla {{ titolo }} si effettua via ADB da PC.
 
 **FAT32** :: File Allocation Table 32-bit. File system utilizzato da Windows e compatibile con la formattazione delle Pen Drive USB.
 
@@ -60,7 +60,7 @@ Termini ricorrenti in tutta la guida. ::print-hide:: Clicca ogni voce per espand
 
 **OTG (Over-the-Go)** :: Aggiornamento manuale via USB. È la modalità con cui si installano firmware precedenti (downgrade) o successivi (upgrade).
 
-**ADB (Android Debug Bridge)** :: Strumento Android che permette comunicazione e debug avanzato con il sistema. Sulla {{ model }} è il metodo utilizzato per il sideload (non c'è la via USB con password come su Atto 3).
+**ADB (Android Debug Bridge)** :: Strumento Android che permette comunicazione e debug avanzato con il sistema. Sulla {{ titolo }} è il metodo utilizzato per il sideload (non c'è la via USB con password come su Atto 3).
 :::
 
 ---
@@ -245,8 +245,8 @@ Se invece della finestra DiLink 3.0 con il razzo appare la schermata di ripristi
 
 # Installazione tramite sideload {color=info}
 
-::: callout info "Procedura specifica per {{ model }}"
-Sulla {{ model }} il sideload si effettua **tramite ADB da un PC portatile** (Windows o Mac) collegato alla stessa rete WiFi dell'auto. Non si utilizza la chiavetta USB con password come su Atto 3.
+::: callout info "Procedura specifica per {{ titolo }}"
+Sulla {{ titolo }} il sideload si effettua **tramite ADB da un PC portatile** (Windows o Mac) collegato alla stessa rete WiFi dell'auto. Non si utilizza la chiavetta USB con password come su Atto 3.
 :::
 
 ## Prerequisiti

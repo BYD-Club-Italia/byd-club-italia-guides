@@ -1,7 +1,7 @@
 ---
-model: Guida Generale
-model_slug: generale
-model_prefix: "FIRMWARE"
+titolo: Guida Generale
+slug: generale
+overline: "FIRMWARE"
 version: "0.7.4"
 date: "15/07/2025"
 author: "Leonardo Bandini"
@@ -23,7 +23,7 @@ telegram_video_countrycode: "https://t.me/BYD_CLUB_ITALIA/49776/148512"
 
 # Introduzione
 
-Questa guida raccoglie le procedure per effettuare il **downgrade**, l'installazione di APP via **sideload** e l'**upgrade** del sistema Infotainment dei veicoli BYD {{ model }}. È nata come documento didattico all'interno della community italiana dei possessori BYD, ed è pensata per chi vuole riprendere il controllo completo sul proprio sistema di bordo.
+Questa guida raccoglie le procedure per effettuare il **downgrade**, l'installazione di APP via **sideload** e l'**upgrade** del sistema Infotainment dei veicoli BYD {{ titolo }}. È nata come documento didattico all'interno della community italiana dei possessori BYD, ed è pensata per chi vuole riprendere il controllo completo sul proprio sistema di bordo.
 
 L'obiettivo tipico è poter **installare applicazioni Android di terze parti** (navigatori, media player, ecc.) sull'infotainment, operazione che le versioni recenti del firmware bloccano. La strategia è:
 
@@ -50,7 +50,7 @@ Termini ricorrenti in tutta la guida. ::print-hide:: Clicca ogni voce per espand
 
 **APKMirror** :: Sito alternativo al Play Store per scaricare gli APK di programmi Android.
 
-**Sideload / Sideloading** :: Caricamento laterale. Tecnica che permette di installare APP scaricate da fonti diverse dagli store ufficiali. Sull'infotainment BYD {{ model }} è possibile solo con il firmware {{ firmware_downgrade }} o precedenti.
+**Sideload / Sideloading** :: Caricamento laterale. Tecnica che permette di installare APP scaricate da fonti diverse dagli store ufficiali. Sull'infotainment BYD {{ titolo }} è possibile solo con il firmware {{ firmware_downgrade }} o precedenti.
 
 **FAT32** :: File system di Windows, necessario per formattare la Pen Drive USB usata negli aggiornamenti.
 

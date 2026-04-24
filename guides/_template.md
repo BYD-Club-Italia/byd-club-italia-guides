@@ -3,7 +3,7 @@
 # TEMPLATE per nuove guide — BYD Club Italia
 # ============================================================
 # ISTRUZIONI:
-#   1. Copia questo file in guides/NOMEGUIDA.md (es. guides/seal.md)
+#   1. Copia questo file in guides/NOMEGUIDA.md (es. guides/batteria12v.md)
 #   2. I file che iniziano con "_" vengono IGNORATI dal build (niente HTML generato)
 #   3. Compila il frontmatter qui sotto con i valori della tua guida
 #   4. Usa le variabili con {{ nome_variabile }} nel corpo del testo
@@ -11,55 +11,69 @@
 #
 # NOTA: i commenti YAML (#) nel frontmatter sono esclusivamente per aiuto editor
 # e vengono ignorati dal parser. Lasciali o cancellali, non cambia nulla.
+#
+# TIPI DI GUIDA SUPPORTATI (qualche idea):
+#   - Firmware   → procedure su infotainment, downgrade, sideload, upgrade
+#   - Mod        → modifiche hardware/software fai-da-te (es. batteria 12V)
+#   - Accessori  → installazione/configurazione accessori (es. dashcam, portapacchi)
+#   - Community  → guide informative generali, FAQ, confronti
+#   - Troubleshooting → diagnosi e risoluzione di un problema specifico
 # ============================================================
 
 # --- IDENTITÀ DELLA GUIDA ---
-model: "Nome Titolone"             # Il titolo grande dell'hero. Può essere il nome di un veicolo
-                                   # ("ATTO 2"), un intervento ("Batteria 12V"), una categoria
-                                   # generica ("Seal e Han"), ecc.
-model_slug: "nomefile"             # IMPORTANTE: usato per nome del file HTML e cartella immagini
-                                   # Deve essere minuscolo, senza spazi, senza accenti.
+titolo: "Titolo della guida"       # Il titolo grande dell'hero. Esempi:
+                                   # "ATTO 2", "Batteria 12V — da Piombo a LFP",
+                                   # "Installazione dashcam", "Guida Generale".
+                                   # Se inizia con "Guida" il sistema non duplica
+                                   # il prefisso (non avrai "Guida Guida ...").
 
-version: "0.0.1"                   # Versione della guida (non del firmware)
+slug: "nomefile"                   # IMPORTANTE: usato per il nome del file HTML e
+                                   # per la cartella immagini (images/NOMEFILE/).
+                                   # Deve essere minuscolo, senza spazi, senza accenti.
+                                   # Deve coincidere con il nome del file .md.
+
+version: "0.0.1"                   # Versione della guida (NON del firmware o del prodotto)
 date: "GG/MM/AAAA"                 # Data ultimo aggiornamento
 author: "Nome Autore"
 editor: "Nome Editor"              # Opzionale — togli la riga se non c'è
 
 # --- CATEGORIZZAZIONE (opzionale ma consigliata) ---
-# model_prefix: overline piccolo sopra il titolone dell'hero e nella card della landing.
-#   Default: "BYD" (se ometti questa riga)
-#   Valori tipici: "BYD" (guide sul veicolo), "MOD / FAI-DA-TE" (modifiche), "ACCESSORI",
-#                  "COMMUNITY" (guide generali), "" per nascondere l'overline del tutto.
-# model_prefix: "BYD"
+# overline: etichetta piccola sopra il titolone dell'hero e nella card della landing.
+#   Default: "BYD" (se ometti questa riga).
+#   Valori tipici: "BYD", "FIRMWARE", "MOD / FAI-DA-TE", "ACCESSORI",
+#                  "COMMUNITY". Usa "" per nascondere l'overline del tutto.
+# overline: "BYD"
 
-# category: etichetta che compare come PILLOLA colorata sulla card della landing page.
-#   Se ometti questa riga, la card non mostra nessuna pillola (default delle guide esistenti).
-#   Valori consigliati (per coerenza nel sito): "Firmware", "Mod", "Accessori", "Guida"
-# category: "Firmware"
+# category: etichetta che compare come PILLOLA colorata sulla card della landing.
+#   Se ometti questa riga, la card non mostra nessuna pillola.
+#   Valori consigliati (per coerenza nel sito): "Firmware", "Mod",
+#   "Accessori", "Guida", "Troubleshooting".
+# category: "Guida"
 
-# --- VARIABILI CUSTOM (aggiungi qui quello che ti serve) ---
+# --- VARIABILI CUSTOM (aggiungi qui quello che serve alla tua guida) ---
 # Ogni valore definito qui è richiamabile nel testo con {{ nome }}.
-# Esempi tipici per una guida firmware:
-# firmware_current: "2511"
-# firmware_downgrade: "2404"
-# countrycode_target: "Singapore (65)"
-# telegram_link: "https://t.me/..."
+# Qualsiasi modifica si propaga ovunque la variabile compaia.
+#
+# Esempi (cancella/modifica in base alla tua guida):
+# link_telegram: "https://t.me/..."
+# modello_prodotto: "XYZ-100"
+# durata_intervento: "45 minuti"
 
 # --- PERSONALIZZAZIONE GRAFICA (opzionale) ---
-theme_color: "#3B82F6"             # Colore principale. Default blu. Per distinguere tipologie di
-                                   # guide, puoi usare un colore diverso (es. verde per mod, arancio
-                                   # per troubleshooting, ecc.).
+theme_color: "#3B82F6"             # Colore principale (accento). Default blu.
+                                   # Idee: verde #10B981 (mod/fai-da-te),
+                                   # arancio #F59E0B (troubleshooting),
+                                   # viola #8B5CF6 (community).
 
 # --- TESTI EXTRA (tutti opzionali, fallback su default neutri) ---
 # subtitle: testo sotto il titolone dell'hero. Default: "Guida della community BYD Club Italia."
-# subtitle: "Descrizione che appare sotto il titolo dell'hero."
+# subtitle: "Descrizione breve che appare sotto il titolo dell'hero."
 
 # card_description: testo nella card della landing. Default: "Guida della community BYD Club Italia."
 # card_description: "Descrizione breve per la card in landing page."
 
-# meta_description: tag <meta description> per SEO. Default: "Guida community BYD Club Italia — " + model
+# meta_description: tag <meta description> per la SEO. Default: "Guida community BYD Club Italia — " + titolo.
 # meta_description: "Descrizione per motori di ricerca."
-
 ---
 
 # Introduzione
@@ -67,8 +81,9 @@ theme_color: "#3B82F6"             # Colore principale. Default blu. Per disting
 Primo capitolo. Le `h1` (righe con un solo `#`) diventano capitoli numerati automaticamente
 (il build aggiunge "Capitolo 1", "Capitolo 2", ecc.) e finiscono nell'indice laterale.
 
-Usa `{{ model }}`, `{{ version }}`, ecc. per riferirti alle variabili del frontmatter.
-Qualsiasi modifica al frontmatter si propaga ovunque la variabile compaia.
+Usa `{{ titolo }}`, `{{ version }}`, `{{ author }}` o qualsiasi variabile custom definita
+nel frontmatter per riferirti ai suoi valori. Qualsiasi modifica al frontmatter si propaga
+ovunque la variabile compaia.
 
 ---
 
@@ -100,15 +115,17 @@ Questo è un secondo paragrafo dentro lo stesso callout.
 :::
 
 ::: callout warning "Avviso importante"
-Usa `warning` per attenzioni generiche (preparazione, cose facili da sbagliare).
+Usa `warning` per attenzioni generiche (cose facili da sbagliare, prerequisiti da verificare).
 :::
 
 ::: callout critical "Attenzione assoluta"
-Usa `critical` per avvisi dove un errore può causare danni hardware o perdita di dati.
+Usa `critical` per avvisi dove un errore può causare danni hardware, perdita di dati,
+rischi per la sicurezza o problemi legali/garanzia.
 :::
 
 ::: callout success "Risultato positivo"
-Usa `success` per confermare che un passaggio è completato correttamente.
+Usa `success` per confermare che un passaggio è completato correttamente o per
+riepilogare i benefici ottenuti.
 :::
 
 ::: callout info
@@ -122,7 +139,7 @@ Il titolo è opzionale. Se non lo metti, il box parte direttamente dal testo.
 ::: card
 ### 📦 Titolo della card
 Contenuto della card. Utile per link a risorse, blocchi informativi compatti,
-download, ecc.
+download, riferimenti esterni, ecc.
 :::
 
 ::: card highlight
@@ -152,12 +169,12 @@ Aggiornamento per uso all'interno di `::: steps`:
 1. **Primo passo**. Descrizione del passo. Puoi andare a capo e continuare.
 
 2. **Secondo passo**. Puoi includere blocchi di codice dentro un passo:
-   ```powershell
-   esempio /comando
+   ```bash
+   esempio-comando --opzione
    ```
 
 3. **Terzo passo**.
-   ![Didascalia immagine](images/nomemodello/foto.png){width=400}
+   ![Didascalia immagine](images/nomefile/foto.png){width=400}
 :::
 
 ---
@@ -168,11 +185,11 @@ Quando i passi non sono numerati sequenzialmente ma hanno etichette tipo `[1a]`,
 Usa `::: manual-steps` con le parentesi quadre all'inizio di ogni blocco.
 
 ::: manual-steps
-[1a] **Opzione A**: se hai un cellulare Android, fai questo.
+[1a] **Opzione A**: se si verifica la condizione X, fai questo.
 
-[1b] **Opzione B**: se non hai Android, apri questa pagina web.
+[1b] **Opzione B**: se non si verifica la condizione X, apri questa pagina.
 
-[2] Collega il dispositivo.
+[2] Prosegui con il passo successivo.
 
 [3] Esegui l'ultimo passaggio.
 :::
@@ -237,10 +254,11 @@ Tipi disponibili: `{badge:accent:Accento}`, `{badge:warning:Warning}`, `{badge:c
 
 Esempio d'uso in una tabella:
 
-| Sigla | Versione | Note |
-|-------|----------|------|
-| `2404` | 13.1.33.2404140.1 | {badge:warning:Downgrade} Firmware di downgrade |
-| `2511` | — | {badge:success:Target} Firmware finale |
+| Elemento | Stato | Note |
+|----------|-------|------|
+| Prerequisito A | {badge:success:OK} | Già soddisfatto |
+| Prerequisito B | {badge:warning:Verificare} | Controllare prima di procedere |
+| Prerequisito C | {badge:critical:Mancante} | Bloccante |
 
 ---
 
@@ -249,13 +267,13 @@ Esempio d'uso in una tabella:
 Sintassi standard con larghezza opzionale:
 
 ```
-![Didascalia descrittiva dell'immagine](images/nomemodello/nomefile.png){width=400}
+![Didascalia descrittiva dell'immagine](images/nomefile/foto.png){width=400}
 ```
 
 - La didascalia diventa automaticamente il testo sotto l'immagine (in corsivo).
 - `{width=400}` imposta la larghezza massima in pixel. Omettilo per larghezza automatica.
-- Le immagini vanno messe in `images/NOMEMODELLO/` (stessa stringa di `model_slug`).
-- Il build embedda le immagini come base64 nell'HTML (file standalone, ~5 MB).
+- Le immagini vanno messe in `images/NOMEFILE/` (stessa stringa del campo `slug`).
+- Il build embedda le immagini come base64 nell'HTML (file standalone).
 
 ::: callout info "Immagini cliccabili"
 Tutte le immagini nel sito pubblicato sono cliccabili: aprono un lightbox a piena pagina.
@@ -269,13 +287,13 @@ I blocchi di codice hanno automaticamente un bottone "Copia" e la colorazione si
 
 Linguaggi testati: `powershell`, `bash`, `json`, `yaml`, o vuoto per testo generico.
 
-```powershell
-Format /FS:FAT32 O:
-```
-
 ```bash
 cd /percorso/cartella
 ls -la
+```
+
+```powershell
+Format /FS:FAT32 O:
 ```
 
 ```
@@ -310,7 +328,7 @@ Nel template HTML, gli elementi con classe `.print-hide` spariscono in stampa. D
 # Footer automatico
 
 Non devi scrivere niente alla fine: il template aggiunge automaticamente un footer con
-versione, data, autore e link al canale Telegram.
+titolo, versione, data e link al canale Telegram della community.
 
 ---
 
@@ -320,14 +338,15 @@ Prima di caricare la tua guida sul repo, verifica che:
 
 ::: checklist
 - Tutte le `{{ variabili }}` siano definite nel frontmatter (altrimenti il build fallisce)
-- Le immagini referenziate esistano in `images/NOMEMODELLO/`
-- Il `model_slug` sia univoco (non collide con altre guide)
-- I link Telegram siano quelli corretti (non placeholder)
+- Il campo `titolo` descriva il contenuto (non deve per forza essere un modello di auto)
+- Il campo `slug` sia univoco (non collide con altre guide) e coincida col nome del file
+- Le immagini referenziate esistano in `images/NOMEFILE/` (stessa stringa di `slug`)
+- Hai impostato `overline` e `category` coerenti con la tipologia della guida
+- I link esterni siano quelli corretti (non placeholder)
 - Il file NON inizi con `_` se vuoi che venga buildato
-- Se la guida è su un tema non-firmware, considera se impostare `category` e `model_prefix`
 :::
 
 ::: callout success "Guida pronta"
-Quando sei pronto, rinomina il file da `_template.md` a `nomemodello.md` (senza underscore)
+Quando sei pronto, rinomina il file da `_template.md` a `nomefile.md` (senza underscore)
 e fai commit. Il sito si aggiorna automaticamente in ~30 secondi.
 :::
