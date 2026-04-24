@@ -2,7 +2,7 @@
 titolo: "Sealion 7"
 slug: "sealion7"
 overline: "FIRMWARE"
-category: "Firmware"
+category: "Sideloading"
 version: "1.0.0"
 date: "18/07/2025"
 author: "@vinelluke e @highvoltage25"
