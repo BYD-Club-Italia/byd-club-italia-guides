@@ -2,7 +2,8 @@
 titolo: Dolphin Surf
 slug: surf
 overline: "FIRMWARE"
-version: "0.0.2"
+category: "Sideloading"
+version: "1.0.0"
 date: "12/09/2025"
 author: "Leonardo Bandini"
 editor: "Stefano Tagliaferri"
