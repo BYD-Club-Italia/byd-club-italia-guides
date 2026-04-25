@@ -107,21 +107,7 @@
       </fieldset>
 
       <fieldset>
-        <legend>5. Sezioni standard</legend>
-        <p class="hint">Spunta i blocchi che vuoi nello scheletro iniziale. Puoi sempre modificarli o rimuoverli a mano nella sezione 7.</p>
-        <div class="checkbox-list">
-          <label><input type="checkbox" id="sec-disclaimer"> Disclaimer critical (avviso bloccante)</label>
-          <label><input type="checkbox" id="sec-workflow"> Workflow (diagramma a step)</label>
-          <label><input type="checkbox" id="sec-steps" checked> Steps numerati</label>
-          <label><input type="checkbox" id="sec-checklist"> Checklist finale</label>
-          <label><input type="checkbox" id="sec-conclusioni" checked> Conclusioni</label>
-        </div>
-        <button type="button" class="btn btn--ghost" id="apply-sections">Applica scheletro al corpo</button>
-        <small class="warn">Sovrascrive il corpo corrente.</small>
-      </fieldset>
-
-      <fieldset>
-        <legend>6. Galleria immagini</legend>
+        <legend>5. Galleria immagini</legend>
         <p class="hint">Trascina i file qui sotto o clicca per selezionarli. Le immagini restano nel tuo browser e finiscono solo nello zip.</p>
         <div id="dropzone" class="dropzone">
           <div class="dropzone__inner">
@@ -135,7 +121,7 @@
       </fieldset>
 
       <fieldset>
-        <legend>7. Corpo della guida</legend>
+        <legend>6. Corpo della guida</legend>
         <div class="toolbar" id="toolbar">
           <div class="toolbar__group">
             <button type="button" data-insert="h1">H1</button>
@@ -169,9 +155,6 @@
             <button type="button" data-insert="image" id="btn-image" disabled>Immagine</button>
             <button type="button" data-insert="variable" id="btn-variable" disabled>Variabile</button>
           </div>
-          <div class="toolbar__group toolbar__group--right">
-            <button type="button" id="toggle-cheatsheet" class="btn btn--ghost">Cheatsheet</button>
-          </div>
         </div>
         <div class="editor-grid">
           <textarea id="body" rows="22" placeholder="Scrivi qui il corpo della guida in Markdown. Usa la toolbar per inserire blocchi formattati."></textarea>
@@ -180,29 +163,10 @@
             <div id="preview" class="preview__body"></div>
           </aside>
         </div>
-        <details id="cheatsheet" class="cheatsheet">
-          <summary>Cheatsheet sintassi</summary>
-          <pre>::: callout warning "Titolo"
-contenuto del callout
-:::
-
-::: steps
-1. **Primo passo**. Descrizione.
-2. **Secondo passo**.
-:::
-
-::: checklist
-- voce 1
-- voce 2
-:::
-
-{badge:warning:Etichetta}  →  badge inline
-![Didascalia](images/&lt;slug&gt;/foto.png){width=560}</pre>
-        </details>
       </fieldset>
 
       <fieldset class="actions">
-        <legend>8. Output</legend>
+        <legend>7. Output</legend>
         <p class="hint">Lo zip ha questa struttura, pronta da estrarre nella root del repo o da caricare su GitHub:</p>
         <pre class="zip-tree">guides/&lt;slug&gt;.md
 images/&lt;slug&gt;/&lt;immagini&gt;</pre>
@@ -279,6 +243,7 @@ git commit -m "Aggiunta guida: &lt;titolo&gt;"</pre>
   </form>
 </dialog>
 
+<script id="injected-guides-data">window.GUIDES_DATA=null;</script>
 <script src="vendor/jszip.min.js"></script>
 <script src="wizard.js"></script>
 </body>

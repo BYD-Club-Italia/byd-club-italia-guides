@@ -75,17 +75,35 @@ function setStatus(el, text, kind) {
 // LOAD guides.json
 // ============================================================
 async function loadGuidesData() {
-  try {
-    const res = await fetch('guides.json', { cache: 'no-cache' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
+  // Preferisci i dati iniettati inline da build.py (funziona anche da file://).
+  // Fallback a fetch('guides.json') quando il wizard è servito da web server
+  // ma l'inline non è ancora stato applicato (es. dev locale senza build).
+  let data = (typeof window !== 'undefined' ? window.GUIDES_DATA : null) || null;
+  if (!data) {
+    try {
+      const res = await fetch('guides.json', { cache: 'no-cache' });
+      if (res.ok) data = await res.json();
+    } catch (e) {
+      console.warn('guides.json non disponibile (fetch fallita, probabile file://):', e);
+    }
+  }
+  if (data) {
     state.guidesData = {
       slugs: data.slugs || [],
       categories: data.categories || [],
       categoryPresets: data.categoryPresets || {},
     };
-  } catch (e) {
-    console.warn('guides.json non disponibile, valido in offline-only:', e);
+  } else {
+    // Nessun dato disponibile: avviso non bloccante. La validazione slug-univoco
+    // resta non funzionante finché non si serve il sito o non si ribuilda.
+    const el = $('#slug-status');
+    if (el) {
+      setStatus(
+        el,
+        'Validazione slug duplicati non disponibile (dati guide non caricati). Apri questa pagina dal sito pubblicato o esegui prima `python build.py`.',
+        'warn'
+      );
+    }
   }
   const dl = $('#cat-suggestions');
   dl.innerHTML = '';
@@ -384,58 +402,15 @@ async function loadSkeleton() {
 }
 
 function buildSkeletonBody() {
-  const sections = {
-    SEZ_DISCLAIMER: $('#sec-disclaimer').checked ? `
-
-::: callout critical "Disclaimer"
-Procedura potenzialmente rischiosa. Leggere attentamente prima di iniziare. La community non si assume responsabilità per danni derivati da un uso scorretto delle informazioni qui riportate.
-:::
-` : '',
-    SEZ_WORKFLOW: $('#sec-workflow').checked ? `
-
-# Workflow
-
-::: workflow
-1. **Preparazione** :: Materiale e prerequisiti
-2. **Esecuzione** :: Operazione principale
-3. **Verifica** :: Controlli post-intervento
-:::
-` : '',
-    SEZ_STEPS: $('#sec-steps').checked ? `
-
-# Procedura passo passo
-
-::: steps
-1. **Primo passo**. Descrizione dettagliata.
-
-2. **Secondo passo**. Descrizione dettagliata.
-
-3. **Terzo passo**. Descrizione dettagliata.
-:::
-` : '',
-    SEZ_CHECKLIST: $('#sec-checklist').checked ? `
-
-# Checklist finale
-
-::: checklist
-- Primo controllo
-- Secondo controllo
-- Terzo controllo
-:::
-` : '',
-    SEZ_CONCLUSIONI: $('#sec-conclusioni').checked ? `
-
-# Conclusioni
-
-Riepiloga i risultati ottenuti, eventuali raccomandazioni e contatti per supporto nella community.
-` : '',
-  };
-  let out = skeletonText
+  // Scheletro minimale fisso: solo introduzione. L'utente costruisce il resto
+  // del corpo cliccando i blocchi della toolbar (callout, steps, checklist,
+  // workflow, glossary, ecc.).
+  let out = (skeletonText || '{{FRONTMATTER}}\n\n# Introduzione\n\nScrivi qui...\n')
     .replace('{{FRONTMATTER}}', buildFrontmatter())
     .replace('{{TITOLO}}', state.meta.titolo || 'la tua guida');
-  for (const [k, v] of Object.entries(sections)) {
-    out = out.replace('{{' + k + '}}', v);
-  }
+  // Rimuove eventuali segnaposto delle vecchie sezioni opzionali, se presenti
+  // in skeleton.md.tmpl di versioni precedenti.
+  out = out.replace(/\{\{SEZ_[A-Z_]+\}\}/g, '');
   return out;
 }
 
@@ -835,7 +810,6 @@ function bindToolbar() {
     state.body = $('#body').value;
     refreshPreview();
   });
-  $('#apply-sections').addEventListener('click', applySkeletonToBody);
 }
 
 // ============================================================

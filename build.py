@@ -603,7 +603,11 @@ CANONICAL_CATEGORIES = {
 
 def copy_wizard():
     """Copy tools/wizard into docs/wizard and emit guides.json with the
-    slugs/categories the wizard needs for validation and UI presets."""
+    slugs/categories the wizard needs for validation and UI presets.
+
+    Inject the same payload inline into index.html as window.GUIDES_DATA so
+    the wizard works also when opened directly from disk (file://), where
+    fetch() is blocked by the browser CORS policy."""
     src = ROOT / "tools" / "wizard"
     if not src.exists():
         return
@@ -633,9 +637,31 @@ def copy_wizard():
         "categories": categories,
         "categoryPresets": CANONICAL_CATEGORIES,
     }
-    (dst / "guides.json").write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    payload_json = json.dumps(payload, ensure_ascii=False, indent=2)
+
+    # 1) File esterno (utile se servito da web server)
+    (dst / "guides.json").write_text(payload_json, encoding="utf-8")
+
+    # 2) Inietta inline nell'index.html, così il wizard funziona anche
+    #    aperto direttamente da filesystem. Il marker viene sostituito
+    #    ogni build, quindi è sempre allineato.
+    index_path = dst / "index.html"
+    if index_path.exists():
+        html = index_path.read_text(encoding="utf-8")
+        # Per evitare che '</script>' contenuto nei dati (improbabile ma
+        # possibile via category liberi) chiuda lo script, escapiamo come
+        # raccomandato dalla spec HTML.
+        safe_json = payload_json.replace("</", "<\\/")
+        injected = f'<script id="injected-guides-data">window.GUIDES_DATA={safe_json};</script>'
+        # Sostituisce sia il placeholder iniziale (window.GUIDES_DATA=null;)
+        # sia uno script già iniettato in build precedente.
+        html = re.sub(
+            r'<script id="injected-guides-data">[\s\S]*?</script>',
+            injected,
+            html,
+        )
+        index_path.write_text(html, encoding="utf-8")
+
     print(f"🧰 Wizard pubblicato in {dst} (slugs: {len(slugs)}, categorie: {len(categories)})")
 
 

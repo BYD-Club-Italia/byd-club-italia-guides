@@ -313,23 +313,6 @@ fieldset legend {
 .preview__body ul.checklist { list-style: none; padding-left: 0; }
 .preview__body ul.checklist li::before { content: "☐ "; color: var(--text-subtle); }
 
-.cheatsheet {
-  margin-top: 12px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
-  border-radius: 8px; padding: 8px 14px;
-}
-.cheatsheet summary {
-  cursor: pointer; font-size: 13px; font-weight: 600;
-  color: var(--accent-dark);
-}
-.cheatsheet pre {
-  background: var(--bg-elevated);
-  padding: 10px 12px; border-radius: 6px;
-  font-size: 12px; line-height: 1.5;
-  overflow-x: auto; border: 1px solid var(--border);
-}
-
 .actions { background: linear-gradient(135deg, var(--accent-soft) 0%, var(--bg-elevated) 60%); }
 .zip-tree {
   background: var(--bg-elevated);
