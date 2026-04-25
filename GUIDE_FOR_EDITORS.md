@@ -211,13 +211,34 @@ La descrizione diventa automaticamente la didascalia sotto l’immagine.
 
 La guida non deve per forza riguardare un modello di auto: può essere su firmware, una mod fai-da-te, un accessorio, un intervento di troubleshooting, o un argomento community generale.
 
+### Modo consigliato: il wizard web
+
+Apri **[byd-club-italia.github.io/byd-club-italia-guides/wizard/](https://byd-club-italia.github.io/byd-club-italia-guides/wizard/)**: è un'interfaccia guidata che ti fa compilare i metadati, caricare le immagini con drag&drop e scrivere il corpo con una toolbar di blocchi (callout, steps, badge, ecc.). Alla fine scarichi uno **zip** con questa struttura:
+
+```
+guides/<slug>.md
+images/<slug>/<immagini>
+```
+
+Carico via GitHub web (zero strumenti locali):
+
+1. Vai su [`guides/`](https://github.com/BYD-Club-Italia/byd-club-italia-guides/tree/main/guides), clicca **Add file → Upload files**, trascina `<slug>.md`.
+1. In fondo alla pagina, lascia selezionata la checkbox *«Create a new branch for this commit and start a pull request»*. Il wizard suggerisce un nome di branch (es. `guida/<slug>`) — copialo nel campo testuale.
+1. Clicca **Propose changes** → si apre la pagina di apertura PR. Compila titolo (es. `Aggiunta guida: <titolo>`) e descrizione, poi **Create pull request**.
+1. Sulla branch della PR appena creata, vai su `images/`, crea la cartella `<slug>/` (digitando `<slug>/dummy` come filename quando crei un nuovo file e cancellando `dummy`) e fai **Add file → Upload files** trascinando le immagini contenute nello zip.
+1. Aspetta review e merge. Il sito si rigenera in ~30 secondi.
+
+> 💡 **Nota**: tutte le immagini caricate nel wizard restano nel tuo browser — non vengono inviate ad alcun server finché non le carichi tu su GitHub.
+
+### Modo manuale (se preferisci scrivere a mano)
+
 1. Crea un file `guides/nomefile.md` prendendo come base `guides/_template.md` (o una guida esistente simile alla tua)
 1. Modifica il frontmatter (tra i `---` in alto) con i valori corretti
 1. Crea una cartella `images/nomefile/` (stessa stringa del campo `slug`)
 1. Carica le immagini necessarie
 1. Apri la PR e aspetta approvazione
 
-Il sistema riconoscerà automaticamente la nuova guida e l’aggiungerà alla landing page.
+In entrambi i casi, il sistema riconoscerà automaticamente la nuova guida e l'aggiungerà alla landing page.
 
 ### Campi frontmatter principali
 
