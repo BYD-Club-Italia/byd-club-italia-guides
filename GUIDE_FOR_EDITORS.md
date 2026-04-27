@@ -1,178 +1,316 @@
-# 📝 Guida per editor — Come modificare le guide BYD
+# Guida per editor — Come modificare le guide BYD
 
-Questo documento spiega come modificare, aggiungere o correggere le guide senza conoscere programmazione. Puoi fare tutto dal **browser web**, niente da installare.
+Questo documento spiega come creare, modificare e correggere le guide senza conoscere programmazione. Puoi fare tutto dal **browser web**, niente da installare.
 
-> 💡 **In sintesi**: modifichi un file di testo su GitHub, proponi la modifica, un altro collaboratore approva, e dopo ~30 secondi il sito si aggiorna automaticamente.
+> **In sintesi**: per una nuova guida usa il Wizard. Per modificare guide esistenti clicca ✏️ direttamente su GitHub. In entrambi i casi proponi una Pull Request, qualcun altro approva, e dopo ~30 secondi il sito si aggiorna automaticamente.
 
------
+---
 
 ## Come funziona il flusso di modifica
 
-Il ramo principale del repo (`main`) è **protetto**: nessuno può modificarlo direttamente, neanche chi ha i permessi di scrittura. Tutte le modifiche passano attraverso una **Pull Request** (PR), che è semplicemente una proposta di modifica che qualcun altro deve approvare prima che venga applicata.
+Il ramo principale del repo (`main`) è **protetto**: nessuno può modificarlo direttamente. Tutte le modifiche passano attraverso una **Pull Request** (PR), cioè una proposta che un altro collaboratore deve approvare prima che venga applicata.
 
-Non preoccuparti: GitHub gestisce tutto in automatico. Tu modifichi e clicchi un pulsante, il sistema crea un “ramo” temporaneo con le tue modifiche e apre la PR da solo. Non devi sapere nulla di Git o branch.
-
-**Il flusso è questo:**
+Non devi sapere nulla di Git: GitHub crea il branch temporaneo in automatico quando clicchi "Propose changes".
 
 ```
-1. Clicchi ✏️ su un file
-2. Modifichi
-3. Clicchi "Propose changes" (GitHub crea un branch in automatico)
-4. Si apre una Pull Request
-5. Un altro collaboratore la approva
-6. Merge → build → sito aggiornato in ~30 secondi
+1. Modifichi (con il Wizard o direttamente su GitHub)
+2. Proponi le modifiche → GitHub crea un branch in automatico
+3. Si apre una Pull Request
+4. Un altro collaboratore la approva
+5. Merge → build → sito aggiornato in ~30 secondi
 ```
 
------
+---
 
 ## Prima volta: accesso al repo
 
 1. Vai su [github.com/BYD-Club-Italia/byd-club-italia-guides](https://github.com/BYD-Club-Italia/byd-club-italia-guides)
-1. Fai login con il tuo account GitHub
-1. Se sei stato invitato come collaboratore, vedrai un pulsante per accettare l’invito. Accettalo.
-1. Ora hai i permessi per proporre modifiche.
+2. Fai login con il tuo account GitHub
+3. Se sei stato invitato come collaboratore, accetta l'invito (arriva via email e compare un banner giallo sul repo)
+4. Ora puoi proporre modifiche
 
------
+---
 
-## Caso 1: aggiornare un valore (esempio: CountryCode da China a Singapore)
+## Il Wizard — crea una nuova guida dal browser
 
-Questo è il caso più comune. Immagina che il CountryCode per la procedura sia cambiato da **China (86)** a **Singapore (65)**. Devi aggiornare tutte e 3 le guide — ma in realtà basta cambiare **una riga per guida**.
+Il **Wizard** è lo strumento consigliato per creare nuove guide. Tutto avviene nel browser: i tuoi file non lasciano il computer finché non li carichi tu su GitHub.
 
-### Passaggi
+**Apri il Wizard:** [byd-club-italia.github.io/byd-club-italia-guides/wizard/](https://byd-club-italia.github.io/byd-club-italia-guides/wizard/)
 
-1. Apri il repo: [github.com/BYD-Club-Italia/byd-club-italia-guides](https://github.com/BYD-Club-Italia/byd-club-italia-guides)
-1. Clicca sulla cartella `guides/`
-1. Clicca su `atto2.md` (o la guida che vuoi modificare)
-1. In alto a destra del file, clicca sull’icona **✏️ matita** (“Edit this file”)
-1. All’inizio del file vedi una sezione tra `---` che contiene le variabili:
-   
+Il Wizard è diviso in 7 sezioni. Compilale nell'ordine — l'anteprima a destra si aggiorna in tempo reale.
+
+---
+
+### Sezione 1 — Identità
+
+| Campo | Obbligatorio | Note |
+|---|---|---|
+| **Titolo della guida** | ✅ | Compare come titolone nell'hero della guida |
+| **Slug** | ✅ | Generato in automatico dal titolo. Deve essere unico, solo minuscole/numeri/trattini. Il Wizard lo valida subito e ti avvisa se è già usato |
+| **Versione** | — | Default `1.0.0`. Segui il formato `MAJOR.MINOR.PATCH` |
+| **Data** | ✅ | Formato `GG/MM/AAAA` |
+| **Autore** | ✅ | Il tuo nome, compare nel footer della guida |
+| **Editor** | — | Lascia vuoto se non c'è un revisore |
+
+Lo **slug** è il nome del file `.md` e della cartella immagini. Una volta scelto non cambiarlo: romperebbe i link esistenti. Se lo slug è già usato da una guida esistente, il Wizard lo segnala con un errore rosso.
+
+---
+
+### Sezione 2 — Categoria
+
+| Campo | Note |
+|---|---|
+| **Categoria** | Testo libero. Il menu a tendina mostra le categorie già usate: scegliendo una di quelle il Wizard compila automaticamente il colore e l'overline. Puoi anche digitare una categoria nuova |
+| **Overline** | Etichetta piccola sopra il titolone (es. `MOD / FAI-DA-TE`). Lascia vuoto per nasconderla |
+| **Theme color** | Colore esadecimale `#RRGGBB` usato per l'hero. Usa il color picker oppure digita il codice direttamente |
+
+Le categorie con preset automatici sono: **Firmware**, **Mod**, **Sideloading**, **Diagnostica**, **Accessori**. Scegliendo una di queste il Wizard imposta colore e overline consigliati, ma puoi cambiarli.
+
+---
+
+### Sezione 3 — Testi descrittivi
+
+| Campo | Dove appare |
+|---|---|
+| **Sottotitolo** | Sotto il titolone nell'hero della guida |
+| **Card description** | Riga di testo sulla card della landing page |
+| **Meta description** | Descrizione per i motori di ricerca (SEO), ~150 caratteri |
+
+Tutti e tre sono opzionali. Se omessi, il sito usa un testo generico.
+
+---
+
+### Sezione 4 — Variabili custom
+
+Le variabili custom sono coppie chiave/valore (es. `firmware_target` = `2508`) richiamabili nel corpo della guida con la sintassi `{{ nome_variabile }}`. Il sistema le sostituisce con il valore al momento del build.
+
+Sono utili per valori che compaiono più volte nella guida (link, numeri di versione, codici). Se il valore cambia, basta aggiornarlo in un posto solo.
+
+**Aggiungere una variabile:**
+1. Clicca **+ Aggiungi variabile**
+2. Inserisci il nome (solo lettere, numeri e `_`, es. `link_telegram`) e il valore
+3. Usa il pulsante **Variabile** della toolbar per inserirla nel testo
+
+---
+
+### Sezione 5 — Galleria immagini
+
+Le immagini caricate nel Wizard restano nel tuo browser — non vengono inviate ad alcun server. Finiscono nello zip solo quando premi "Scarica zip".
+
+**Caricare immagini reali:**
+- Trascina i file nell'area tratteggiata, oppure clicca **scegli dal computer**
+- Formati accettati: PNG, JPEG, GIF, WebP, SVG
+- Per ogni immagine puoi modificare: nome file, didascalia, larghezza (px)
+
+**Usare un placeholder (immagine non ancora disponibile):**
+- Clicca **+ Aggiungi placeholder senza file**
+- Il Wizard inserisce un segnaposto grigio; nello zip viene inclusa l'immagine `placeholder.png`
+- Sostituisci il file con l'immagine reale quando ce l'hai (caricandola nella PR)
+
+Dopo aver aggiunto almeno un'immagine, il pulsante **Immagine** nella toolbar del corpo si attiva.
+
+---
+
+### Sezione 6 — Corpo della guida
+
+L'editor è diviso in due colonne: il testo Markdown a sinistra, l'anteprima a destra.
+
+#### Toolbar — blocchi disponibili
+
+**Testo base**
+
+| Pulsante | Inserisce |
+|---|---|
+| H1 / H2 / H3 | Titolo di capitolo, sezione, sotto-sezione |
+| **B** | Testo in **grassetto** (`**testo**`) |
+| *I* | Testo in *corsivo* (`*testo*`) |
+| `</>` | Codice inline (`` `codice` ``) |
+| Link | Dialog: inserisce `[testo](url)` |
+
+**Liste**
+
+| Pulsante | Inserisce |
+|---|---|
+| • Lista | Lista puntata (`- voce`) |
+| 1. Lista | Lista numerata (`1. voce`) |
+| ☐ Checklist | Blocco `::: checklist` con voci spuntabili |
+
+**Blocchi strutturati**
+
+| Pulsante | Inserisce | Usa per |
+|---|---|---|
+| Callout | `::: callout tipo "Titolo"` | Box informativi, avvisi, note critiche, conferme. Tipi: `info` (blu), `warning` (arancione), `critical` (rosso), `success` (verde) |
+| Steps | `::: steps` | Procedura numerata a passi singoli |
+| Manual-steps | `::: manual-steps` | Procedura con varianti (es. `[1a]` / `[1b]`) |
+| Workflow | `::: workflow` | Panoramica visiva di un flusso end-to-end |
+| Glossary | `::: glossary` | Elenco termine → definizione |
+| Card | `::: card` | Box neutro per approfondimenti o riepilogo |
+
+**Elementi inline e blocchi tecnici**
+
+| Pulsante | Inserisce |
+|---|---|
+| Badge | `{badge:tipo:testo}` — etichetta colorata inline. Tipi: `info`, `warning`, `critical`, `success`, `accent` |
+| Tabella | Griglia Markdown con n colonne e n righe |
+| Code block | Blocco di codice con evidenziazione sintattica. Linguaggi: `bash`, `powershell`, `json`, `yaml` |
+| — HR — | Linea di separazione orizzontale (`---`) |
+| Immagine | Dialog: sceglie dalla galleria, imposta didascalia e larghezza. Attivo solo se hai caricato almeno un'immagine |
+| Variabile | Dialog: inserisce `{{ nome_variabile }}`. Attivo solo se hai definito almeno una variabile custom |
+
+**Come usare la toolbar:**
+- Clicca un pulsante per inserire il blocco alla posizione del cursore
+- Per **grassetto**, **corsivo**, **codice inline**: seleziona prima il testo, poi clicca il pulsante
+- Blocchi come **Callout** e **Card** aprono un piccolo dialog per configurarne il tipo e il contenuto prima di inserirli
+
+---
+
+### Sezione 7 — Output e caricamento su GitHub
+
+#### Scarica lo zip
+
+Clicca **Scarica `<slug>.zip`**. Il Wizard valida tutti i campi obbligatori prima di procedere: se manca qualcosa appare un messaggio rosso con l'elenco degli errori.
+
+Lo zip ha questa struttura, pronta da estrarre nella root del repo:
+
+```
+guides/<slug>.md
+images/<slug>/<immagini>
+```
+
+#### Caricamento via GitHub web (consigliato, zero strumenti locali)
+
+1. **Carica il file Markdown**
+   - Vai su [`guides/`](https://github.com/BYD-Club-Italia/byd-club-italia-guides/tree/main/guides)
+   - Clicca **Add file → Upload files**
+   - Trascina `<slug>.md` estratto dallo zip
+   - In fondo alla pagina, seleziona *«Create a new branch for this commit and start a pull request»*
+   - Come nome branch usa quello suggerito dal Wizard: `guida/<slug>`
+   - Clicca **Propose changes**
+
+2. **Apri la Pull Request**
+   - GitHub ti porta alla pagina di creazione PR
+   - Titolo suggerito: `Aggiunta guida: <titolo>` (il Wizard lo mostra nella sezione 7)
+   - Clicca **Create pull request**
+
+3. **Carica le immagini sulla stessa branch**
+   - Sulla branch della PR appena aperta, vai su `images/`
+   - Crea la cartella `<slug>/`: clicca **Add file → Create new file**, digita `<slug>/dummy` come nome file, poi cancella `dummy` — in questo modo GitHub crea la cartella
+   - Clicca **Add file → Upload files** e trascina tutte le immagini contenute nello zip
+   - Commit scegliendo *«Commit directly to the `guida/<slug>` branch»*
+
+4. **Aspetta review e merge** — il sito si rigenera in ~30 secondi
+
+> **Nota**: passaggi 1 e 3 possono essere fatti nell'ordine che preferisci, l'importante è che entrambi stiano sulla stessa branch prima del merge.
+
+#### Caricamento via Git locale
+
+Se hai Git installato e preferisci usarlo da terminale:
+
+1. Crea il branch: `git checkout -b guida/<slug>`
+2. Estrai lo zip nella root del repo
+3. Commit e push:
+   ```bash
+   git add guides/<slug>.md images/<slug>/
+   git commit -m "Aggiunta guida: <titolo>"
+   git push -u origin guida/<slug>
+   ```
+4. Il link per aprire la PR viene stampato direttamente nel terminale
+
+---
+
+## Modificare guide esistenti
+
+### Caso 1 — Aggiornare un valore (es. CountryCode)
+
+Questo è il caso più comune. Immagina che il CountryCode sia cambiato da **China (86)** a **Singapore (65)**: basta cambiare **una riga per guida**.
+
+1. Apri il file della guida su GitHub (es. `guides/atto2.md`)
+2. Clicca l'icona **✏️ matita** in alto a destra
+3. All'inizio del file trovi le variabili tra `---`:
+
    ```yaml
    ---
-   titolo: ATTO 2
-   firmware_downgrade: "2404"
    countrycode_target: "Cina (86)"    ← QUESTA RIGA
    ---
    ```
-1. Modifica la riga `countrycode_target` così:
-   
-   ```yaml
-   countrycode_target: "Singapore (65)"
-   ```
-1. Scorri in fondo alla pagina e clicca il pulsante verde **“Commit changes…”**
-1. Si aprirà un dialog. Compila:
-- **Commit message**: un titolo breve, es. `Aggiorna CountryCode a Singapore (65)`
-- **Extended description** (opzionale): dettagli più lunghi, se servono
-- Seleziona **“Create a new branch for this commit and start a pull request”** (dovrebbe già essere selezionato in automatico, visto che il main è protetto)
-- **Branch name**: lascia quello proposto da GitHub (es. `patch-1`), va benissimo
-1. Clicca **“Propose changes”**
-1. GitHub ti porta alla pagina di creazione della Pull Request. Compila titolo e descrizione (di default riprende il commit message), poi clicca **“Create pull request”**
-1. **Attendi l’approvazione** di un altro collaboratore. Se vuoi, nella pagina della PR puoi menzionare qualcuno scrivendo un commento tipo `@username puoi dare un'occhiata?`
-1. Quando la PR viene approvata e “mergiata”, dopo ~30 secondi il sito si aggiorna. Verifica su [byd-club-italia.github.io/byd-club-italia-guides](https://byd-club-italia.github.io/byd-club-italia-guides/).
 
-**Fatto.** Il CountryCode è stato aggiornato **ovunque** nella guida ATTO 2 (nel testo, nei passi, nella procedura). Ripeti per `generale.md` e `surf.md` se serve — puoi farle anche nella stessa PR, modificando più file prima del passo 7.
+4. Modifica il valore: `countrycode_target: "Singapore (65)"`
+5. Clicca **Commit changes…**, seleziona *«Create a new branch and start a pull request»*, clicca **Propose changes**
+6. Compila titolo PR (es. `Aggiorna CountryCode a Singapore`) e clicca **Create pull request**
+7. Attendi l'approvazione. Puoi menzionare qualcuno con `@username` nei commenti
 
-### Perché funziona così?
+Ovunque nel file compaia `{{ countrycode_target }}` il sistema lo sostituirà con il nuovo valore. Cambi la riga una volta, si aggiorna dappertutto.
 
-Nel file Markdown, ovunque compaia `{{ countrycode_target }}` il sistema lo sostituisce con il valore definito in testa al file. Cambi il valore una volta, si aggiorna dovunque.
+Per aggiornare più guide nella stessa PR: modifica i file uno alla volta sullo stesso branch prima di aprire la PR.
 
-### E se la modifica viene rifiutata?
+---
 
-Chi fa la review può lasciare commenti direttamente sulla PR e chiederti di correggere qualcosa. Non è un rifiuto personale — serve solo per evitare errori. Per aggiornare la PR:
+### Caso 2 — Aggiornare la versione firmware
 
-1. Vai sulla PR → tab **“Files changed”**
-1. Clicca l’icona ✏️ sul file da correggere
-1. Modifica e commit → le modifiche si aggiungono automaticamente alla stessa PR
-
------
-
-## Caso 2: aggiornare la versione firmware (esempio: 2503 → 2508)
-
-Stessa logica del caso 1, ma cambi la variabile `firmware_upgrade` o `firmware_upgrade_latest`:
+Stessa logica del Caso 1, ma cambi la variabile `firmware_upgrade`:
 
 ```yaml
-firmware_upgrade: "2508"              # prima era "2503"
+firmware_upgrade: "2508"          # prima era "2503"
 ```
 
-**Attenzione**: se cambia anche il link Telegram del firmware, aggiorna anche `telegram_upgrade_link`:
+Se cambia anche il link Telegram del firmware, aggiorna anche `telegram_upgrade_link`:
 
 ```yaml
 telegram_upgrade_link: "https://t.me/BYDCLUBITALIANews/123"
 ```
 
-Procedi come nel Caso 1 per aprire la PR.
+---
 
------
+### Caso 3 — Modificare un paragrafo di testo
 
-## Caso 3: modificare un paragrafo di testo
+1. Apri il file della guida e clicca **✏️**
+2. Cerca il testo (Ctrl+F nel browser), modifica come in un normale editor
+3. Commit → PR → aspetta approvazione
 
-Se devi correggere una frase, aggiungere una nota, o riscrivere una sezione:
+**Sintassi Markdown veloce:**
 
-1. Apri il file della guida (es. `guides/atto2.md`)
-1. Clicca sulla matita **✏️**
-1. Cerca il testo da modificare (Ctrl+F nel browser)
-1. Modificalo come faresti in qualsiasi editor di testo
-1. Commit con un messaggio descrittivo → apri la PR → aspetta approvazione
+| Cosa vuoi fare | Come scriverlo |
+|---|---|
+| Grassetto | `**testo**` |
+| Corsivo | `*testo*` |
+| Codice inline | `` `comando` `` |
+| Link | `[testo del link](https://url)` |
+| Titolo capitolo | `# Titolo` |
+| Titolo sezione | `## Sezione` |
+| Lista puntata | `- elemento` |
+| Lista numerata | `1. elemento` |
 
-### Sintassi Markdown veloce
+---
 
-|Cosa vuoi fare |Come scriverlo                 |
-|---------------|-------------------------------|
-|Grassetto      |`**testo in grassetto**`       |
-|Corsivo        |`*testo in corsivo*`           |
-|Codice inline  |``comando``                    |
-|Link           |`[testo del link](https://url)`|
-|Titolo capitolo|`# Titolo`                     |
-|Sotto-titolo   |`## Sotto-titolo`              |
-|Lista puntata  |`- elemento`                   |
-|Lista numerata |`1. elemento`                  |
+### Caso 4 — Aggiungere un box callout
 
------
-
-## Caso 4: aggiungere un box “ATTENZIONE” o “NOTA”
-
-Le guide usano 4 tipi di box colorati (“callout”). Si scrivono così:
-
-### Box informativo (blu)
+Le guide usano 4 tipi di box colorati:
 
 ```
 ::: callout info "Titolo del box"
-Testo del contenuto, può essere multilinea.
+Testo informativo (blu).
+:::
 
-Anche con più paragrafi.
+::: callout warning "Attenzione"
+Avviso (arancione).
+:::
+
+::: callout critical "Pericolo"
+Messaggio critico (rosso).
+:::
+
+::: callout success "Completato"
+Conferma (verde).
 :::
 ```
 
-### Box di avviso (arancione)
+**Importante**: le righe `:::` devono stare da sole sulla riga, senza altri caratteri attorno. Il titolo tra virgolette è opzionale.
 
-```
-::: callout warning "Titolo del box"
-Contenuto...
-:::
-```
+---
 
-### Box critico (rosso)
+### Caso 5 — Aggiungere un blocco di codice
 
-```
-::: callout critical "Titolo del box"
-Contenuto...
-:::
-```
-
-### Box successo (verde)
-
-```
-::: callout success "Titolo del box"
-Contenuto...
-:::
-```
-
-**Importante**: le righe `:::` devono essere da sole sulla loro riga, senza altri caratteri attorno.
-
------
-
-## Caso 5: aggiungere un blocco di codice (comando)
-
-Per mostrare un comando da copiare (es. comandi PowerShell, ADB):
+Per mostrare comandi con il bottone "Copia":
 
 ````
 ```powershell
@@ -180,228 +318,111 @@ Format /FS:FAT32 O:
 ```
 ````
 
-Il sistema aggiunge automaticamente il bottone “Copia” e la sintassi colorata.
+**Linguaggi supportati**: `powershell`, `bash`, `json`, `yaml`, oppure lascia il nome linguaggio vuoto per testo generico.
 
-**Linguaggi supportati**: `powershell`, `bash`, `json`, `yaml`, o lascia vuoto per testo generico.
+---
 
------
+### Caso 6 — Aggiungere un'immagine a una guida esistente
 
-## Caso 6: aggiungere un’immagine
+1. Nel repo GitHub, naviga in `images/<slug-della-guida>/`
+2. **Add file → Upload files**, trascina l'immagine, fai commit su un branch nuovo
+3. Nel file `.md` della stessa guida (sullo stesso branch), aggiungi:
 
-1. Prepara l’immagine (preferibilmente PNG o JPEG, non troppo pesante)
-1. Sul repo GitHub, naviga in `images/atto2/` (o la cartella della guida appropriata)
-1. Clicca il pulsante **“Add file”** → **“Upload files”**
-1. Trascina l’immagine
-1. In fondo alla pagina, scegli **“Create a new branch… and start a pull request”** (come al Caso 1) e clicca **“Propose changes”**
-1. Nel file Markdown della guida, aggiungi:
-   
    ```
-   ![Descrizione dell'immagine](images/atto2/nome_file.png){width=400}
+   ![Descrizione immagine](images/<slug>/nome_file.png){width=400}
    ```
 
-La descrizione diventa automaticamente la didascalia sotto l’immagine.
+   La descrizione diventa la didascalia. `{width=400}` è opzionale.
 
-`{width=400}` è opzionale: imposta la larghezza massima in pixel (utile per immagini molto grandi).
+> Upload dell'immagine e modifica del Markdown possono stare nella stessa PR: carica l'immagine per prima, poi modifica il `.md` sullo stesso branch.
 
-> 💡 **Suggerimento**: upload dell’immagine e modifica del Markdown che la usa possono stare nella **stessa PR**. Dopo l’upload al passo 5 puoi tornare al file `.md` della guida sullo stesso branch che GitHub ha creato e modificarlo lì — le modifiche si aggiungeranno alla stessa PR.
-
------
-
-## Caso 7: aggiungere una nuova guida
-
-La guida non deve per forza riguardare un modello di auto: può essere su firmware, una mod fai-da-te, un accessorio, un intervento di troubleshooting, o un argomento community generale.
-
-### Modo consigliato: il wizard web
-
-Apri **[byd-club-italia.github.io/byd-club-italia-guides/wizard/](https://byd-club-italia.github.io/byd-club-italia-guides/wizard/)**: è un'interfaccia guidata che ti fa compilare i metadati, caricare le immagini con drag&drop e scrivere il corpo con una toolbar di blocchi (callout, steps, badge, ecc.). Alla fine scarichi uno **zip** con questa struttura:
-
-```
-guides/<slug>.md
-images/<slug>/<immagini>
-```
-
-Carico via GitHub web (zero strumenti locali):
-
-1. Vai su [`guides/`](https://github.com/BYD-Club-Italia/byd-club-italia-guides/tree/main/guides), clicca **Add file → Upload files**, trascina `<slug>.md`.
-1. In fondo alla pagina, lascia selezionata la checkbox *«Create a new branch for this commit and start a pull request»*. Il wizard suggerisce un nome di branch (es. `guida/<slug>`) — copialo nel campo testuale.
-1. Clicca **Propose changes** → si apre la pagina di apertura PR. Compila titolo (es. `Aggiunta guida: <titolo>`) e descrizione, poi **Create pull request**.
-1. Sulla branch della PR appena creata, vai su `images/`, crea la cartella `<slug>/` (digitando `<slug>/dummy` come filename quando crei un nuovo file e cancellando `dummy`) e fai **Add file → Upload files** trascinando le immagini contenute nello zip.
-1. Aspetta review e merge. Il sito si rigenera in ~30 secondi.
-
-> 💡 **Nota**: tutte le immagini caricate nel wizard restano nel tuo browser — non vengono inviate ad alcun server finché non le carichi tu su GitHub.
-
-### Modo manuale (se preferisci scrivere a mano)
-
-1. Crea un file `guides/nomefile.md` prendendo come base `guides/_template.md` (o una guida esistente simile alla tua)
-1. Modifica il frontmatter (tra i `---` in alto) con i valori corretti
-1. Crea una cartella `images/nomefile/` (stessa stringa del campo `slug`)
-1. Carica le immagini necessarie
-1. Apri la PR e aspetta approvazione
-
-In entrambi i casi, il sistema riconoscerà automaticamente la nuova guida e l'aggiungerà alla landing page.
-
-### Campi frontmatter principali
-
-I campi **obbligatori** sono pochi:
-
-```yaml
 ---
-titolo: "Nome della guida"       # il titolone grande dell'hero
-slug: "nomefile"                 # deve coincidere col nome del file .md
-version: "0.0.1"
-date: "GG/MM/AAAA"
-author: "Nome Autore"
----
-```
 
-I campi **opzionali per categorizzare** la guida nella landing:
+### Caso 7 — Ho fatto un errore, come torno indietro?
 
-```yaml
-overline: "MOD / FAI-DA-TE"      # etichetta piccola sopra il titolone
-                                 # (default: "BYD")
-category: "Mod"                  # pillola colorata sulla card della landing
-                                 # (se omesso, la card non mostra pillola)
-```
+**Se la PR non è ancora stata mergiata:**
+- **Correggere**: vai sulla PR → tab **Files changed** → ✏️ → modifica → commit. Le modifiche si aggiungono alla stessa PR
+- **Annullare tutto**: clicca **Close pull request** in fondo alla PR
 
-I campi **opzionali per rendere la guida più descrittiva** (se omessi, si usa un testo generico):
-
-```yaml
-subtitle: |
-  Sottotitolo sotto il titolone. Accetta HTML con <strong>, <em>, ecc.
-card_description: "Descrizione breve per la card della landing page."
-meta_description: "Testo per motori di ricerca (SEO)."
-```
-
-Se il campo `titolo` inizia già con “Guida” (es. `titolo: "Guida Installazione X"`), il sistema non aggiunge un secondo “Guida” davanti nel titolo, evitando duplicati tipo “Guida Guida Installazione X”.
-
-### Variabili custom
-
-Qualsiasi altra variabile tu definisca nel frontmatter è richiamabile nel testo con `{{ nome_variabile }}`:
-
-```yaml
-link_telegram: "https://t.me/..."
-durata_intervento: "45 minuti"
-```
-
-Nel corpo della guida poi scrivi `{{ link_telegram }}` o `{{ durata_intervento }}` e il sistema li sostituisce automaticamente in fase di build.
-
------
-
-## Caso 8: ho fatto un errore, come torno indietro?
-
-Dipende in che fase sei:
-
-### Se la PR non è ancora stata mergiata
-
-È la situazione più semplice. Hai due opzioni:
-
-- **Correggere**: vai sulla PR → tab **“Files changed”** → ✏️ sul file → modifica → commit. Le modifiche si aggiungono alla stessa PR.
-- **Annullare tutto**: vai sulla PR e clicca **“Close pull request”** in fondo. Il branch rimane ma non viene mergiato.
-
-### Se la PR è già stata mergiata (la modifica è live)
-
+**Se la PR è già stata mergiata (la modifica è live):**
 1. Vai su [Commits](https://github.com/BYD-Club-Italia/byd-club-italia-guides/commits/main)
-1. Trova il commit da annullare (con il nome di chi ha fatto merge e la data)
-1. Clicca sul simbolo `< >` per vedere le modifiche
-1. Apri una nuova PR che ripristina la versione precedente del file
+2. Trova il commit da annullare
+3. Clicca `< >` per vedere le modifiche
+4. Apri una nuova PR che ripristina la versione precedente del file
 
-In alternativa, apri una [Issue](https://github.com/BYD-Club-Italia/byd-club-italia-guides/issues) chiedendo aiuto a un altro collaboratore.
+In alternativa apri una [Issue](https://github.com/BYD-Club-Italia/byd-club-italia-guides/issues) e chiedi aiuto.
 
------
+---
 
-## Rivedere e approvare una PR di qualcun altro
+## Rivedere e approvare una PR
 
-Se qualcuno apre una PR e ti chiede di revisionarla:
+Se qualcuno ti chiede di revisionare una PR:
 
-1. Vai sulla PR (te la notifica GitHub via email)
-1. Tab **“Files changed”**: vedi in verde le righe aggiunte, in rosso quelle rimosse
-1. Se tutto va bene, in alto a destra clicca **“Review changes”** → **“Approve”** → **“Submit review”**
-1. Se c’è qualcosa da correggere, scegli **“Request changes”** e spiega cosa rivedere nel commento
-1. Una volta approvata, la PR può essere “mergiata” (solitamente lo fa l’autore o tu stesso cliccando **“Merge pull request”**)
+1. Vai sulla PR (notifica GitHub via email)
+2. Tab **Files changed**: verde = aggiunto, rosso = rimosso
+3. Se tutto va bene: **Review changes → Approve → Submit review**
+4. Se c'è da correggere: **Request changes** con spiegazione nel commento
+5. Una volta approvata, il merge può farlo l'autore o tu stesso cliccando **Merge pull request**
 
 **Nota**: non puoi approvare le tue PR. Serve sempre un altro collaboratore.
 
------
+---
 
 ## Cosa NON modificare
 
-- ❌ La cartella `docs/` — viene rigenerata automaticamente, ogni modifica manuale sarebbe sovrascritta
-- ❌ Il file `build.py` — è lo script tecnico, modificarlo può rompere tutto
-- ❌ I file in `templates/` — sono la struttura grafica, modifiche qui cambiano lo stile di tutte le guide contemporaneamente
+- ❌ La cartella `docs/` — viene rigenerata automaticamente dalla build, ogni modifica manuale viene sovrascritta
+- ❌ Il file `build.py` — è lo script tecnico che genera il sito
+- ❌ I file in `templates/` — controllano il layout grafico di tutte le guide
 
-Se vuoi cambiare qualcosa in questi file, apri una Issue e chiedi consiglio a un contributor tecnico.
+Per cambiare questi file apri una Issue e chiedi a un contributor tecnico.
 
------
+## Cosa SI può modificare liberamente
 
-## Cose che SI può modificare in sicurezza
+- ✅ Tutti i file in `guides/` (contenuto delle guide)
+- ✅ Tutti i file in `images/` (aggiungere, sostituire, rimuovere immagini)
+- ✅ `README.md` (descrizione del progetto)
 
-- ✅ Tutti i file in `guides/` (il contenuto delle guide)
-- ✅ Tutti i file in `images/` (aggiungere/sostituire/rimuovere immagini)
-- ✅ Il `README.md` (descrizione generale del progetto)
-
------
-
-## Workflow tipico
-
-```
-1. Vai su GitHub
-2. Apri il file da modificare
-3. Clicca ✏️
-4. Modifica
-5. "Commit changes…" → "Propose changes" (GitHub crea il branch)
-6. "Create pull request"
-7. Un altro collaboratore approva
-8. Merge → aspetta ~30 secondi
-9. Verifica sul sito live
-```
-
-**Se qualcosa non si aggiorna dopo 1 minuto dal merge**, clicca sulla tab [Actions](https://github.com/BYD-Club-Italia/byd-club-italia-guides/actions) — vedrai se il build è fallito, e perché.
-
------
+---
 
 ## Domande frequenti
 
-### Il sito live non si è aggiornato dopo il merge
+### Il sito non si è aggiornato dopo il merge
 
-Controlla [Actions](https://github.com/BYD-Club-Italia/byd-club-italia-guides/actions). Se c’è una ❌ rossa, significa che il build è fallito. Clicca sull’errore per vedere il messaggio. Di solito è un errore di sintassi Markdown (es. una `}` mancante in un `{{ variabile }}`).
+Controlla la tab [Actions](https://github.com/BYD-Club-Italia/byd-club-italia-guides/actions). Una ❌ rossa significa che il build è fallito. Clicca sull'errore per vedere il messaggio — di solito è un errore di sintassi (es. `}}` mancante in una variabile `{{ }}`).
 
 ### Perché non posso salvare direttamente su main?
 
-Il branch `main` è protetto: richiede PR e almeno 1 approvazione. È una misura di sicurezza per evitare errori e per avere sempre due paia di occhi su ogni modifica. Non è una mancanza di fiducia — è una buona pratica standard.
+Il branch `main` richiede PR e almeno 1 approvazione. È una misura standard per evitare errori: ogni modifica ha sempre due paia di occhi. Non è una questione di fiducia.
 
 ### Posso fare più modifiche nella stessa PR?
 
-Sì. Una PR è un “contenitore” di modifiche correlate. Puoi modificare più file prima di aprirla, oppure aggiungere altre modifiche al branch mentre la PR è aperta. Esempio: nella stessa PR puoi aggiornare `countrycode_target` in tutte e 3 le guide.
+Sì. Puoi modificare più file prima di aprirla, o aggiungere modifiche al branch mentre la PR è aperta. Esempio: aggiornare `countrycode_target` in tutte e 3 le guide nella stessa PR.
 
 ### Il build scatta anche sulle PR?
 
-Sì. Quando apri una PR, GitHub Actions costruisce il sito in una versione di prova (non pubblicata) per controllare che tutto si compili senza errori. Se il build fallisce, nella PR appare una ❌ rossa e il merge viene bloccato finché non risolvi il problema. Così se hai sbagliato una variabile Markdown te ne accorgi prima del merge.
+Sì. Quando apri una PR, GitHub Actions costruisce il sito in prova (non pubblicato) per verificare che tutto si compili. Se il build fallisce appare una ❌ rossa e il merge viene bloccato finché non risolvi l'errore.
 
-### Posso modificare dal telefono?
+### Posso vedere l'anteprima prima del merge?
 
-Sì, il web editor di GitHub funziona anche da smartphone, ma è scomodo per modifiche lunghe.
-
-### Posso vedere l’anteprima prima di pubblicare?
-
-Purtroppo GitHub mostra un’anteprima di base del Markdown (non con il nostro stile), ma la sintassi custom (`::: callout`, variabili `{{ }}`) non viene resa. Il controllo automatico del build sulla PR ti dice almeno se la sintassi è valida — per vedere il risultato finale serve il merge.
+Il Wizard mostra un'anteprima live del corpo Markdown mentre scrivi. Per le modifiche manuali su GitHub, l'anteprima del browser mostra il Markdown grezzo (senza il nostro stile), ma il build automatico sulla PR ti dice almeno se la sintassi è valida.
 
 ### Posso lavorare offline?
 
-Sì, ma servono conoscenze base di Git e Python. Procedura:
+Sì, ma serve Git e Python:
 
 ```bash
 git clone https://github.com/BYD-Club-Italia/byd-club-italia-guides.git
 cd byd-club-italia-guides
 pip install -r requirements.txt
 python build.py
-# apri docs/index.html nel browser per vedere il risultato
+# apri docs/index.html nel browser
 ```
 
-Anche da locale dovrai poi pushare su un branch e aprire una PR — non direttamente su main.
+Anche da locale dovrai aprire una PR — non puoi pushare direttamente su main.
 
-### Come aggiungo una nuova variabile custom?
+### Come aggiungo una variabile custom a una guida esistente?
 
-Aggiungi la variabile nel frontmatter YAML di una guida:
+Aggiungi la variabile nel frontmatter YAML:
 
 ```yaml
 ---
@@ -409,9 +430,9 @@ mia_variabile: "valore"
 ---
 ```
 
-Poi usala nel corpo della guida con `{{ mia_variabile }}`.
+Poi usala nel corpo con `{{ mia_variabile }}`. Per le nuove guide usa la Sezione 4 del Wizard.
 
------
+---
 
 ## Contatti per supporto
 
@@ -419,4 +440,4 @@ Poi usala nel corpo della guida con `{{ mia_variabile }}`.
 - **Autore originale**: Leonardo Bandini ([@LeonardoBandini](https://t.me/LeonardoBandini))
 - **Community**: [BYD Club Italia](https://t.me/BYD_CLUB_ITALIA)
 
-Se hai difficoltà, chiedi nel canale Telegram o apri una [Issue su GitHub](https://github.com/BYD-Club-Italia/byd-club-italia-guides/issues/new).
+Per difficoltà chiedi nel canale Telegram o apri una [Issue su GitHub](https://github.com/BYD-Club-Italia/byd-club-italia-guides/issues/new).
