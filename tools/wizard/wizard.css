@@ -310,8 +310,26 @@ fieldset legend {
   border: 1px solid var(--border-strong); padding: 5px 9px;
 }
 .preview__body th { background: var(--bg-subtle); }
+.preview__body p { margin: 0 0 10px; }
+.preview__body ul, .preview__body ol { padding-left: 22px; margin: 0 0 10px; }
+.preview__body li { margin-bottom: 3px; }
 .preview__body ul.checklist { list-style: none; padding-left: 0; }
 .preview__body ul.checklist li::before { content: "☐ "; color: var(--text-subtle); }
+.preview__body dl { margin: 0 0 10px; }
+.preview__body dt { font-weight: 700; margin-top: 8px; }
+.preview__body dd { margin-left: 16px; color: var(--text-muted); }
+.preview__body .card {
+  border: 1px solid var(--border-strong);
+  border-radius: 10px; padding: 14px 18px;
+  margin: 10px 0; background: var(--bg-elevated);
+  box-shadow: var(--shadow);
+}
+.preview__body .card h3 { margin: 0 0 6px; font-size: 15px; }
+.preview__body blockquote {
+  border-left: 4px solid var(--border-strong);
+  margin: 10px 0; padding: 6px 14px;
+  color: var(--text-muted); font-style: italic;
+}
 
 .actions { background: linear-gradient(135deg, var(--accent-soft) 0%, var(--bg-elevated) 60%); }
 .zip-tree {

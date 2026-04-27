@@ -498,6 +498,7 @@ function renderPreview(md) {
   md = md.replace(/^##\s+(.+)$/gm, '<h2>$1</h2>');
   md = md.replace(/^#\s+(.+?)(?:\s+\{color=\w+\})?$/gm, '<h1>$1</h1>');
   md = md.replace(/^---$/gm, '<hr>');
+  md = md.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
   md = renderBlock(md);
   return md;
 }
@@ -506,7 +507,7 @@ function renderBlock(text) {
   return text.split(/\n{2,}/).map((p) => {
     p = p.trim();
     if (!p) return '';
-    if (/^<(h\d|ul|ol|dl|div|figure|pre|hr|table)/.test(p)) return p;
+    if (/^<(h\d|ul|ol|dl|div|figure|pre|hr|table|blockquote)/.test(p)) return p;
     if (/^- /.test(p)) {
       return '<ul>' + p.split('\n').map((l) => l.replace(/^- /, '')).map((i) => `<li>${inlineFmt(i)}</li>`).join('') + '</ul>';
     }
@@ -858,6 +859,20 @@ function validateAll() {
 // ============================================================
 // OUTPUT — ZIP
 // ============================================================
+
+// Always regenerate frontmatter from current form state so the exported file
+// reflects what the user typed, not the placeholder values baked in at init.
+function buildFinalMd() {
+  let body = $('#body').value;
+  // Strip the stale frontmatter block that applySkeletonToBody() wrote when
+  // the form was still empty.
+  if (body.startsWith('---\n')) {
+    const end = body.indexOf('\n---\n', 4);
+    if (end !== -1) body = body.slice(end + 5);
+  }
+  return buildFrontmatter() + '\n' + body;
+}
+
 async function buildZip() {
   const errs = validateAll();
   const status = $('#output-status');
@@ -867,7 +882,7 @@ async function buildZip() {
   }
   setStatus(status, 'Genero lo zip…', 'warn');
   const slug = state.meta.slug;
-  const md = $('#body').value || (buildFrontmatter() + '\n\n# Introduzione\n\nScrivi qui...\n');
+  const md = buildFinalMd();
   const zip = new JSZip();
   zip.file(`guides/${slug}.md`, md);
   let placeholder = null;
@@ -901,7 +916,7 @@ async function copyMd() {
     setStatus(status, 'Errori: ' + errs.join(' '), 'error');
     return;
   }
-  const md = $('#body').value;
+  const md = buildFinalMd();
   try {
     await navigator.clipboard.writeText(md);
     setStatus(status, 'Markdown copiato negli appunti.', 'ok');
