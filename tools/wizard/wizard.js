@@ -11,7 +11,7 @@ const state = {
   meta: {
     titolo: '',
     slug: '',
-    version: '0.1.0',
+    version: '1.0.0',
     date: '',
     author: '',
     editor: '',
@@ -365,7 +365,7 @@ function buildFrontmatter() {
   const lines = ['---'];
   lines.push(`titolo: ${yamlEscape(m.titolo || 'Senza titolo')}`);
   lines.push(`slug: ${yamlEscape(m.slug || 'nuova-guida')}`);
-  lines.push(`version: ${yamlEscape(m.version || '0.1.0')}`);
+  lines.push(`version: ${yamlEscape(m.version || '1.0.0')}`);
   lines.push(`date: ${yamlEscape(m.date || '')}`);
   lines.push(`author: ${yamlEscape(m.author || '')}`);
   if (m.editor) lines.push(`editor: ${yamlEscape(m.editor)}`);
