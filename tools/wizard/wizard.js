@@ -406,39 +406,25 @@ function buildFrontmatter() {
 // ============================================================
 // SKELETON
 // ============================================================
-let skeletonText = null;
-
-async function loadSkeleton() {
-  if (skeletonText !== null) return skeletonText;
-  try {
-    const res = await fetch('skeleton.md.tmpl', { cache: 'no-cache' });
-    skeletonText = await res.text();
-  } catch (e) {
-    skeletonText = '{{FRONTMATTER}}\n\n# Introduzione\n\nScrivi qui...\n';
-  }
-  return skeletonText;
-}
-
 function buildSkeletonBody() {
-  // Scheletro minimale fisso: solo introduzione. L'utente costruisce il resto
-  // del corpo cliccando i blocchi della toolbar (callout, steps, checklist,
-  // workflow, glossary, ecc.).
-  let out = (skeletonText || '{{FRONTMATTER}}\n\n# Introduzione\n\nScrivi qui...\n')
-    .replace('{{FRONTMATTER}}', buildFrontmatter())
-    .replace('{{TITOLO}}', state.meta.titolo || 'la tua guida');
-  // Rimuove eventuali segnaposto delle vecchie sezioni opzionali, se presenti
-  // in skeleton.md.tmpl di versioni precedenti.
-  out = out.replace(/\{\{SEZ_[A-Z_]+\}\}/g, '');
-  return out;
+  const titolo = state.meta.titolo || 'la tua guida';
+  return [
+    `# Introduzione`,
+    ``,
+    `Breve introduzione alla guida ${titolo}. Spiega in poche righe cosa l'utente imparerà, a chi è rivolta e i prerequisiti minimi.`,
+    ``,
+    `Puoi richiamare i campi del frontmatter con la sintassi \`{{ nome }}\`: ad esempio versione \`{{ version }}\`, autore \`{{ author }}\`.`,
+    ``,
+    `> Usa la toolbar sopra per inserire callout, steps, checklist, workflow, ecc.`,
+    ``,
+  ].join('\n');
 }
 
-async function applySkeletonToBody() {
-  await loadSkeleton();
+function applySkeletonToBody() {
   const body = buildSkeletonBody();
   $('#body').value = body;
   state.body = body;
   refreshPreview();
-  refreshSidebar();
 }
 
 // ============================================================
@@ -970,7 +956,7 @@ async function init() {
   refreshHints();
   refreshImageButton();
   refreshVariableButton();
-  await applySkeletonToBody();
+  applySkeletonToBody();
 }
 
 document.addEventListener('DOMContentLoaded', init);
