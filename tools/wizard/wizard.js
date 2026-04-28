@@ -177,6 +177,24 @@ function bindMetaInputs() {
       $('#f-theme-picker').value = state.meta.theme_color;
     }
   });
+
+  // Date picker: sincronizza il campo testo (gg/mm/aaaa, formato che finisce
+  // nel frontmatter) con un input nativo type="date" che apre il calendario.
+  $('#f-date-picker').addEventListener('input', (e) => {
+    const iso = e.target.value; // YYYY-MM-DD
+    if (!iso) return;
+    const [y, m, d] = iso.split('-');
+    const formatted = `${d}/${m}/${y}`;
+    state.meta.date = formatted;
+    $('#f-date').value = formatted;
+    refreshSidebar();
+  });
+  $('#f-date').addEventListener('input', () => {
+    if (isValidDate(state.meta.date)) {
+      const [d, m, y] = state.meta.date.split('/');
+      $('#f-date-picker').value = `${y}-${m}-${d}`;
+    }
+  });
 }
 
 function onMetaChanged(_key) {
@@ -481,8 +499,9 @@ function renderPreview(md) {
     });
     return '<dl>' + items.map(([t, d]) => `<dt><strong>${inlineFmt(t)}</strong></dt><dd>${inlineFmt(d)}</dd>`).join('') + '</dl>';
   });
-  md = md.replace(/::: card\s*(\w+)?\n([\s\S]*?)\n:::/g, (_m, _v, body) => {
-    return `<div class="card">${renderBlock(body)}</div>`;
+  md = md.replace(/::: card\s*(\w+)?\n([\s\S]*?)\n:::/g, (_m, variant, body) => {
+    const cls = variant === 'highlight' ? 'card card--highlight' : 'card';
+    return `<div class="${cls}">${renderBlock(body)}</div>`;
   });
   md = md.replace(/::: manual-steps\n([\s\S]*?)\n:::/g, (_m, body) => {
     const items = body.split(/\n(?=\[[^\]]+\]\s)/).map((p) => {

@@ -104,6 +104,9 @@ fieldset legend {
   width: 44px; height: 38px; padding: 0; border-radius: 8px;
   border: 1px solid var(--border-strong); cursor: pointer; background: none;
 }
+.color-row input[type="date"] {
+  width: auto; padding: 8px 10px; cursor: pointer;
+}
 .color-row input[type="text"] { flex: 1; }
 
 .hint { font-size: 13px; color: var(--text-muted); margin: 0 0 12px; }
@@ -305,6 +308,7 @@ fieldset legend {
 .preview__body .badge--critical { background: #FEE2E2; color: #991B1B; }
 .preview__body .badge--success { background: #D1FAE5; color: #065F46; }
 .preview__body .badge--info { background: #E0F2FE; color: #075985; }
+.preview__body .badge--accent { background: var(--accent-soft); color: var(--accent-dark); }
 .preview__body table { border-collapse: collapse; margin: 10px 0; font-size: 13px; }
 .preview__body th, .preview__body td {
   border: 1px solid var(--border-strong); padding: 5px 9px;
@@ -325,6 +329,7 @@ fieldset legend {
   box-shadow: var(--shadow);
 }
 .preview__body .card h3 { margin: 0 0 6px; font-size: 15px; }
+.preview__body .card--highlight { border-left: 4px solid var(--accent); }
 .preview__body blockquote {
   border-left: 4px solid var(--border-strong);
   margin: 10px 0; padding: 6px 14px;
