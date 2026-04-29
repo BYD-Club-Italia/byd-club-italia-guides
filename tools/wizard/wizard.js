@@ -31,6 +31,7 @@ const state = {
 
 let nextGalleryId = 1;
 let placeholderBlob = null;
+let _saveEnabled = false; // Disabilitato durante init per non sovrascrivere la bozza esistente
 
 // ============================================================
 // UTILITY
@@ -1002,6 +1003,7 @@ const DRAFT_KEY = 'byd-wizard-draft';
 // Scrittura sincrona: nessun timer, nessuna race condition.
 // localStorage è abbastanza veloce per dati di pochi KB.
 function saveDraft() {
+  if (!_saveEnabled) return;
   const draft = {
     meta: { ...state.meta },
     vars: state.vars.map((v) => ({ ...v })),
@@ -1150,6 +1152,7 @@ async function init() {
   refreshVariableButton();
   applySkeletonToBody();
   bindDraftBanner();
+  _saveEnabled = true; // Da qui in poi ogni modifica viene salvata
 
   // Avvisa prima di chiudere/ricaricare se c'è una bozza non ancora esportata.
   // clearDraft() rimuove la chiave: dopo lo zip o il copia l'avviso non compare più.
