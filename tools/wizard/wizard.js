@@ -574,6 +574,7 @@ function refreshHints() {
     `git add guides/${escapeHtml(slug)}.md images/${escapeHtml(slug)}/\n` +
     `git commit -m "Aggiunta guida: ${escapeHtml(titolo)}"`;
   $('#hint-cmd-push').textContent = `git push -u origin guida/${slug}`;
+  $('#download-zip').textContent = `Scarica ${slug}.zip`;
 }
 
 // ============================================================
@@ -865,6 +866,24 @@ function validateAll() {
 // OUTPUT — ZIP
 // ============================================================
 
+function scrollToFirstError() {
+  const checks = [
+    { test: () => !state.meta.titolo.trim(),          id: 'f-titolo' },
+    { test: () => !isValidSlug(state.meta.slug),      id: 'f-slug' },
+    { test: () => state.guidesData.slugs.includes(state.meta.slug), id: 'f-slug' },
+    { test: () => !isValidDate(state.meta.date),      id: 'f-date' },
+    { test: () => !state.meta.author.trim(),          id: 'f-author' },
+  ];
+  for (const { test, id } of checks) {
+    if (test()) {
+      const el = document.getElementById(id);
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.focus();
+      return;
+    }
+  }
+}
+
 // Always regenerate frontmatter from current form state so the exported file
 // reflects what the user typed, not the placeholder values baked in at init.
 function buildFinalMd() {
@@ -883,6 +902,7 @@ async function buildZip() {
   const status = $('#output-status');
   if (errs.length) {
     setStatus(status, 'Errori: ' + errs.join(' '), 'error');
+    scrollToFirstError();
     return;
   }
   setStatus(status, 'Genero lo zip…', 'warn');
@@ -919,6 +939,7 @@ async function copyMd() {
   const status = $('#output-status');
   if (errs.length) {
     setStatus(status, 'Errori: ' + errs.join(' '), 'error');
+    scrollToFirstError();
     return;
   }
   const md = buildFinalMd();
