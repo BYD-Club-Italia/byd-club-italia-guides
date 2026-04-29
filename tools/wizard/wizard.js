@@ -549,6 +549,7 @@ function refreshPreview() {
   const md = $('#body').value;
   state.body = md;
   $('#preview').innerHTML = renderPreview(md);
+  saveDraft();
 }
 
 // ============================================================
@@ -558,6 +559,7 @@ function refreshSidebar() {
   const slug = state.meta.slug || 'nuova-guida';
   $('#filename-preview').textContent = `${slug}.md`;
   $('#frontmatter-preview').textContent = buildFrontmatter();
+  saveDraft();
 }
 
 function refreshHints() {
@@ -932,6 +934,7 @@ async function buildZip() {
   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
   const sizeKb = Math.round(out.size / 1024);
   setStatus(status, `Zip pronto: ${slug}.zip (${sizeKb} KB).`, 'ok');
+  clearDraft();
 }
 
 async function copyMd() {
@@ -946,6 +949,7 @@ async function copyMd() {
   try {
     await navigator.clipboard.writeText(md);
     setStatus(status, 'Markdown copiato negli appunti.', 'ok');
+    clearDraft();
   } catch (_e) {
     setStatus(status, 'Impossibile copiare automaticamente. Copia manualmente dalla textarea.', 'error');
   }
@@ -964,6 +968,118 @@ function bindOutput() {
 }
 
 // ============================================================
+// DRAFT — autosave in localStorage
+// ============================================================
+const DRAFT_KEY = 'byd-wizard-draft';
+let _saveDraftTimer = null;
+
+function saveDraft() {
+  clearTimeout(_saveDraftTimer);
+  _saveDraftTimer = setTimeout(() => {
+    const draft = {
+      meta: { ...state.meta },
+      vars: state.vars.map((v) => ({ ...v })),
+      // I blob (File) non sono serializzabili: si salvano solo i metadati.
+      // Al ripristino tutte le voci della galleria tornano come placeholder.
+      gallery: state.gallery.map((g) => ({
+        id: g.id,
+        filename: g.filename,
+        caption: g.caption,
+        width: g.width,
+      })),
+      body: state.body,
+      slugTouched: state.slugTouched,
+      savedAt: new Date().toISOString(),
+    };
+    try {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    } catch (e) {
+      console.warn('saveDraft: localStorage non disponibile:', e);
+    }
+  }, 400);
+}
+
+function clearDraft() {
+  clearTimeout(_saveDraftTimer);
+  localStorage.removeItem(DRAFT_KEY);
+}
+
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function restoreDraft(draft) {
+  Object.assign(state.meta, draft.meta || {});
+
+  const fieldMap = {
+    'f-titolo': 'titolo', 'f-slug': 'slug', 'f-version': 'version',
+    'f-date': 'date', 'f-author': 'author', 'f-editor': 'editor',
+    'f-category': 'category', 'f-overline': 'overline', 'f-theme': 'theme_color',
+    'f-subtitle': 'subtitle', 'f-card-desc': 'card_description', 'f-meta-desc': 'meta_description',
+  };
+  for (const [id, key] of Object.entries(fieldMap)) {
+    document.getElementById(id).value = state.meta[key] || '';
+  }
+  if (state.meta.theme_color) $('#f-theme-picker').value = state.meta.theme_color;
+  if (isValidDate(state.meta.date)) {
+    const [d, m, y] = state.meta.date.split('/');
+    $('#f-date-picker').value = `${y}-${m}-${d}`;
+  }
+
+  state.vars = (draft.vars || []).map((v) => ({ ...v }));
+  renderVarsTable();
+  refreshVariableButton();
+
+  // Le immagini reali sono andate: vengono ripristinate come placeholder
+  // così l'utente vede i nomi e sa quali file ricaricare.
+  state.gallery = (draft.gallery || []).map((g) => ({
+    ...g, blob: null, isPlaceholder: true,
+  }));
+  if (state.gallery.length > 0) {
+    nextGalleryId = Math.max(...state.gallery.map((g) => g.id)) + 1;
+  }
+  renderGallery();
+  refreshImageButton();
+
+  state.slugTouched = draft.slugTouched || false;
+  state.body = draft.body || '';
+  $('#body').value = state.body;
+
+  refreshPreview();
+  refreshSidebar();
+  refreshHints();
+  validateSlug();
+}
+
+function bindDraftBanner() {
+  const draft = loadDraft();
+  if (!draft) return;
+
+  const banner = $('#draft-banner');
+  const d = new Date(draft.savedAt);
+  const dateStr = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const timeStr = d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  const titolo = draft.meta?.titolo || 'senza titolo';
+  banner.querySelector('.draft-banner__info').textContent =
+    `Bozza salvata il ${dateStr} alle ${timeStr} — "${titolo}"`;
+  banner.hidden = false;
+
+  $('#draft-resume').addEventListener('click', () => {
+    restoreDraft(draft);
+    banner.hidden = true;
+  });
+  $('#draft-discard').addEventListener('click', () => {
+    clearDraft();
+    banner.hidden = true;
+  });
+}
+
+// ============================================================
 // INIT
 // ============================================================
 async function init() {
@@ -978,6 +1094,7 @@ async function init() {
   refreshImageButton();
   refreshVariableButton();
   applySkeletonToBody();
+  bindDraftBanner();
 }
 
 document.addEventListener('DOMContentLoaded', init);
