@@ -972,17 +972,19 @@ function bindOutput() {
 // ============================================================
 const DRAFT_KEY = 'byd-wizard-draft';
 let _saveDraftTimer = null;
-let _saveDraftPaused = false;
+let _saveDraftGen = 0;
 
 function saveDraft() {
-  if (_saveDraftPaused) return;
   clearTimeout(_saveDraftTimer);
+  const gen = _saveDraftGen;
   _saveDraftTimer = setTimeout(() => {
+    // Se clearDraft() è stato chiamato mentre questo callback era in attesa
+    // (anche se il timer era già "scaduto" durante window.confirm()), il
+    // generation mismatch impedisce la scrittura in localStorage.
+    if (gen !== _saveDraftGen) return;
     const draft = {
       meta: { ...state.meta },
       vars: state.vars.map((v) => ({ ...v })),
-      // I blob (File) non sono serializzabili: si salvano solo i metadati.
-      // Al ripristino tutte le voci della galleria tornano come placeholder.
       gallery: state.gallery.map((g) => ({
         id: g.id,
         filename: g.filename,
@@ -1002,7 +1004,9 @@ function saveDraft() {
 }
 
 function clearDraft() {
+  _saveDraftGen++;          // invalida tutti i callback pendenti o già scaduti
   clearTimeout(_saveDraftTimer);
+  _saveDraftTimer = null;
   localStorage.removeItem(DRAFT_KEY);
 }
 
@@ -1108,18 +1112,10 @@ function bindDraftBanner() {
     banner.hidden = true;
   });
   $('#draft-discard').addEventListener('click', () => {
-    // window.confirm() è sincrono: blocca il thread JS durante il dialog,
-    // impedendo ai timer debounced di saveDraft() di scattare nel frattempo.
     if (!window.confirm('Sei sicuro di voler ricominciare da capo?\nTutti i dati inseriti andranno persi.')) return;
-    _saveDraftPaused = true;
-    clearTimeout(_saveDraftTimer);
-    _saveDraftTimer = null;
-    localStorage.removeItem(DRAFT_KEY);
+    clearDraft(); // _saveDraftGen++ invalida qualsiasi callback già scaduto durante confirm()
     resetForm();
-    clearTimeout(_saveDraftTimer);
-    _saveDraftTimer = null;
-    localStorage.removeItem(DRAFT_KEY);
-    _saveDraftPaused = false;
+    clearDraft(); // sicurezza: invalida eventuali callback generati da resetForm()
     banner.hidden = true;
   });
 }
