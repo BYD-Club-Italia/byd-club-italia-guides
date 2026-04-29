@@ -614,6 +614,11 @@ def copy_wizard():
     dst = OUTPUT_DIR / "wizard"
     shutil.copytree(src, dst, dirs_exist_ok=True)
 
+    # Logo community: copiato accanto all'index.html del wizard.
+    logo_src = ROOT / "images" / "common" / "logo-community.jpg"
+    if logo_src.exists():
+        shutil.copy2(logo_src, dst / "logo-community.jpg")
+
     # Raccogli slug e categorie già usate dalle guide buildabili.
     slugs = []
     used_categories = []

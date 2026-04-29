@@ -31,6 +31,7 @@ const state = {
 
 let nextGalleryId = 1;
 let placeholderBlob = null;
+let _saveEnabled = false; // Disabilitato durante init per non sovrascrivere la bozza esistente
 
 // ============================================================
 // UTILITY
@@ -549,6 +550,7 @@ function refreshPreview() {
   const md = $('#body').value;
   state.body = md;
   $('#preview').innerHTML = renderPreview(md);
+  saveDraft();
 }
 
 // ============================================================
@@ -558,6 +560,7 @@ function refreshSidebar() {
   const slug = state.meta.slug || 'nuova-guida';
   $('#filename-preview').textContent = `${slug}.md`;
   $('#frontmatter-preview').textContent = buildFrontmatter();
+  saveDraft();
 }
 
 function refreshHints() {
@@ -617,6 +620,33 @@ function wrapSelection(open, close, placeholder) {
   ta.focus();
   state.body = ta.value;
   refreshPreview();
+}
+
+function showConfirm(message) {
+  return new Promise((resolve) => {
+    const d = $('#modal');
+    $('#modal-title').textContent = 'Conferma';
+    const root = $('#modal-fields');
+    root.innerHTML = '';
+    const p = document.createElement('p');
+    p.style.cssText = 'margin: 0 0 4px; white-space: pre-wrap';
+    p.textContent = message;
+    root.appendChild(p);
+    const okBtn = $('#modal-ok');
+    const prevLabel = okBtn.textContent;
+    okBtn.textContent = 'Conferma';
+    const form = $('#modal-form');
+    const onCancel = () => { d.close('cancel'); cleanup(); resolve(false); };
+    const onSubmit = (e) => { e.preventDefault(); d.close('ok'); cleanup(); resolve(true); };
+    function cleanup() {
+      okBtn.textContent = prevLabel;
+      $('#modal-cancel').removeEventListener('click', onCancel);
+      form.removeEventListener('submit', onSubmit);
+    }
+    $('#modal-cancel').addEventListener('click', onCancel);
+    form.addEventListener('submit', onSubmit);
+    d.showModal();
+  });
 }
 
 function showModal(title, fields) {
@@ -932,6 +962,7 @@ async function buildZip() {
   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 1000);
   const sizeKb = Math.round(out.size / 1024);
   setStatus(status, `Zip pronto: ${slug}.zip (${sizeKb} KB).`, 'ok');
+  clearDraft();
 }
 
 async function copyMd() {
@@ -946,6 +977,7 @@ async function copyMd() {
   try {
     await navigator.clipboard.writeText(md);
     setStatus(status, 'Markdown copiato negli appunti.', 'ok');
+    clearDraft();
   } catch (_e) {
     setStatus(status, 'Impossibile copiare automaticamente. Copia manualmente dalla textarea.', 'error');
   }
@@ -964,6 +996,147 @@ function bindOutput() {
 }
 
 // ============================================================
+// DRAFT — autosave in localStorage
+// ============================================================
+const DRAFT_KEY = 'byd-wizard-draft';
+
+// Scrittura sincrona: nessun timer, nessuna race condition.
+// localStorage è abbastanza veloce per dati di pochi KB.
+function saveDraft() {
+  if (!_saveEnabled) return;
+  const draft = {
+    meta: { ...state.meta },
+    vars: state.vars.map((v) => ({ ...v })),
+    gallery: state.gallery.map((g) => ({
+      id: g.id, filename: g.filename, caption: g.caption, width: g.width,
+    })),
+    body: state.body,
+    slugTouched: state.slugTouched,
+    savedAt: new Date().toISOString(),
+  };
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  } catch (e) {
+    console.warn('saveDraft:', e);
+  }
+}
+
+function clearDraft() {
+  localStorage.removeItem(DRAFT_KEY);
+}
+
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function restoreDraft(draft) {
+  Object.assign(state.meta, draft.meta || {});
+
+  const fieldMap = {
+    'f-titolo': 'titolo', 'f-slug': 'slug', 'f-version': 'version',
+    'f-date': 'date', 'f-author': 'author', 'f-editor': 'editor',
+    'f-category': 'category', 'f-overline': 'overline', 'f-theme': 'theme_color',
+    'f-subtitle': 'subtitle', 'f-card-desc': 'card_description', 'f-meta-desc': 'meta_description',
+  };
+  for (const [id, key] of Object.entries(fieldMap)) {
+    document.getElementById(id).value = state.meta[key] || '';
+  }
+  if (state.meta.theme_color) $('#f-theme-picker').value = state.meta.theme_color;
+  if (isValidDate(state.meta.date)) {
+    const [d, m, y] = state.meta.date.split('/');
+    $('#f-date-picker').value = `${y}-${m}-${d}`;
+  }
+
+  state.vars = (draft.vars || []).map((v) => ({ ...v }));
+  renderVarsTable();
+  refreshVariableButton();
+
+  // Le immagini reali sono andate: vengono ripristinate come placeholder
+  // così l'utente vede i nomi e sa quali file ricaricare.
+  state.gallery = (draft.gallery || []).map((g) => ({
+    ...g, blob: null, isPlaceholder: true,
+  }));
+  if (state.gallery.length > 0) {
+    nextGalleryId = Math.max(...state.gallery.map((g) => g.id)) + 1;
+  }
+  renderGallery();
+  refreshImageButton();
+
+  state.slugTouched = draft.slugTouched || false;
+  state.body = draft.body || '';
+  $('#body').value = state.body;
+
+  refreshPreview();
+  refreshSidebar();
+  refreshHints();
+  validateSlug();
+}
+
+function resetForm() {
+  state.meta = {
+    titolo: '', slug: '', version: '1.0.0', date: '',
+    author: '', editor: '', category: '', overline: '',
+    theme_color: '#3B82F6', subtitle: '', card_description: '', meta_description: '',
+  };
+  state.vars = [];
+  state.gallery = [];
+  state.slugTouched = false;
+
+  const fieldMap = {
+    'f-titolo': 'titolo', 'f-slug': 'slug', 'f-version': 'version',
+    'f-date': 'date', 'f-author': 'author', 'f-editor': 'editor',
+    'f-category': 'category', 'f-overline': 'overline', 'f-theme': 'theme_color',
+    'f-subtitle': 'subtitle', 'f-card-desc': 'card_description', 'f-meta-desc': 'meta_description',
+  };
+  for (const [id, key] of Object.entries(fieldMap)) {
+    document.getElementById(id).value = state.meta[key] || '';
+  }
+  $('#f-theme-picker').value = state.meta.theme_color;
+  $('#f-date-picker').value = '';
+  setStatus($('#slug-status'), '', '');
+
+  renderVarsTable();
+  refreshVariableButton();
+  renderGallery();
+  refreshImageButton();
+  applySkeletonToBody();
+  refreshSidebar();
+  refreshHints();
+}
+
+function bindDraftBanner() {
+  const draft = loadDraft();
+  if (!draft) return;
+
+  const banner = $('#draft-banner');
+  const d = new Date(draft.savedAt);
+  const dateStr = d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const timeStr = d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  const titolo = draft.meta?.titolo || 'senza titolo';
+  banner.querySelector('.draft-banner__info').textContent =
+    `Bozza salvata il ${dateStr} alle ${timeStr} — "${titolo}"`;
+  banner.hidden = false;
+
+  $('#draft-resume').addEventListener('click', () => {
+    restoreDraft(draft);
+    banner.hidden = true;
+  });
+  $('#draft-discard').addEventListener('click', async () => {
+    const ok = await showConfirm('Sei sicuro di voler ricominciare da capo?\nTutti i dati inseriti andranno persi.');
+    if (!ok) return;
+    clearDraft();
+    resetForm();
+    clearDraft();
+    banner.hidden = true;
+  });
+}
+
+// ============================================================
 // INIT
 // ============================================================
 async function init() {
@@ -978,6 +1151,17 @@ async function init() {
   refreshImageButton();
   refreshVariableButton();
   applySkeletonToBody();
+  bindDraftBanner();
+  _saveEnabled = true; // Da qui in poi ogni modifica viene salvata
+
+  // Avvisa prima di chiudere/ricaricare se c'è una bozza non ancora esportata.
+  // clearDraft() rimuove la chiave: dopo lo zip o il copia l'avviso non compare più.
+  window.addEventListener('beforeunload', (e) => {
+    if (localStorage.getItem(DRAFT_KEY)) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', init);
