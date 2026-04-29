@@ -675,26 +675,6 @@ function showModal(title, fields) {
   });
 }
 
-function showConfirm(message) {
-  return new Promise((resolve) => {
-    const d = $('#modal');
-    $('#modal-title').textContent = 'Conferma';
-    $('#modal-fields').innerHTML = `<p class="hint" style="margin:0">${escapeHtml(message)}</p>`;
-    $('#modal-ok').textContent = 'Conferma';
-    const form = $('#modal-form');
-    const onCancel = () => { d.close('cancel'); cleanup(); resolve(false); };
-    const onSubmit = (e) => { e.preventDefault(); d.close('ok'); cleanup(); resolve(true); };
-    function cleanup() {
-      $('#modal-ok').textContent = 'Inserisci';
-      $('#modal-cancel').removeEventListener('click', onCancel);
-      form.removeEventListener('submit', onSubmit);
-    }
-    $('#modal-cancel').addEventListener('click', onCancel);
-    form.addEventListener('submit', onSubmit);
-    d.showModal();
-  });
-}
-
 async function handleInsert(action) {
   switch (action) {
     case 'h1': insertAtCursor('# Titolo capitolo'); break;
@@ -1127,13 +1107,18 @@ function bindDraftBanner() {
     restoreDraft(draft);
     banner.hidden = true;
   });
-  $('#draft-discard').addEventListener('click', async () => {
-    const ok = await showConfirm('Sei sicuro di voler ricominciare da capo? Tutti i dati inseriti andranno persi.');
-    if (!ok) return;
+  $('#draft-discard').addEventListener('click', () => {
+    // window.confirm() è sincrono: blocca il thread JS durante il dialog,
+    // impedendo ai timer debounced di saveDraft() di scattare nel frattempo.
+    if (!window.confirm('Sei sicuro di voler ricominciare da capo?\nTutti i dati inseriti andranno persi.')) return;
     _saveDraftPaused = true;
-    clearDraft();
+    clearTimeout(_saveDraftTimer);
+    _saveDraftTimer = null;
+    localStorage.removeItem(DRAFT_KEY);
     resetForm();
-    clearDraft(); // secondo clearDraft: annulla timer eventualmente riattivati da resetForm
+    clearTimeout(_saveDraftTimer);
+    _saveDraftTimer = null;
+    localStorage.removeItem(DRAFT_KEY);
     _saveDraftPaused = false;
     banner.hidden = true;
   });
@@ -1155,6 +1140,15 @@ async function init() {
   refreshVariableButton();
   applySkeletonToBody();
   bindDraftBanner();
+
+  // Avvisa prima di chiudere/ricaricare se c'è una bozza non ancora esportata.
+  // clearDraft() rimuove la chiave: dopo lo zip o il copia l'avviso non compare più.
+  window.addEventListener('beforeunload', (e) => {
+    if (localStorage.getItem(DRAFT_KEY)) {
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', init);
