@@ -584,8 +584,85 @@ def main():
     # Only rebuild index if we built all guides
     if not args.guide:
         build_index(built_guides, index_tmpl, logo_src=logo_src)
+        copy_wizard()
 
     print(f"\n✨ Build completato! Apri {OUTPUT_DIR / 'index.html'} nel browser.")
+
+
+# Categorie canoniche con i preset di stile abbinati. Il wizard le mostra come
+# suggerimenti nel combo "categoria"; sceglierne una pre-compila theme_color e
+# overline. Categorie già usate da guide esistenti vengono aggiunte in coda.
+CANONICAL_CATEGORIES = {
+    "Firmware":       {"theme_color": "#3B82F6", "overline": "FIRMWARE"},
+    "Sideloading":    {"theme_color": "#3B82F6", "overline": "FIRMWARE"},
+    "Mod":            {"theme_color": "#10B981", "overline": "MOD / FAI-DA-TE"},
+    "HW Upgrade":     {"theme_color": "#10B981", "overline": "MOD / FAI-DA-TE"},
+    "Troubleshooting":{"theme_color": "#F59E0B", "overline": "TROUBLESHOOTING"},
+}
+
+
+def copy_wizard():
+    """Copy tools/wizard into docs/wizard and emit guides.json with the
+    slugs/categories the wizard needs for validation and UI presets.
+
+    Inject the same payload inline into index.html as window.GUIDES_DATA so
+    the wizard works also when opened directly from disk (file://), where
+    fetch() is blocked by the browser CORS policy."""
+    src = ROOT / "tools" / "wizard"
+    if not src.exists():
+        return
+    dst = OUTPUT_DIR / "wizard"
+    shutil.copytree(src, dst, dirs_exist_ok=True)
+
+    # Raccogli slug e categorie già usate dalle guide buildabili.
+    slugs = []
+    used_categories = []
+    for p in sorted(GUIDES_DIR.glob("*.md")):
+        if p.name.startswith("_"):
+            continue
+        meta, _body = parse_frontmatter(p.read_text(encoding="utf-8"))
+        slugs.append(meta.get("slug", p.stem))
+        cat = meta.get("category")
+        if cat and cat not in used_categories:
+            used_categories.append(cat)
+
+    # Categorie suggerite: canoniche prima, poi quelle già usate non duplicate.
+    categories = list(CANONICAL_CATEGORIES.keys())
+    for c in used_categories:
+        if c not in categories:
+            categories.append(c)
+
+    payload = {
+        "slugs": slugs,
+        "categories": categories,
+        "categoryPresets": CANONICAL_CATEGORIES,
+    }
+    payload_json = json.dumps(payload, ensure_ascii=False, indent=2)
+
+    # 1) File esterno (utile se servito da web server)
+    (dst / "guides.json").write_text(payload_json, encoding="utf-8")
+
+    # 2) Inietta inline nell'index.html, così il wizard funziona anche
+    #    aperto direttamente da filesystem. Il marker viene sostituito
+    #    ogni build, quindi è sempre allineato.
+    index_path = dst / "index.html"
+    if index_path.exists():
+        html = index_path.read_text(encoding="utf-8")
+        # Per evitare che '</script>' contenuto nei dati (improbabile ma
+        # possibile via category liberi) chiuda lo script, escapiamo come
+        # raccomandato dalla spec HTML.
+        safe_json = payload_json.replace("</", "<\\/")
+        injected = f'<script id="injected-guides-data">window.GUIDES_DATA={safe_json};</script>'
+        # Sostituisce sia il placeholder iniziale (window.GUIDES_DATA=null;)
+        # sia uno script già iniettato in build precedente.
+        html = re.sub(
+            r'<script id="injected-guides-data">[\s\S]*?</script>',
+            injected,
+            html,
+        )
+        index_path.write_text(html, encoding="utf-8")
+
+    print(f"🧰 Wizard pubblicato in {dst} (slugs: {len(slugs)}, categorie: {len(categories)})")
 
 
 if __name__ == '__main__':
