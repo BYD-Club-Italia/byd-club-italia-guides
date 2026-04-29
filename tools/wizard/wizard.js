@@ -621,6 +621,33 @@ function wrapSelection(open, close, placeholder) {
   refreshPreview();
 }
 
+function showConfirm(message) {
+  return new Promise((resolve) => {
+    const d = $('#modal');
+    $('#modal-title').textContent = 'Conferma';
+    const root = $('#modal-fields');
+    root.innerHTML = '';
+    const p = document.createElement('p');
+    p.style.cssText = 'margin: 0 0 4px; white-space: pre-wrap';
+    p.textContent = message;
+    root.appendChild(p);
+    const okBtn = $('#modal-ok');
+    const prevLabel = okBtn.textContent;
+    okBtn.textContent = 'Conferma';
+    const form = $('#modal-form');
+    const onCancel = () => { d.close('cancel'); cleanup(); resolve(false); };
+    const onSubmit = (e) => { e.preventDefault(); d.close('ok'); cleanup(); resolve(true); };
+    function cleanup() {
+      okBtn.textContent = prevLabel;
+      $('#modal-cancel').removeEventListener('click', onCancel);
+      form.removeEventListener('submit', onSubmit);
+    }
+    $('#modal-cancel').addEventListener('click', onCancel);
+    form.addEventListener('submit', onSubmit);
+    d.showModal();
+  });
+}
+
 function showModal(title, fields) {
   return new Promise((resolve) => {
     const d = $('#modal');
@@ -971,42 +998,28 @@ function bindOutput() {
 // DRAFT — autosave in localStorage
 // ============================================================
 const DRAFT_KEY = 'byd-wizard-draft';
-let _saveDraftTimer = null;
-let _saveDraftGen = 0;
 
+// Scrittura sincrona: nessun timer, nessuna race condition.
+// localStorage è abbastanza veloce per dati di pochi KB.
 function saveDraft() {
-  clearTimeout(_saveDraftTimer);
-  const gen = _saveDraftGen;
-  _saveDraftTimer = setTimeout(() => {
-    // Se clearDraft() è stato chiamato mentre questo callback era in attesa
-    // (anche se il timer era già "scaduto" durante window.confirm()), il
-    // generation mismatch impedisce la scrittura in localStorage.
-    if (gen !== _saveDraftGen) return;
-    const draft = {
-      meta: { ...state.meta },
-      vars: state.vars.map((v) => ({ ...v })),
-      gallery: state.gallery.map((g) => ({
-        id: g.id,
-        filename: g.filename,
-        caption: g.caption,
-        width: g.width,
-      })),
-      body: state.body,
-      slugTouched: state.slugTouched,
-      savedAt: new Date().toISOString(),
-    };
-    try {
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-    } catch (e) {
-      console.warn('saveDraft: localStorage non disponibile:', e);
-    }
-  }, 400);
+  const draft = {
+    meta: { ...state.meta },
+    vars: state.vars.map((v) => ({ ...v })),
+    gallery: state.gallery.map((g) => ({
+      id: g.id, filename: g.filename, caption: g.caption, width: g.width,
+    })),
+    body: state.body,
+    slugTouched: state.slugTouched,
+    savedAt: new Date().toISOString(),
+  };
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  } catch (e) {
+    console.warn('saveDraft:', e);
+  }
 }
 
 function clearDraft() {
-  _saveDraftGen++;          // invalida tutti i callback pendenti o già scaduti
-  clearTimeout(_saveDraftTimer);
-  _saveDraftTimer = null;
   localStorage.removeItem(DRAFT_KEY);
 }
 
@@ -1111,11 +1124,12 @@ function bindDraftBanner() {
     restoreDraft(draft);
     banner.hidden = true;
   });
-  $('#draft-discard').addEventListener('click', () => {
-    if (!window.confirm('Sei sicuro di voler ricominciare da capo?\nTutti i dati inseriti andranno persi.')) return;
-    clearDraft(); // _saveDraftGen++ invalida qualsiasi callback già scaduto durante confirm()
+  $('#draft-discard').addEventListener('click', async () => {
+    const ok = await showConfirm('Sei sicuro di voler ricominciare da capo?\nTutti i dati inseriti andranno persi.');
+    if (!ok) return;
+    clearDraft();
     resetForm();
-    clearDraft(); // sicurezza: invalida eventuali callback generati da resetForm()
+    clearDraft();
     banner.hidden = true;
   });
 }
