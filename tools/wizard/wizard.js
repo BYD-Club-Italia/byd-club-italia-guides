@@ -675,6 +675,26 @@ function showModal(title, fields) {
   });
 }
 
+function showConfirm(message) {
+  return new Promise((resolve) => {
+    const d = $('#modal');
+    $('#modal-title').textContent = 'Conferma';
+    $('#modal-fields').innerHTML = `<p class="hint" style="margin:0">${escapeHtml(message)}</p>`;
+    $('#modal-ok').textContent = 'Conferma';
+    const form = $('#modal-form');
+    const onCancel = () => { d.close('cancel'); cleanup(); resolve(false); };
+    const onSubmit = (e) => { e.preventDefault(); d.close('ok'); cleanup(); resolve(true); };
+    function cleanup() {
+      $('#modal-ok').textContent = 'Inserisci';
+      $('#modal-cancel').removeEventListener('click', onCancel);
+      form.removeEventListener('submit', onSubmit);
+    }
+    $('#modal-cancel').addEventListener('click', onCancel);
+    form.addEventListener('submit', onSubmit);
+    d.showModal();
+  });
+}
+
 async function handleInsert(action) {
   switch (action) {
     case 'h1': insertAtCursor('# Titolo capitolo'); break;
@@ -972,8 +992,10 @@ function bindOutput() {
 // ============================================================
 const DRAFT_KEY = 'byd-wizard-draft';
 let _saveDraftTimer = null;
+let _saveDraftPaused = false;
 
 function saveDraft() {
+  if (_saveDraftPaused) return;
   clearTimeout(_saveDraftTimer);
   _saveDraftTimer = setTimeout(() => {
     const draft = {
@@ -1105,9 +1127,14 @@ function bindDraftBanner() {
     restoreDraft(draft);
     banner.hidden = true;
   });
-  $('#draft-discard').addEventListener('click', () => {
+  $('#draft-discard').addEventListener('click', async () => {
+    const ok = await showConfirm('Sei sicuro di voler ricominciare da capo? Tutti i dati inseriti andranno persi.');
+    if (!ok) return;
+    _saveDraftPaused = true;
+    clearDraft();
     resetForm();
-    clearDraft(); // cancella il timer debounced e rimuove da localStorage
+    clearDraft(); // secondo clearDraft: annulla timer eventualmente riattivati da resetForm
+    _saveDraftPaused = false;
     banner.hidden = true;
   });
 }
