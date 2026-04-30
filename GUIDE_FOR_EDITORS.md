@@ -449,8 +449,8 @@ Poi usala nel corpo con `{{ mia_variabile }}`. Per le nuove guide usa la Sezione
 
 ## Contatti per supporto
 
+- **Autore**: Leonardo Bandini ([@LeonardoBandini](https://t.me/LeonardoBandini))
 - **Contributor tecnico**: Stefano Tagliaferri ([@Tagliax10](https://t.me/Tagliax10))
-- **Autore originale**: Leonardo Bandini ([@LeonardoBandini](https://t.me/LeonardoBandini))
 - **Community**: [BYD Club Italia](https://t.me/BYD_CLUB_ITALIA)
 
 Per difficoltà chiedi nel canale Telegram o apri una [Issue su GitHub](https://github.com/BYD-Club-Italia/byd-club-italia-guides/issues/new).
