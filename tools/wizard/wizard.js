@@ -1016,6 +1016,7 @@ function saveDraft() {
   };
   try {
     localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    updateDraftStatus(draft.savedAt);
   } catch (e) {
     console.warn('saveDraft:', e);
   }
@@ -1023,6 +1024,16 @@ function saveDraft() {
 
 function clearDraft() {
   localStorage.removeItem(DRAFT_KEY);
+  updateDraftStatus(null);
+}
+
+function updateDraftStatus(isoTimestamp) {
+  const el = document.getElementById('draft-status');
+  if (!el) return;
+  if (!isoTimestamp) { el.textContent = ''; return; }
+  const t = new Date(isoTimestamp).toLocaleTimeString('it-IT',
+    { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  el.textContent = `✓ Bozza salvata alle ${t}`;
 }
 
 function loadDraft() {

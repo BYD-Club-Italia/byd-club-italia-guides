@@ -131,6 +131,11 @@ fieldset legend {
 .status.error { color: var(--critical); font-weight: 600; }
 .status.warn { color: var(--warning); }
 
+.draft-status {
+  display: block; font-size: 12px;
+  color: var(--text-subtle); margin-top: 6px;
+}
+
 .kv-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
 .kv-table th {
   text-align: left; font-size: 12px;
