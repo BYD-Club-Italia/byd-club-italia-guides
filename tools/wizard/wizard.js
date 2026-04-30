@@ -32,6 +32,7 @@ const state = {
 let nextGalleryId = 1;
 let placeholderBlob = null;
 let _saveEnabled = false; // Disabilitato durante init per non sovrascrivere la bozza esistente
+let _metaDescManual = false; // True se l'utente ha scritto manualmente la meta description
 
 // ============================================================
 // UTILITY
@@ -123,7 +124,8 @@ function bindMetaInputs() {
     'f-titolo': 'titolo', 'f-slug': 'slug', 'f-version': 'version',
     'f-date': 'date', 'f-author': 'author', 'f-editor': 'editor',
     'f-category': 'category', 'f-overline': 'overline', 'f-theme': 'theme_color',
-    'f-subtitle': 'subtitle', 'f-card-desc': 'card_description', 'f-meta-desc': 'meta_description',
+    'f-subtitle': 'subtitle', 'f-card-desc': 'card_description',
+    // 'f-meta-desc' escluso: ha binding dedicato con tracciamento manuale
   };
   for (const [id, key] of Object.entries(map)) {
     const el = document.getElementById(id);
@@ -196,11 +198,61 @@ function bindMetaInputs() {
       $('#f-date-picker').value = `${y}-${m}-${d}`;
     }
   });
+
+  // Meta description: tracking separato per auto-generazione
+  const metaDescEl = document.getElementById('f-meta-desc');
+  metaDescEl.addEventListener('input', () => {
+    state.meta.meta_description = metaDescEl.value;
+    if (metaDescEl.value.trim()) {
+      _metaDescManual = true;
+      updateMetaDescHint(false);
+    } else {
+      // Campo svuotato manualmente → torna in modalità automatica
+      _metaDescManual = false;
+      autoMetaDesc();
+    }
+    refreshSidebar();
+    refreshHints();
+  });
 }
 
-function onMetaChanged(_key) {
+function onMetaChanged(key) {
+  if (key === 'card_description' || key === 'subtitle') {
+    autoMetaDesc();
+  }
   refreshSidebar();
   refreshHints();
+}
+
+function autoMetaDesc() {
+  if (_metaDescManual) return;
+  const fromCard = (state.meta.card_description || '').trim();
+  const fromSubtitle = (state.meta.subtitle || '').trim();
+  const el = $('#f-meta-desc');
+  if (fromCard) {
+    state.meta.meta_description = fromCard;
+    el.value = fromCard;
+    updateMetaDescHint(true, 'card');
+  } else if (fromSubtitle) {
+    state.meta.meta_description = fromSubtitle;
+    el.value = fromSubtitle;
+    updateMetaDescHint(true, 'subtitle');
+  } else {
+    state.meta.meta_description = '';
+    el.value = '';
+    updateMetaDescHint(false);
+  }
+}
+
+function updateMetaDescHint(show, source) {
+  const el = document.getElementById('meta-desc-hint');
+  if (!el) return;
+  el.hidden = !show;
+  if (show) {
+    el.textContent = source === 'card'
+      ? 'Generata dalla descrizione card — modifica per personalizzare.'
+      : 'Generata dal sottotitolo — modifica per personalizzare.';
+  }
 }
 
 function validateSlug() {
@@ -1012,6 +1064,7 @@ function saveDraft() {
     })),
     body: state.body,
     slugTouched: state.slugTouched,
+    metaDescManual: _metaDescManual,
     savedAt: new Date().toISOString(),
   };
   try {
@@ -1099,6 +1152,7 @@ function restoreDraft(draft) {
   refreshImageButton();
 
   state.slugTouched = draft.slugTouched || false;
+  _metaDescManual = draft.metaDescManual || false;
   state.body = draft.body || '';
   $('#body').value = state.body;
 
@@ -1106,6 +1160,9 @@ function restoreDraft(draft) {
   refreshSidebar();
   refreshHints();
   validateSlug();
+  // Ricalcola l'indicatore: se modalità auto, riesegui per mostrare il badge
+  if (!_metaDescManual) autoMetaDesc();
+  else updateMetaDescHint(false);
 }
 
 function bindDraftBanner() {
