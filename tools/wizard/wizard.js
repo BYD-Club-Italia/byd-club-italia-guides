@@ -1140,10 +1140,11 @@ function bindDraftBanner() {
   $('#draft-discard').addEventListener('click', async () => {
     const ok = await showConfirm('Sei sicuro di voler ricominciare da capo?\nTutti i dati inseriti andranno persi.');
     if (!ok) return;
+    // clearDraft prima del reload: rimuove la chiave da localStorage così
+    // beforeunload non mostra il prompt nativo e bindDraftBanner al nuovo
+    // init non trova nessuna bozza da ripristinare.
     clearDraft();
-    resetForm();
-    clearDraft();
-    banner.hidden = true;
+    window.location.reload();
   });
 }
 
