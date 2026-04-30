@@ -210,7 +210,9 @@ images/&lt;slug&gt;/&lt;immagini&gt;</pre>
                 <li>Descrizione: <code id="hint-pr-body">Nuova guida creata col wizard.</code></li>
               </ul>
             </li>
-            <li>Sulla branch della PR appena creata, vai su <code>images/</code>, crea la cartella <code id="hint-imgdir">&lt;slug&gt;/</code> (digitando <code id="hint-imgcreate">&lt;slug&gt;/dummy</code> come filename quando crei un nuovo file e cancellando <code>dummy</code>) e fai <strong>Add file → Upload files</strong> con tutte le immagini contenute nello zip.</li>
+            <li>Sulla branch della PR appena creata, vai su <code>images/</code>, clicca <strong>Add file → Upload files</strong> e trascina l'intera cartella <code id="hint-imgdir">&lt;slug&gt;/</code> estratta dallo zip: GitHub creerà la sottocartella con tutte le immagini in automatico.
+              <p class="hint" style="margin-top:6px"><strong>Su mobile o Safari:</strong> il trascinamento di cartelle non è supportato. In alternativa clicca <strong>Add file → Create new file</strong>, digita <code id="hint-imgcreate">&lt;slug&gt;/.gitkeep</code> come nome file, metti un punto come contenuto e fai commit sulla stessa branch; poi naviga in <code>images/<span class="hint-imgdir-inline">&lt;slug&gt;</span>/</code> e carica le immagini con <strong>Upload files</strong>.</p>
+            </li>
             <li>Aspetta review e merge. Il sito si rigenera automaticamente.</li>
           </ol>
         </div>

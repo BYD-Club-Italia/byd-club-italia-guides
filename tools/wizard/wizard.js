@@ -623,7 +623,8 @@ function refreshHints() {
   $('#hint-pr-title').textContent = `Aggiunta guida: ${titolo}`;
   $('#hint-pr-body').textContent = `Nuova guida creata col wizard.`;
   $('#hint-imgdir').textContent = `${slug}/`;
-  $('#hint-imgcreate').textContent = `${slug}/dummy`;
+  $('#hint-imgcreate').textContent = `${slug}/.gitkeep`;
+  document.querySelectorAll('.hint-imgdir-inline').forEach((el) => { el.textContent = slug; });
   $('#hint-cmd-branch').textContent = `git checkout -b guida/${slug}`;
   $('#hint-cmd-add').innerHTML =
     `git add guides/${escapeHtml(slug)}.md images/${escapeHtml(slug)}/\n` +
