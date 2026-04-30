@@ -1017,14 +1017,34 @@ function saveDraft() {
   try {
     localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
     updateDraftStatus(draft.savedAt);
+    showActiveSessionBanner(draft.savedAt);
   } catch (e) {
     console.warn('saveDraft:', e);
   }
 }
 
+// Mostra il banner in modalità "sessione attiva": senza "Riprendi bozza"
+// (i dati sono già nel form, non serve ripristinarli) ma con "Inizia da
+// capo" sempre visibile per resettare ad ogni momento.
+function showActiveSessionBanner(isoTimestamp) {
+  const banner = document.getElementById('draft-banner');
+  if (!banner) return;
+  const time = new Date(isoTimestamp).toLocaleTimeString('it-IT',
+    { hour: '2-digit', minute: '2-digit' });
+  banner.querySelector('.draft-banner__info').textContent =
+    `Bozza in corso — salvata alle ${time}`;
+  banner.classList.add('draft-banner--active');
+  banner.hidden = false;
+}
+
 function clearDraft() {
   localStorage.removeItem(DRAFT_KEY);
   updateDraftStatus(null);
+  const banner = document.getElementById('draft-banner');
+  if (banner) {
+    banner.hidden = true;
+    banner.classList.remove('draft-banner--active');
+  }
 }
 
 function updateDraftStatus(isoTimestamp) {
@@ -1147,8 +1167,10 @@ function bindDraftBanner() {
   banner.hidden = false;
 
   $('#draft-resume').addEventListener('click', () => {
+    // Dopo il restore, i refresh* triggherano saveDraft → showActiveSessionBanner
+    // che ri-mostra il banner in modalità attiva (senza Riprendi bozza).
+    // Non serve nascondere manualmente il banner qui.
     restoreDraft(draft);
-    banner.hidden = true;
   });
 }
 
