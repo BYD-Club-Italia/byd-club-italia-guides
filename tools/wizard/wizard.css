@@ -50,6 +50,7 @@ code {
   background: var(--accent-soft); border: 1px solid var(--accent);
   border-radius: 10px; padding: 12px 18px; margin-bottom: 24px;
 }
+.draft-banner[hidden] { display: none; }
 .draft-banner__info { flex: 1; font-size: 14px; font-weight: 500; color: var(--accent-dark); }
 .draft-banner__actions { display: flex; gap: 8px; }
 

@@ -1121,6 +1121,19 @@ function resetForm() {
 }
 
 function bindDraftBanner() {
+  // "Inizia da capo" agganciato sempre: anche in scenari in cui il banner
+  // risultasse visibile senza una bozza (es. CSS che sovrascrive hidden),
+  // il click deve comunque azzerare ed effettuare reload.
+  $('#draft-discard').addEventListener('click', async () => {
+    const ok = await showConfirm('Sei sicuro di voler ricominciare da capo?\nTutti i dati inseriti andranno persi.');
+    if (!ok) return;
+    // clearDraft prima del reload: rimuove la chiave da localStorage così
+    // beforeunload non mostra il prompt nativo e bindDraftBanner al nuovo
+    // init non trova nessuna bozza da ripristinare.
+    clearDraft();
+    window.location.reload();
+  });
+
   const draft = loadDraft();
   if (!draft) return;
 
@@ -1136,15 +1149,6 @@ function bindDraftBanner() {
   $('#draft-resume').addEventListener('click', () => {
     restoreDraft(draft);
     banner.hidden = true;
-  });
-  $('#draft-discard').addEventListener('click', async () => {
-    const ok = await showConfirm('Sei sicuro di voler ricominciare da capo?\nTutti i dati inseriti andranno persi.');
-    if (!ok) return;
-    // clearDraft prima del reload: rimuove la chiave da localStorage così
-    // beforeunload non mostra il prompt nativo e bindDraftBanner al nuovo
-    // init non trova nessuna bozza da ripristinare.
-    clearDraft();
-    window.location.reload();
   });
 }
 
