@@ -109,6 +109,8 @@ Le immagini caricate nel Wizard restano nel tuo browser — non vengono inviate 
 
 Dopo aver aggiunto almeno un'immagine, il pulsante **Immagine** nella toolbar del corpo si attiva.
 
+> **Nota sul ripristino bozza**: se chiudi il browser e riapri il Wizard, le immagini caricate non vengono recuperate (i file rimangono solo nel browser attivo). Al ripristino di una bozza le voci della galleria tornano come placeholder con i nomi originali, così sai esattamente quali file ricaricare.
+
 ---
 
 ### Sezione 6 — Corpo della guida
@@ -215,6 +217,17 @@ Se hai Git installato e preferisci usarlo da terminale:
    git push -u origin guida/<slug>
    ```
 4. Il link per aprire la PR viene stampato direttamente nel terminale
+
+### Salvataggio automatico della bozza
+
+Il Wizard salva automaticamente il lavoro nel browser (localStorage) ogni volta che modifichi un campo. Non devi fare nulla: il salvataggio avviene in background.
+
+**Se chiudi il tab o aggiorni la pagina per sbaglio**, alla riapertura compare un banner blu in cima con la data, l'ora e il titolo dell'ultima bozza salvata. Hai due opzioni:
+
+- **Riprendi bozza** — ripristina tutti i campi compilati, le variabili e il corpo della guida. Le immagini reali tornano come placeholder (vedi nota nella Sezione 5)
+- **Inizia da capo** — cancella la bozza e riparte dal form vuoto
+
+**La bozza viene cancellata automaticamente** dopo un export riuscito (scarica zip o copia negli appunti): a quel punto il lavoro è completato.
 
 ---
 
