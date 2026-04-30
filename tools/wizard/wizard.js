@@ -1108,38 +1108,6 @@ function restoreDraft(draft) {
   validateSlug();
 }
 
-function resetForm() {
-  state.meta = {
-    titolo: '', slug: '', version: '1.0.0', date: '',
-    author: '', editor: '', category: '', overline: '',
-    theme_color: '#3B82F6', subtitle: '', card_description: '', meta_description: '',
-  };
-  state.vars = [];
-  state.gallery = [];
-  state.slugTouched = false;
-
-  const fieldMap = {
-    'f-titolo': 'titolo', 'f-slug': 'slug', 'f-version': 'version',
-    'f-date': 'date', 'f-author': 'author', 'f-editor': 'editor',
-    'f-category': 'category', 'f-overline': 'overline', 'f-theme': 'theme_color',
-    'f-subtitle': 'subtitle', 'f-card-desc': 'card_description', 'f-meta-desc': 'meta_description',
-  };
-  for (const [id, key] of Object.entries(fieldMap)) {
-    document.getElementById(id).value = state.meta[key] || '';
-  }
-  $('#f-theme-picker').value = state.meta.theme_color;
-  $('#f-date-picker').value = '';
-  setStatus($('#slug-status'), '', '');
-
-  renderVarsTable();
-  refreshVariableButton();
-  renderGallery();
-  refreshImageButton();
-  applySkeletonToBody();
-  refreshSidebar();
-  refreshHints();
-}
-
 function bindDraftBanner() {
   // "Inizia da capo" agganciato sempre: anche in scenari in cui il banner
   // risultasse visibile senza una bozza (es. CSS che sovrascrive hidden),
