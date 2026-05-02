@@ -88,6 +88,7 @@ fieldset {
   padding: 24px 26px;
   box-shadow: var(--shadow);
   margin: 0;
+  min-width: 0;
 }
 fieldset legend {
   font-weight: 700; font-size: 13px;
@@ -435,3 +436,7 @@ dialog::backdrop { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(2px)
   font-family: inherit; font-size: 14px;
 }
 #modal-form textarea { min-height: 80px; resize: vertical; }
+
+@media (max-width: 640px) {
+  .toolbar__group { flex-wrap: wrap; }
+}
