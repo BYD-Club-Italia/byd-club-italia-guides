@@ -357,6 +357,7 @@ fieldset legend {
   border: 1px solid var(--border-strong);
   border-radius: 8px; padding: 10px 14px;
   font-size: 13px; margin: 0 0 14px;
+  white-space: pre-wrap; overflow-x: auto;
 }
 .actions-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
 
@@ -379,7 +380,7 @@ fieldset legend {
   background: var(--bg-elevated);
   border: 1px solid var(--border-strong);
   padding: 10px 14px; border-radius: 6px;
-  font-size: 13px; margin: 6px 0; white-space: pre;
+  font-size: 13px; margin: 6px 0; white-space: pre-wrap; overflow-x: auto;
 }
 
 .sidebar {
