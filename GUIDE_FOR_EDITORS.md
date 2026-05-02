@@ -76,7 +76,7 @@ Le categorie con preset automatici sono: **Firmware**, **Mod**, **Sideloading**,
 | **Card description** | Riga di testo sulla card della landing page |
 | **Meta description** | Descrizione per i motori di ricerca (SEO), ~150 caratteri |
 
-Tutti e tre sono opzionali. Se omessi, il sito usa un testo generico.
+Tutti e tre sono opzionali. La **Meta description** viene generata automaticamente dal Wizard usando la Card description come sorgente (o il Sottotitolo in mancanza di questa): puoi modificarla liberamente o svuotarla per riattivarla automatica. Se omessa del tutto, il sito usa un testo generico.
 
 ---
 
@@ -196,9 +196,10 @@ images/<slug>/<immagini>
 
 3. **Carica le immagini sulla stessa branch**
    - Sulla branch della PR appena aperta, vai su `images/`
-   - Crea la cartella `<slug>/`: clicca **Add file → Create new file**, digita `<slug>/dummy` come nome file, poi cancella `dummy` — in questo modo GitHub crea la cartella
-   - Clicca **Add file → Upload files** e trascina tutte le immagini contenute nello zip
+   - Clicca **Add file → Upload files** e trascina l'intera cartella `<slug>/` estratta dallo zip: GitHub creerà la sottocartella con tutte le immagini in automatico
    - Commit scegliendo *«Commit directly to the `guida/<slug>` branch»*
+
+   > **Su mobile o Safari:** il trascinamento di cartelle non è supportato. In alternativa clicca **Add file → Create new file**, digita `<slug>/.gitkeep` come nome file, metti un punto come contenuto e fai commit sulla stessa branch; poi naviga in `images/<slug>/` e carica le immagini con **Upload files**.
 
 4. **Aspetta review e merge** — il sito si rigenera in ~30 secondi
 

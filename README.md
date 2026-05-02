@@ -23,7 +23,7 @@ Per modificare le guide, leggi **[GUIDE_FOR_EDITORS.md](GUIDE_FOR_EDITORS.md)** 
 
 ### Creare una nuova guida dal browser
 
-Apri il **wizard web** ([byd-club-italia.github.io/byd-club-italia-guides/wizard/](https://byd-club-italia.github.io/byd-club-italia-guides/wizard/)): compili i campi, carichi le immagini con drag&drop, scrivi il corpo con una toolbar di blocchi (callout, steps, badge, …) e scarichi uno zip pronto da caricare su GitHub. Tutto avviene nel browser: nessun file lascia il tuo computer finché non lo carichi sulla PR. Vedi il [Caso 7 della guida editor](GUIDE_FOR_EDITORS.md#caso-7-aggiungere-una-nuova-guida) per il flusso completo.
+Apri il **wizard web** ([byd-club-italia.github.io/byd-club-italia-guides/wizard/](https://byd-club-italia.github.io/byd-club-italia-guides/wizard/)): compili i campi, carichi le immagini con drag&drop, scrivi il corpo con una toolbar di blocchi (callout, steps, badge, …) e scarichi uno zip pronto da caricare su GitHub. Tutto avviene nel browser: nessun file lascia il tuo computer finché non lo carichi sulla PR. Vedi la sezione [Il Wizard](GUIDE_FOR_EDITORS.md#il-wizard--crea-una-nuova-guida-dal-browser) nella guida editor per il flusso completo.
 
 In alternativa puoi sempre partire a mano da `guides/_template.md`: è un file di riferimento con il frontmatter commentato e tutti gli elementi grafici disponibili (callout, step, workflow, checklist, badge, ecc.).
 
