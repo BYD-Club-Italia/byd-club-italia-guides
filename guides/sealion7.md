@@ -14,7 +14,6 @@ theme_color: "#3B82F6"
 
 # --- Variabili custom ---
 telegram_news: "https://t.me/BYDCLUBITALIANews"
-telegram_discussion: "https://t.me/BYD_CLUB_ITALIA"
 telegram_controlloremoto: "https://t.me/BYDCLUBITALIANews/8"
 telegram_appmanager: "https://t.me/BYDCLUBITALIANews/14"
 telegram_guidafdroid: "https://t.me/BYD_CLUB_ITALIA/49776/88148"

@@ -13,7 +13,6 @@ meta_description: "Guida community BYD Dolphin Surf: downgrade al firmware 2404,
 firmware_current: "2502"
 firmware_downgrade: "2404"
 firmware_upgrade_latest: "2510"
-firmware_upgrade_stable: "2510"
 countrycode_target: "Singapore (65)"
 countrycode_original_example: "Netherlands (31)"
 service_code: "*#91532547#*"
@@ -90,7 +89,6 @@ Nel presente documento, per brevità, ci si riferirà alla seguente nomenclatura
 | `2310` | 13.1.32.2310180.1 | Prima release che blocca il sideload USB |
 | `{{ firmware_downgrade }}` | — | {badge:warning:Downgrade} Firmware di riferimento per il downgrade |
 | `{{ firmware_current }}` | — | Versione preinstallata sulle Surf della community |
-| `{{ firmware_upgrade_stable }}` | — | {badge:success:Upgrade} Firmware di upgrade (alternativa stabile) |
 | `{{ firmware_upgrade_latest }}` | — | {badge:success:Upgrade} Firmware di upgrade (più recente) |
 
 ::: callout info "Famiglie di firmware"
@@ -113,11 +111,6 @@ I firmware sono reperibili nei canali Telegram della community. I nuovi firmware
 ::: card
 ### {badge:success:Upgrade} Firmware {{ firmware_upgrade_latest }} (più recente)
 [{{ telegram_upgrade_latest }}]({{ telegram_upgrade_latest }})
-:::
-
-::: card
-### {badge:success:Upgrade} Firmware {{ firmware_upgrade_stable }} (alternativa)
-[{{ telegram_upgrade_stable }}]({{ telegram_upgrade_stable }})
 :::
 
 ::: card
@@ -329,7 +322,7 @@ Scarica da [{{ telegram_adb_package }}]({{ telegram_adb_package }}) il pacchetto
 In alternativa, l'ultima release di AppManager la trovi nei post del canale: [BYD Club Italia News](https://t.me/BYDCLUBITALIANews)
 
 ::: callout critical "Passaggio essenziale"
-Questo passaggio è **essenziale per non perdere la modifica** quando si tornerà all'ultimo firmware ({{ firmware_upgrade_stable }} o {{ firmware_upgrade_latest }}).
+Questo passaggio è **essenziale per non perdere la modifica** quando si tornerà all'ultimo firmware ({{ firmware_upgrade_latest }}).
 :::
 
 Apri AppManager e cambia il CountryCode: passa da quello impostato (probabilmente **{{ countrycode_original_example }}** — **prendine nota!**) a **{{ countrycode_target }}**. Dai OK e attendi che il sistema si riavvii.
@@ -404,7 +397,7 @@ Provenendo da una versione meno aggiornata del firmware, l'installazione di una 
 L'aggiornamento di downgrade o di upgrade **non** produce (normalmente) la perdita dei software installati nell'infotainment.
 
 ::: callout critical "Dopo il downgrade alla {{ firmware_downgrade }}"
-**Dopo aver fatto il downgrade alla {{ firmware_downgrade }}**, procedete a un upgrade manuale fino al firmware più recente disponibile (**{{ firmware_upgrade_latest }}** o **{{ firmware_upgrade_stable }}** a seconda della disponibilità).
+**Dopo aver fatto il downgrade alla {{ firmware_downgrade }}**, procedete a un upgrade manuale fino al firmware più recente disponibile (**{{ firmware_upgrade_latest }}**).
 :::
 
 Al termine dell'upgrade, apri AppManager e **riporta il CountryCode a quello originale** (di cui avevi preso nota). Il sistema si riavvia.
@@ -417,7 +410,7 @@ A questo punto dovresti essere in grado di installare APK di parti terze sull'in
 
 # Consigli generali
 
-Si consiglia di avere sempre l'ultima versione del firmware. Quindi, eseguendo il downgrade per effettuare il caricamento laterale, è opportuno poi tornare alla versione più aggiornata (attualmente la **{{ firmware_upgrade_latest }}** oppure la **{{ firmware_upgrade_stable }}** come alternativa stabile).
+Si consiglia di avere sempre l'ultima versione del firmware. Quindi, eseguendo il downgrade per effettuare il caricamento laterale, è opportuno poi tornare alla versione più aggiornata (attualmente la **{{ firmware_upgrade_latest }}**).
 
 ## Prima di ogni upgrade
 

@@ -26,7 +26,6 @@ import base64
 import shutil
 import argparse
 from pathlib import Path
-from textwrap import dedent
 
 try:
     import yaml
@@ -612,7 +611,8 @@ def copy_wizard():
     if not src.exists():
         return
     dst = OUTPUT_DIR / "wizard"
-    shutil.copytree(src, dst, dirs_exist_ok=True)
+    shutil.rmtree(dst, ignore_errors=True)
+    shutil.copytree(src, dst)
 
     # Logo community: copiato accanto all'index.html del wizard.
     logo_src = ROOT / "images" / "common" / "logo-community.jpg"
