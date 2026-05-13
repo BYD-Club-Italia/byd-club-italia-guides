@@ -31,3 +31,4 @@ preview_*.jpg
 
 # Local-only setup docs (not for public repo)
 SETUP.md
+CLAUDE.md
