@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guide BYD — BYD Club Italia</title>
 <meta name="description" content="Guide community alla gestione del firmware dell'infotainment BYD — downgrade, sideload, upgrade per tutti i modelli.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Guide BYD — BYD Club Italia">
+<meta property="og:description" content="Procedure della community per downgrade, sideload e upgrade dell'infotainment BYD. Installa app di terze parti e tieni il sistema aggiornato.">
+<meta property="og:site_name" content="BYD Club Italia">
+{% if site_url %}
+<meta property="og:url" content="{{ site_url }}/">
+<meta property="og:image" content="{{ site_url }}/og-image.jpg">
+{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.jpg" type="image/jpeg">
+<script>try{var t=localStorage.getItem('byd-guide-theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,6 +30,18 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --shadow: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
   --shadow-lg: 0 10px 30px rgba(15,23,42,0.08), 0 4px 10px rgba(15,23,42,0.04);
+}
+html[data-theme="dark"] {
+  --bg:          #0B1120;
+  --bg-elevated: #111827;
+  --bg-subtle:   #1E293B;
+  --text:        #F1F5F9;
+  --text-muted:  #94A3B8;
+  --text-subtle: #64748B;
+  --border:      #1E293B;
+  --accent-soft: rgba(59,130,246,0.15);
+  --shadow:    0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,0.4), 0 4px 10px rgba(0,0,0,0.2);
 }
 * { box-sizing: border-box; }
 body { margin: 0; font-family: var(--font-sans); background: var(--bg);
@@ -187,6 +210,17 @@ a:hover { color: var(--accent-dark); }
 }
 .cta-banner__btn:hover { background: var(--accent-dark); color: #fff; }
 
+.theme-toggle {
+  position: fixed; top: 14px; right: 16px; z-index: 100;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  border-radius: 8px; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text-muted);
+  box-shadow: var(--shadow); transition: all 0.15s; padding: 0;
+}
+.theme-toggle:hover { color: var(--text); background: var(--bg-subtle); }
+.theme-toggle svg { width: 18px; height: 18px; }
+
 @media (max-width: 640px) {
   .wrap { padding: 32px 20px 64px; }
   .hero h1 { font-size: 38px; }
@@ -350,6 +384,33 @@ a:hover { color: var(--accent-dark); }
 </footer>
 
 </div>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
+  <svg class="icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+  <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<script>
+(function() {
+  var btn = document.getElementById('themeToggle');
+  var iconLight = btn.querySelector('.icon-light');
+  var iconDark  = btn.querySelector('.icon-dark');
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    iconLight.style.display = t === 'light' ? '' : 'none';
+    iconDark.style.display  = t === 'dark'  ? '' : 'none';
+    try { localStorage.setItem('byd-guide-theme', t); } catch(e){}
+  }
+  try {
+    var saved = localStorage.getItem('byd-guide-theme');
+    if (saved) applyTheme(saved);
+  } catch(e){}
+  btn.addEventListener('click', function() {
+    var cur = document.documentElement.getAttribute('data-theme');
+    applyTheme(cur === 'light' ? 'dark' : 'light');
+  });
+})();
+</script>
 
 </body>
 </html>

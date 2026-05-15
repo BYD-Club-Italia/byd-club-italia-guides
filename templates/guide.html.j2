@@ -12,6 +12,16 @@
 {% set default_meta_desc = "Guida community BYD Club Italia — " ~ meta.titolo %}
 <title>{{ display_title }} — BYD Club Italia</title>
 <meta name="description" content="{{ meta.meta_description | default(default_meta_desc) }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ display_title }} — BYD Club Italia">
+<meta property="og:description" content="{{ meta.meta_description | default(default_meta_desc) }}">
+<meta property="og:site_name" content="BYD Club Italia">
+{% if site_url %}
+<meta property="og:url" content="{{ site_url }}/{{ meta.slug }}.html">
+<meta property="og:image" content="{{ site_url }}/og-image.jpg">
+{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.jpg" type="image/jpeg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -47,6 +47,11 @@ OUTPUT_DIR = ROOT / "docs"
 # Per cambiare il logo, sostituisci il file mantenendo lo stesso path e nome.
 COMMUNITY_LOGO_PATH = "images/common/logo-community.jpg"
 
+# URL pubblico del sito, usato per og:image e og:url nei meta social.
+# Impostare con il dominio reale (senza slash finale) per abilitare og:image.
+# Lasciare vuoto ("") per omettere og:image (gli altri tag OG rimangono).
+SITE_URL = "https://byd-club-italia.github.io/byd-club-italia-guides"
+
 # ============================================================
 # FRONTMATTER PARSING
 # ============================================================
@@ -465,7 +470,7 @@ def add_ids_to_headings(html: str, toc):
     return html
 
 
-def build_guide(guide_path: Path, template: jinja2.Template, logo_src: str = ""):
+def build_guide(guide_path: Path, template: jinja2.Template, logo_src: str = "", site_url: str = ""):
     """Build a single guide: md -> html."""
     print(f"\n🔨 Building: {guide_path.name}")
     text = guide_path.read_text(encoding='utf-8')
@@ -503,6 +508,7 @@ def build_guide(guide_path: Path, template: jinja2.Template, logo_src: str = "")
         body=html_body,
         toc=toc,
         logo_src=logo_src,
+        site_url=site_url,
     )
 
     # Step 9: Write output
@@ -529,9 +535,9 @@ def build_guide(guide_path: Path, template: jinja2.Template, logo_src: str = "")
     }
 
 
-def build_index(guides: list, index_template: jinja2.Template, logo_src: str = ""):
+def build_index(guides: list, index_template: jinja2.Template, logo_src: str = "", site_url: str = ""):
     """Build landing page listing all guides."""
-    output = index_template.render(guides=guides, logo_src=logo_src)
+    output = index_template.render(guides=guides, logo_src=logo_src, site_url=site_url)
     (OUTPUT_DIR / "index.html").write_text(output, encoding='utf-8')
     print(f"\n🏠 index.html generato ({len(guides)} guide)")
 
@@ -546,6 +552,15 @@ def main():
     args = parser.parse_args()
 
     OUTPUT_DIR.mkdir(exist_ok=True)
+
+    # Copia il logo come file fisico per favicon e og:image.
+    # Le guide usano il logo inlinato in base64, ma favicon e og:image
+    # richiedono un file reale (i browser ignorano i data URL nei <link rel="icon">
+    # e i crawler social non seguono i data URL in og:image).
+    logo_path = ROOT / COMMUNITY_LOGO_PATH
+    if logo_path.exists():
+        shutil.copy2(logo_path, OUTPUT_DIR / "favicon.jpg")
+        shutil.copy2(logo_path, OUTPUT_DIR / "og-image.jpg")
 
     env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(TEMPLATE_DIR),
@@ -577,12 +592,12 @@ def main():
 
     built_guides = []
     for md_file in md_files:
-        info = build_guide(md_file, guide_tmpl, logo_src=logo_src)
+        info = build_guide(md_file, guide_tmpl, logo_src=logo_src, site_url=SITE_URL)
         built_guides.append(info)
 
     # Only rebuild index if we built all guides
     if not args.guide:
-        build_index(built_guides, index_tmpl, logo_src=logo_src)
+        build_index(built_guides, index_tmpl, logo_src=logo_src, site_url=SITE_URL)
         copy_wizard()
 
     print(f"\n✨ Build completato! Apri {OUTPUT_DIR / 'index.html'} nel browser.")
