@@ -615,7 +615,14 @@ document.querySelectorAll('.code-block__copy').forEach(btn => {
 });
 
 document.querySelectorAll('.checklist li').forEach(li => {
-  li.addEventListener('click', () => li.classList.toggle('is-checked'));
+  function toggle() {
+    const checked = li.classList.toggle('is-checked');
+    li.setAttribute('aria-checked', checked);
+  }
+  li.addEventListener('click', toggle);
+  li.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+  });
 });
 
 const lightbox = document.getElementById('lightbox');

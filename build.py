@@ -9,7 +9,6 @@ a Jinja2 template, and outputs HTML files to docs/.
 Usage:
     python build.py                 # Build all guides
     python build.py --guide atto2   # Build only one guide
-    python build.py --watch         # Rebuild on change (requires watchdog)
 
 The Markdown supports:
 - YAML frontmatter for variables (model, firmware versions, etc.)
@@ -206,7 +205,7 @@ def preprocess_custom_syntax(md_text: str) -> str:
                 items.append(_inline_md(m.group(1)))
         html = '<ul class="checklist">\n'
         for item in items:
-            html += f'  <li>{item}</li>\n'
+            html += f'  <li role="checkbox" aria-checked="false" tabindex="0">{item}</li>\n'
         html += '</ul>\n'
         return html
     md_text = re.sub(
